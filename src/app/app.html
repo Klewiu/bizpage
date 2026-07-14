@@ -1,0 +1,138 @@
+<div class="flex min-h-screen flex-col text-carbon">
+  <header
+    class="site-header sticky top-0 z-40 border-b border-charcoal/10 bg-alabaster/80 backdrop-blur-md"
+  >
+    <div
+      class="relative mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4 md:px-10"
+    >
+      <a
+        class="brand-link brand-link-main text-lg font-black tracking-wide"
+        routerLink="/home"
+        (click)="closeMobileMenu()"
+      >
+        <span class="brand-mark" aria-hidden="true">
+          <span class="w-back">W</span>
+          <span class="w-front">W</span>
+        </span>
+        {{ t("brand.name") }}
+      </a>
+
+      <nav
+        class="absolute left-1/2 hidden -translate-x-1/2 items-center gap-2 xl:flex"
+        aria-label="Main menu"
+      >
+        <a
+          *ngFor="let item of navItems"
+          [routerLink]="item.path"
+          routerLinkActive="menu-link-active"
+          class="menu-link"
+        >
+          {{ t(item.label) }}
+        </a>
+      </nav>
+
+      <div class="hidden items-center gap-2 xl:flex">
+        <button
+          class="locale-btn"
+          [class.locale-btn-active]="locale() === 'pl'"
+          (click)="setLocale('pl')"
+          type="button"
+        >
+          PL
+        </button>
+        <button
+          class="locale-btn"
+          [class.locale-btn-active]="locale() === 'en'"
+          (click)="setLocale('en')"
+          type="button"
+        >
+          EN
+        </button>
+      </div>
+
+      <button
+        class="hamburger xl:hidden"
+        type="button"
+        (click)="toggleMobileMenu()"
+        aria-label="Open mobile menu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-shell" [class.mobile-shell-open]="isMobileMenuOpen()">
+    <div class="mobile-backdrop" (click)="closeMobileMenu()"></div>
+    <nav class="mobile-panel" aria-label="Mobile menu">
+      <div class="flex items-center justify-between">
+        <p class="brand-link text-sm uppercase tracking-[0.24em] text-powder">
+          <span class="brand-mark" aria-hidden="true">
+            <span class="w-back">W</span>
+            <span class="w-front">W</span>
+          </span>
+          {{ t("brand.name") }}
+        </p>
+        <button
+          type="button"
+          class="text-alabaster"
+          (click)="closeMobileMenu()"
+          aria-label="Close mobile menu"
+        >
+          X
+        </button>
+      </div>
+
+      <div class="mt-10 grid gap-3">
+        <a
+          *ngFor="let item of navItems"
+          [routerLink]="item.path"
+          (click)="closeMobileMenu()"
+          class="mobile-link"
+        >
+          {{ t(item.label) }}
+        </a>
+      </div>
+
+      <div class="mt-8 flex gap-2">
+        <button
+          class="locale-btn w-1/2"
+          [class.locale-btn-active]="locale() === 'pl'"
+          (click)="setLocale('pl')"
+          type="button"
+        >
+          PL
+        </button>
+        <button
+          class="locale-btn w-1/2"
+          [class.locale-btn-active]="locale() === 'en'"
+          (click)="setLocale('en')"
+          type="button"
+        >
+          EN
+        </button>
+      </div>
+    </nav>
+  </div>
+
+  <main class="flex-1">
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer
+    class="site-footer border-t border-charcoal/10 px-6 py-12 text-sm text-alabaster/90 md:px-10 md:py-14"
+  >
+    <div class="footer-wave-wrapper" aria-hidden="true">
+      <div class="footer-wave one"></div>
+      <div class="footer-wave two"></div>
+      <div class="footer-wave three"></div>
+      <div class="footer-wave four"></div>
+      <div class="footer-wave five"></div>
+    </div>
+
+    <div class="relative mx-auto max-w-6xl">
+      {{ t("footer.copy") }}
+    </div>
+  </footer>
+</div>
