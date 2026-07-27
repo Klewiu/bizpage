@@ -26,12 +26,12 @@ import { I18nService } from '../i18n/i18n.service';
       .page-shell h1 {
         font-size: 2.25rem;
         font-weight: 800;
-        color: #373f51;
+        color: #0F172A;
       }
 
       .page-shell p {
         margin-top: 0.8rem;
-        color: rgb(27 27 30 / 0.82);
+        color: #475569;
       }
 
       .news-grid {
@@ -41,12 +41,13 @@ import { I18nService } from '../i18n/i18n.service';
       }
 
       .news-grid article {
-        border-radius: 1rem;
-        border: 1px solid rgb(88 164 176 / 0.35);
-        background: linear-gradient(130deg, rgb(169 188 208 / 0.2), rgb(216 219 226 / 0.8));
-        padding: 1.1rem;
-        font-weight: 600;
-        color: #1b1b1e;
+        border-radius: 0.75rem;
+        border: 1px solid #E2E8F0;
+        background: #FFFFFF;
+        padding: 1.25rem;
+        font-weight: 500;
+        color: #334155;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
       }
 
       @media (min-width: 768px) {

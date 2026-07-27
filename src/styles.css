@@ -1,10 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
+	--ink: #0F172A;
+	--body: #334155;
+	--muted: #64748B;
+	--accent: #4F46E5;
+	--surface: #F8FAFC;
+	--card: #FFFFFF;
+	--border: #E2E8F0;
 	--alabaster: #d8dbe2;
 	--powder: #a9bcd0;
 	--pacific: #58a4b0;
@@ -20,18 +27,16 @@ html,
 body {
 	margin: 0;
 	min-height: 100%;
-	font-family: 'Oswald', 'Arial Narrow', sans-serif;
-	font-weight: 300;
-	color: var(--carbon);
-	background:
-		radial-gradient(circle at 80% 5%, rgb(88 164 176 / 0.33), transparent 34%),
-		radial-gradient(circle at 0% 100%, rgb(169 188 208 / 0.45), transparent 40%),
-		var(--alabaster);
+	font-family: 'Inter', system-ui, -apple-system, sans-serif;
+	font-weight: 400;
+	color: var(--body);
+	background: var(--surface);
 }
 
 h1,
 h2,
 h3 {
-	font-family: 'Oswald', 'Arial Narrow', sans-serif;
-	letter-spacing: -0.02em;
+	font-family: 'Inter', system-ui, -apple-system, sans-serif;
+	letter-spacing: -0.025em;
+	color: var(--ink);
 }

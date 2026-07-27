@@ -22,24 +22,31 @@ import { I18nService } from '../i18n/i18n.service';
       .page-shell h1 {
         font-size: 2.25rem;
         font-weight: 800;
-        color: #373f51;
+        color: #0F172A;
       }
 
       .page-shell p {
         margin-top: 0.8rem;
         max-width: 60ch;
-        color: rgb(27 27 30 / 0.82);
+        color: #475569;
+        line-height: 1.7;
       }
 
       .page-shell a {
-        margin-top: 1.5rem;
+        margin-top: 1.75rem;
         display: inline-block;
-        border-radius: 9999px;
-        background: #58a4b0;
-        padding: 0.75rem 1.2rem;
-        color: #1b1b1e;
-        font-weight: 700;
+        border-radius: 0.5rem;
+        background: #4F46E5;
+        padding: 0.75rem 1.5rem;
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 0.95rem;
         text-decoration: none;
+        transition: background 150ms ease;
+      }
+
+      .page-shell a:hover {
+        background: #4338CA;
       }
     `
   ]

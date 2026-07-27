@@ -21,14 +21,14 @@ import { I18nService } from '../i18n/i18n.service';
       .page-shell h1 {
         font-size: 2.25rem;
         font-weight: 800;
-        color: #373f51;
+        color: #0F172A;
       }
 
       .page-shell p {
         margin-top: 0.8rem;
         max-width: 65ch;
-        color: rgb(27 27 30 / 0.82);
-        line-height: 1.7;
+        color: #475569;
+        line-height: 1.75;
       }
     `
   ]
