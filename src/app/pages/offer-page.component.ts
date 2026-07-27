@@ -26,26 +26,29 @@ import { I18nService } from '../i18n/i18n.service';
       .page-shell h1 {
         font-size: 2.25rem;
         font-weight: 800;
-        color: #373f51;
+        color: #0F172A;
       }
 
       .page-shell p {
         margin-top: 0.8rem;
         max-width: 55ch;
-        color: rgb(27 27 30 / 0.82);
+        color: #475569;
       }
 
       .page-shell ul {
         margin-top: 1.5rem;
         display: grid;
-        gap: 0.8rem;
+        gap: 0.75rem;
       }
 
       .page-shell li {
-        border-radius: 0.9rem;
-        border: 1px solid rgb(55 63 81 / 0.2);
-        background: rgb(216 219 226 / 0.75);
-        padding: 0.85rem 1rem;
+        border-radius: 0.75rem;
+        border: 1px solid #E2E8F0;
+        background: #FFFFFF;
+        padding: 0.9rem 1.1rem;
+        font-weight: 500;
+        color: #334155;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
       }
     `
   ]
