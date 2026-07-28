@@ -1,4 +1,15 @@
-<div class="flex min-h-screen flex-col text-carbon">
+<div
+  class="app-shell flex min-h-screen flex-col text-carbon"
+  [style.--page-background]="pageBackground()"
+  [style.--page-heading]="themeColor([15, 23, 42], [248, 250, 252])"
+  [style.--page-copy]="themeColor([71, 85, 105], [203, 213, 225])"
+  [style.--card-background]="themeColor([255, 255, 255], [30, 41, 59])"
+  [style.--card-heading]="themeColor([15, 23, 42], [248, 250, 252])"
+  [style.--card-copy]="themeColor([71, 85, 105], [203, 213, 225])"
+  [class.night-theme]="timeOfDay() > 0.72"
+>
+  <app-ocean-banner (timeChange)="setTimeOfDay($event)"></app-ocean-banner>
+
   <header class="site-header sticky top-0 z-40">
     <div
       class="relative mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-5 md:px-10"
@@ -9,11 +20,26 @@
         (click)="closeMobileMenu()"
         aria-label="WickyWave Software"
       >
-        <svg class="brand-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect width="36" height="36" rx="8" fill="#4F46E5"/>
-          <polyline points="6,8 12,26 18,15 24,26 30,8" fill="none" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <svg
+          class="brand-icon"
+          viewBox="0 0 36 36"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <rect width="36" height="36" rx="8" fill="#4F46E5" />
+          <polyline
+            points="6,8 12,26 18,15 24,26 30,8"
+            fill="none"
+            stroke="white"
+            stroke-width="2.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
         </svg>
-        <span class="brand-name">WickyWave <span class="brand-sub">Software</span></span>
+        <span class="brand-name"
+          >WickyWave <span class="brand-sub">Software</span></span
+        >
       </a>
 
       <nav
@@ -67,11 +93,26 @@
     <nav class="mobile-panel" aria-label="Mobile menu">
       <div class="flex items-center justify-between">
         <div class="brand-link">
-          <svg class="brand-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <rect width="36" height="36" rx="8" fill="#4F46E5"/>
-            <polyline points="6,8 12,26 18,15 24,26 30,8" fill="none" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg
+            class="brand-icon"
+            viewBox="0 0 36 36"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <rect width="36" height="36" rx="8" fill="#4F46E5" />
+            <polyline
+              points="6,8 12,26 18,15 24,26 30,8"
+              fill="none"
+              stroke="white"
+              stroke-width="2.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
-          <span class="brand-name">WickyWave <span class="brand-sub">Software</span></span>
+          <span class="brand-name"
+            >WickyWave <span class="brand-sub">Software</span></span
+          >
         </div>
         <button
           type="button"
@@ -120,17 +161,15 @@
   </main>
 
   <footer
-    class="site-footer px-6 py-12 text-sm text-slate-400 md:px-10 md:py-14"
+    class="site-footer px-6 pb-12 pt-20 text-sm text-slate-400 md:px-10 md:pb-14 md:pt-24"
   >
-    <div class="footer-wave-wrapper" aria-hidden="true">
-      <div class="footer-wave one"></div>
-      <div class="footer-wave two"></div>
-      <div class="footer-wave three"></div>
-      <div class="footer-wave four"></div>
-      <div class="footer-wave five"></div>
-    </div>
+    <app-ocean-banner
+      class="footer-ocean"
+      [time]="timeOfDay()"
+      [decorative]="true"
+    ></app-ocean-banner>
 
-    <div class="relative mx-auto max-w-6xl">
+    <div class="relative mx-auto max-w-6xl text-white">
       {{ t("footer.copy") }}
     </div>
   </footer>

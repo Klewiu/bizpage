@@ -9,6 +9,16 @@ export const translations: Record<string, Record<Locale, string>> = {
   'menu.news': { pl: 'Aktualnosci', en: 'News' },
   'menu.contact': { pl: 'Kontakt', en: 'Contact' },
   'menu.cta': { pl: 'Umow rozmowe', en: 'Book a call' },
+  'ocean.tagline': {
+    pl: 'Mamy pomysł na software na każdą porę dnia.',
+    en: 'We have a software idea for every time of the day.'
+  },
+  'ocean.mood.dawn': { pl: 'ŚWIT', en: 'DAWN' },
+  'ocean.mood.morning': { pl: 'PORANEK', en: 'MORNING' },
+  'ocean.mood.midday': { pl: 'POŁUDNIE', en: 'MIDDAY' },
+  'ocean.mood.goldenHour': { pl: 'ZŁOTA GODZINA', en: 'GOLDEN HOUR' },
+  'ocean.mood.sunset': { pl: 'ZACHÓD SŁOŃCA', en: 'SUNSET' },
+  'ocean.mood.moonlit': { pl: 'NOC', en: 'NIGHT' },
   'home.eyebrow': { pl: 'Nowoczesne produkty cyfrowe dla rosnacych firm', en: 'Modern digital products for growing companies' },
   'home.title': { pl: 'Tworzymy aplikacje, ktore przyspieszaja Twoj biznes', en: 'We build applications that accelerate your business' },
   'home.subtitle': {

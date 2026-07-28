@@ -1,9 +1,91 @@
 /* =========================================================
+   TIME-OF-DAY THEME
+   ========================================================= */
+.app-shell {
+	background: var(--page-background, #F8FAFC);
+	transition: background-color 500ms ease;
+}
+
+.app-shell main {
+	transition: color 500ms ease;
+	color: var(--page-copy);
+}
+
+.app-shell main ::ng-deep h1,
+.app-shell main ::ng-deep h2,
+.app-shell main ::ng-deep h3 {
+	color: var(--page-heading);
+	transition: color 500ms ease;
+}
+
+.app-shell main ::ng-deep p {
+	color: var(--page-copy);
+	transition: color 500ms ease;
+}
+
+.app-shell main ::ng-deep article {
+	transition: color 500ms ease, background-color 500ms ease, border-color 500ms ease;
+}
+
+.app-shell main ::ng-deep .hook-card,
+.app-shell main ::ng-deep .news-grid article,
+.app-shell main ::ng-deep .page-shell li {
+	background: var(--card-background);
+	border-color: color-mix(in srgb, var(--card-copy) 22%, transparent);
+	transition: color 500ms ease, background-color 500ms ease, border-color 500ms ease;
+}
+
+.app-shell main ::ng-deep .hook-card h2 {
+	color: var(--card-heading);
+}
+
+.app-shell main ::ng-deep .hook-card p,
+.app-shell main ::ng-deep .news-grid article,
+.app-shell main ::ng-deep .page-shell li {
+	color: var(--card-copy);
+}
+
+/* =========================================================
    HEADER
    ========================================================= */
 .site-header {
 	background: #ffffff;
 	border-bottom: 1px solid #E2E8F0;
+	transition: background-color 500ms ease, border-color 500ms ease;
+}
+
+.night-theme .site-header {
+	background: rgba(18, 24, 40, 0.94);
+	border-color: rgba(255, 255, 255, 0.12);
+	backdrop-filter: blur(14px);
+}
+
+.night-theme .brand-name,
+.night-theme .menu-link {
+	color: #E2E8F0;
+}
+
+.night-theme .brand-sub {
+	color: #94A3B8;
+}
+
+.night-theme .menu-link:hover {
+	background: rgba(255, 255, 255, 0.08);
+	color: #FFFFFF;
+}
+
+.night-theme .menu-link-active {
+	background: rgba(99, 102, 241, 0.2);
+	color: #A5B4FC;
+}
+
+.night-theme .hamburger,
+.night-theme .locale-btn {
+	border-color: rgba(255, 255, 255, 0.2);
+}
+
+.night-theme .hamburger span {
+	background: #E2E8F0;
 }
 
 .site-header > div {
@@ -201,90 +283,14 @@
 .site-footer {
 	position: relative;
 	overflow: hidden;
-	background: #0F172A;
+	background: linear-gradient(180deg, #0F172A 0%, #0B132B 100%);
 }
 
-.footer-wave-wrapper {
+.footer-ocean {
 	position: absolute;
 	inset: 0;
-	overflow: hidden;
 	pointer-events: none;
 	z-index: 0;
-}
-
-.footer-wave {
-	position: absolute;
-	left: -60%;
-	height: 1px;
-	width: 50%;
-	background: linear-gradient(
-		90deg,
-		transparent 0%,
-		rgba(79, 70, 229, 0.55) 25%,
-		rgba(129, 140, 248, 1) 50%,
-		rgba(79, 70, 229, 0.55) 75%,
-		transparent 100%
-	);
-	box-shadow: 0 0 10px 1px rgba(99, 102, 241, 0.45);
-	animation: footer-beam var(--dur, 6s) linear var(--delay, 0s) infinite;
-}
-
-.footer-wave.one {
-	top: 14%;
-	width: 38%;
-	height: 1px;
-	--dur: 7s;
-	--delay: 0s;
-	opacity: 0.7;
-}
-
-.footer-wave.two {
-	top: 34%;
-	width: 58%;
-	height: 2px;
-	--dur: 11s;
-	--delay: 1.8s;
-	opacity: 0.38;
-}
-
-.footer-wave.three {
-	top: 54%;
-	width: 30%;
-	height: 1px;
-	--dur: 5s;
-	--delay: 3.4s;
-	opacity: 0.75;
-}
-
-.footer-wave.four {
-	top: 72%;
-	width: 46%;
-	height: 1px;
-	--dur: 8.5s;
-	--delay: 0.7s;
-	opacity: 0.5;
-}
-
-.footer-wave.five {
-	top: 86%;
-	width: 26%;
-	height: 2px;
-	--dur: 4.5s;
-	--delay: 2.6s;
-	opacity: 0.65;
-	background: linear-gradient(
-		90deg,
-		transparent 0%,
-		rgba(99, 102, 241, 0.5) 25%,
-		rgba(165, 180, 252, 0.95) 50%,
-		rgba(99, 102, 241, 0.5) 75%,
-		transparent 100%
-	);
-}
-
-@keyframes footer-beam {
-	0%   { left: -60%; }
-	100% { left: 120%; }
 }
 
 .site-footer > .relative {
