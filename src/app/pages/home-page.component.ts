@@ -1,6 +1,15 @@
-import { Component, inject } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  inject,
+  OnDestroy,
+  PLATFORM_ID,
+  QueryList,
+  ViewChildren
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { NgFor } from '@angular/common';
+import { isPlatformBrowser, NgFor } from '@angular/common';
 import { I18nService } from '../i18n/i18n.service';
 
 @Component({
@@ -18,7 +27,21 @@ import { I18nService } from '../i18n/i18n.service';
 
     <!-- SEKCJA: Problemy – czy któryś brzmi znajomo? -->
     <section class="mx-auto max-w-6xl px-6 pb-14 md:px-10">
-      <h2 class="theme-heading section-title">{{ t('home.problems.title') }}</h2>
+      <h2
+        #slideTitle
+        class="theme-heading section-title slide-title"
+        [attr.aria-label]="t('home.problems.title')"
+      >
+        <span
+          *ngFor="let word of headingWords('home.problems.title'); let wordIndex = index"
+          class="animated-word"
+          aria-hidden="true"
+        ><span
+          *ngFor="let char of wordCharacters(word); let i = index"
+          class="slide-char"
+          [style.--char-index]="wordIndex * 12 + i"
+        >{{ char }}</span></span>{{ ' ' }}
+      </h2>
       <ul class="check-list mt-5">
         <li *ngFor="let item of problemItems">{{ t(item) }}</li>
       </ul>
@@ -37,7 +60,21 @@ import { I18nService } from '../i18n/i18n.service';
 
     <!-- SEKCJA: Kiedy gotowe systemy przestają wystarczyć -->
     <section class="mx-auto max-w-6xl px-6 pb-14 md:px-10">
-      <h2 class="theme-heading section-title">{{ t('home.why.title') }}</h2>
+      <h2
+        #slideTitle
+        class="theme-heading section-title slide-title"
+        [attr.aria-label]="t('home.why.title')"
+      >
+        <span
+          *ngFor="let word of headingWords('home.why.title'); let wordIndex = index"
+          class="animated-word"
+          aria-hidden="true"
+        ><span
+          *ngFor="let char of wordCharacters(word); let i = index"
+          class="slide-char"
+          [style.--char-index]="wordIndex * 12 + i"
+        >{{ char }}</span></span>{{ ' ' }}
+      </h2>
       <p class="theme-copy section-lead">{{ t('home.why.lead') }}</p>
       <ul class="dash-list mt-4">
         <li *ngFor="let item of whyItems">{{ t(item) }}</li>
@@ -73,7 +110,21 @@ import { I18nService } from '../i18n/i18n.service';
 
     <!-- SEKCJA: Dlaczego WickyWave -->
     <section class="mx-auto max-w-6xl px-6 pb-14 md:px-10">
-      <h2 class="theme-heading section-title">{{ t('home.whyus.title') }}</h2>
+      <h2
+        #slideTitle
+        class="theme-heading section-title slide-title"
+        [attr.aria-label]="t('home.whyus.title')"
+      >
+        <span
+          *ngFor="let word of headingWords('home.whyus.title'); let wordIndex = index"
+          class="animated-word"
+          aria-hidden="true"
+        ><span
+          *ngFor="let char of wordCharacters(word); let i = index"
+          class="slide-char"
+          [style.--char-index]="wordIndex * 12 + i"
+        >{{ char }}</span></span>{{ ' ' }}
+      </h2>
       <p class="theme-copy section-lead">{{ t('home.whyus.lead') }}</p>
       <ul class="check-list mt-5">
         <li *ngFor="let item of whyusItems">{{ t(item) }}</li>
@@ -130,6 +181,38 @@ import { I18nService } from '../i18n/i18n.service';
       font-size: clamp(1.3rem, 3vw, 1.875rem);
       font-weight: 800;
       line-height: 1.25;
+    }
+    .slide-title {
+      overflow: hidden;
+    }
+    .animated-word {
+      display: inline-block;
+      white-space: nowrap;
+      margin-right: 0.28em;
+    }
+    .slide-char {
+      display: inline-block;
+      white-space: pre;
+    }
+    .slide-title.is-slide-ready .slide-char {
+      opacity: 0;
+      transform: translateX(-300%) skewX(20deg);
+      transition:
+        opacity 220ms ease,
+        transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: calc(var(--char-index) * 18ms);
+      will-change: opacity, transform;
+    }
+    .slide-title.is-slide-ready.is-visible .slide-char {
+      opacity: 1;
+      transform: translateX(0) skewX(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .slide-title.is-slide-ready .slide-char {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
     }
     .section-lead {
       margin-top: 0.75rem;
@@ -229,6 +312,7 @@ import { I18nService } from '../i18n/i18n.service';
       gap: 0.5rem;
     }
     .tech-badge {
+      overflow: hidden;
       border-radius: 9999px;
       background: #EEF2FF;
       color: #4F46E5;
@@ -327,8 +411,13 @@ import { I18nService } from '../i18n/i18n.service';
     .cta-btn:hover { background: #EEF2FF; }
   `]
 })
-export class HomePageComponent {
+export class HomePageComponent implements AfterViewInit, OnDestroy {
   private readonly i18n = inject(I18nService);
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+  private slideObserver?: IntersectionObserver;
+
+  @ViewChildren('slideTitle', { read: ElementRef })
+  private readonly animatedTitles!: QueryList<ElementRef<HTMLElement>>;
 
   readonly problemItems = [
     'home.problems.item1', 'home.problems.item2', 'home.problems.item3',
@@ -363,5 +452,54 @@ export class HomePageComponent {
 
   t(key: string): string {
     return this.i18n.t(key);
+  }
+
+  headingWords(key: string): string[] {
+    const words = this.t(key).trim().split(/\s+/);
+    const groups: string[] = [];
+
+    for (let index = 0; index < words.length; index++) {
+      const word = words[index];
+      const isShortConnector = /^[aAiIoOuUwWzZ]$/.test(word);
+
+      if (isShortConnector && index < words.length - 1) {
+        groups.push(`${word}\u00A0${words[index + 1]}`);
+        index++;
+      } else {
+        groups.push(word);
+      }
+    }
+
+    return groups;
+  }
+
+  wordCharacters(word: string): string[] {
+    return Array.from(word);
+  }
+
+  ngAfterViewInit(): void {
+    if (!this.isBrowser) return;
+
+    this.slideObserver = new IntersectionObserver(
+      entries => {
+        for (const entry of entries) {
+          entry.target.classList.toggle('is-visible', entry.isIntersecting);
+        }
+      },
+      {
+        threshold: 0.35,
+        rootMargin: '0px 0px -8% 0px'
+      }
+    );
+
+    for (const title of this.animatedTitles) {
+      const element = title.nativeElement;
+      element.classList.add('is-slide-ready');
+      this.slideObserver.observe(title.nativeElement);
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.slideObserver?.disconnect();
   }
 }

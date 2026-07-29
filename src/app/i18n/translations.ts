@@ -117,6 +117,15 @@ export const translations: Record<string, Record<Locale, string>> = {
     pl: 'Opowiedz nam o swoim celu. Odpowiadamy zwykle w ciągu jednego dnia roboczego.',
     en: 'Tell us about your goal. We usually reply within one business day.'
   },
+  'contact.prompt': {
+    pl: 'Porozmawiajmy o Twoim projekcie.',
+    en: 'Let’s talk about your project.'
+  },
+  'contact.reply': {
+    pl: 'Odpowiadamy zwykle w ciągu jednego dnia roboczego.',
+    en: 'We usually reply within one business day.'
+  },
+  'contact.loading': { pl: 'Ładowanie', en: 'Loading' },
   'contact.cta': { pl: 'Napisz: hello@wickywave.wicky', en: 'Email us: hello@wickywave.wicky' },
   'footer.copy': {
     pl: 'WickyWave Software. Nowoczesne produkty dla nowoczesnych firm.',
