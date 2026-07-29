@@ -5,8 +5,8 @@ import { I18nService } from '../i18n/i18n.service';
   selector: 'app-contact-page',
   standalone: true,
   template: `
+    <!-- SEKCJA: Kontakt – opis + CTA mailto -->
     <section class="page-shell">
-      <h1>{{ t('contact.title') }}</h1>
       <p>{{ t('contact.body') }}</p>
       <a href="mailto:hello@wickywave.wicky">{{ t('contact.cta') }}</a>
     </section>

@@ -1,4 +1,25 @@
 /* =========================================================
+   ZMIENNE CSS – dostępne w całej aplikacji
+
+   Używaj w komponentach zamiast hardkodować kolory:
+
+   TŁO / TEKST STRONY:
+     background: var(--page-background)
+     color:      var(--page-heading)    → h1-h3
+     color:      var(--page-copy)       → akapity
+
+   KARTY (hook-card, news, listy):
+     background: var(--card-background)
+     color:      var(--card-heading)
+     color:      var(--card-copy)
+
+   OPT-IN – dodaj klasę do elementu,
+   by automatycznie reagował na tryb dnia/nocy:
+     .theme-heading  → użyj na h1/h2/h3
+     .theme-copy     → użyj na p / span
+   ========================================================= */
+
+/* =========================================================
    TIME-OF-DAY THEME
    ========================================================= */
 .app-shell {
@@ -6,27 +27,33 @@
 	transition: background-color 500ms ease;
 }
 
-.app-shell main {
-	transition: color 500ms ease;
-	color: var(--page-copy);
-}
-
-.app-shell main ::ng-deep h1,
-.app-shell main ::ng-deep h2,
-.app-shell main ::ng-deep h3 {
+/* ── OPT-IN: dodaj .theme-heading / .theme-copy do elementów
+       które mają zmieniać kolor z trybem dnia/nocy ─────── */
+.app-shell ::ng-deep .theme-heading {
 	color: var(--page-heading);
 	transition: color 500ms ease;
 }
 
-.app-shell main ::ng-deep p {
+.app-shell ::ng-deep .theme-copy {
 	color: var(--page-copy);
 	transition: color 500ms ease;
 }
 
-.app-shell main ::ng-deep article {
-	transition: color 500ms ease, background-color 500ms ease, border-color 500ms ease;
+/* ── PAGE-SHELL: strony About / Contact / News / Offer / Xoaila
+       używają .page-shell jako wrappera – tu auto-theme ────── */
+.app-shell main ::ng-deep .page-shell h1,
+.app-shell main ::ng-deep .page-shell h2,
+.app-shell main ::ng-deep .page-shell h3 {
+	color: var(--page-heading);
+	transition: color 500ms ease;
 }
 
+.app-shell main ::ng-deep .page-shell > p {
+	color: var(--page-copy);
+	transition: color 500ms ease;
+}
+
+/* ── KARTY – hook-card / news-grid article / page-shell li ── */
 .app-shell main ::ng-deep .hook-card,
 .app-shell main ::ng-deep .news-grid article,
 .app-shell main ::ng-deep .page-shell li {
@@ -37,12 +64,14 @@
 
 .app-shell main ::ng-deep .hook-card h2 {
 	color: var(--card-heading);
+	transition: color 500ms ease;
 }
 
 .app-shell main ::ng-deep .hook-card p,
 .app-shell main ::ng-deep .news-grid article,
 .app-shell main ::ng-deep .page-shell li {
 	color: var(--card-copy);
+	transition: color 500ms ease;
 }
 
 /* =========================================================
@@ -91,6 +120,61 @@
 .site-header > div {
 	position: relative;
 	z-index: 1;
+}
+
+/* =========================================================
+   THEME TOGGLE BUTTON
+   ========================================================= */
+.theme-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 34px;
+	height: 34px;
+	border: 1px solid #E2E8F0;
+	border-radius: 9999px;
+	background: transparent;
+	color: #64748B;
+	cursor: pointer;
+	transition: border-color 150ms ease, background 150ms ease, color 150ms ease;
+}
+
+.theme-btn svg {
+	width: 16px;
+	height: 16px;
+}
+
+.theme-btn:hover {
+	border-color: #4F46E5;
+	color: #4F46E5;
+}
+
+.night-theme .theme-btn {
+	border-color: rgba(255, 255, 255, 0.2);
+	color: #E2E8F0;
+}
+
+.night-theme .theme-btn:hover {
+	border-color: #A5B4FC;
+	color: #A5B4FC;
+}
+
+.theme-btn-mobile {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 44px;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: 9999px;
+	background: rgba(255, 255, 255, 0.07);
+	color: rgba(226, 232, 240, 0.88);
+	cursor: pointer;
+	transition: border-color 150ms ease, background 150ms ease, color 150ms ease;
+}
+
+.theme-btn-mobile svg {
+	width: 18px;
+	height: 18px;
 }
 
 /* =========================================================
@@ -296,16 +380,5 @@
 .site-footer > .relative {
 	position: relative;
 	z-index: 1;
-}
-
-
-.brand-mark .w-back,
-.brand-mark .w-front {
-	position: absolute;
-	font-family: 'Oswald', 'Arial Narrow', sans-serif;
-	font-weight: 700;
-	font-size: 1.3rem;
-	letter-spacing: -0.08em;
-	line-height: 1;
 }
 

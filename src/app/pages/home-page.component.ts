@@ -1,83 +1,365 @@
 import { Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { NgFor } from '@angular/common';
 import { I18nService } from '../i18n/i18n.service';
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
+  imports: [RouterLink, NgFor],
   template: `
-    <section class="mx-auto max-w-6xl px-6 pb-12 pt-10 md:px-10 md:pt-16">
-      <p class="text-sm font-semibold uppercase tracking-[0.2em] text-accent">{{ t('home.eyebrow') }}</p>
-      <h1 class="mt-4 max-w-3xl text-4xl font-extrabold leading-tight text-ink md:text-6xl">{{ t('home.title') }}</h1>
-      <p class="mt-5 max-w-2xl text-lg text-ink/65">{{ t('home.subtitle') }}</p>
+    <!-- SEKCJA: Hero – główny nagłówek z CTA -->
+    <section class="mx-auto max-w-6xl px-6 pt-10 pb-14 md:px-10 md:pt-16">
+      <p class="eyebrow">{{ t('home.eyebrow') }}</p>
+      <h1 class="theme-heading hero-title">{{ t('home.title') }}</h1>
+      <p class="theme-copy hero-lead">{{ t('home.subtitle') }}</p>
+      <a routerLink="/contact" class="hero-cta">{{ t('home.hero.cta') }}</a>
     </section>
 
-    <section class="mx-auto max-w-6xl px-6 pb-10 md:px-10">
-      <div class="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 md:grid md:grid-cols-3 md:overflow-visible md:pb-0">
-        <article class="hook-card snap-center">
-          <h2>{{ t('home.hook.readiness.title') }}</h2>
-          <p>{{ t('home.hook.readiness.body') }}</p>
-        </article>
-        <article class="hook-card snap-center">
-          <h2>{{ t('home.hook.frustration.title') }}</h2>
-          <p>{{ t('home.hook.frustration.body') }}</p>
-        </article>
-        <article class="hook-card snap-center">
-          <h2>{{ t('home.hook.process.title') }}</h2>
-          <p>{{ t('home.hook.process.body') }}</p>
-        </article>
+    <!-- SEKCJA: Problemy – czy któryś brzmi znajomo? -->
+    <section class="mx-auto max-w-6xl px-6 pb-14 md:px-10">
+      <h2 class="theme-heading section-title">{{ t('home.problems.title') }}</h2>
+      <ul class="check-list mt-5">
+        <li *ngFor="let item of problemItems">{{ t(item) }}</li>
+      </ul>
+      <p class="theme-copy closing-note mt-5">{{ t('home.problems.closing') }}</p>
+    </section>
+
+    <!-- SEKCJA: Usługi – co robimy -->
+    <section id="uslugi" class="mx-auto max-w-6xl px-6 pb-14 md:px-10">
+      <h2 class="theme-heading section-title">{{ t('home.services.title') }}</h2>
+      <p class="theme-copy section-lead">{{ t('home.services.lead') }}</p>
+      <p class="section-sublabel">{{ t('home.services.sublabel') }}</p>
+      <ul class="services-list mt-3">
+        <li *ngFor="let item of serviceItems">{{ t(item) }}</li>
+      </ul>
+    </section>
+
+    <!-- SEKCJA: Kiedy gotowe systemy przestają wystarczyć -->
+    <section class="mx-auto max-w-6xl px-6 pb-14 md:px-10">
+      <h2 class="theme-heading section-title">{{ t('home.why.title') }}</h2>
+      <p class="theme-copy section-lead">{{ t('home.why.lead') }}</p>
+      <ul class="dash-list mt-4">
+        <li *ngFor="let item of whyItems">{{ t(item) }}</li>
+      </ul>
+      <p class="theme-copy closing-note mt-5">{{ t('home.why.closing') }}</p>
+    </section>
+
+    <!-- SEKCJA: Technologie -->
+    <section class="mx-auto max-w-6xl px-6 pb-14 md:px-10">
+      <h2 class="theme-heading section-title">{{ t('home.tech.title') }}</h2>
+      <p class="section-sublabel">{{ t('home.tech.sublabel') }}</p>
+      <div class="tech-grid mt-4">
+        <span *ngFor="let tech of techItems" class="tech-badge">{{ tech }}</span>
       </div>
+      <p class="theme-copy closing-note mt-5">{{ t('home.tech.closing') }}</p>
     </section>
 
-    <section class="mx-auto max-w-6xl px-6 pb-20 md:px-10">
-        <div class="rounded-2xl border border-ink/10 bg-ink p-8 text-slate-100 shadow-elevated md:p-12">
-        <h2 class="text-3xl font-bold">{{ t('home.process.title') }}</h2>
-        <p class="mt-3 max-w-3xl text-slate-300">{{ t('home.process.body') }}</p>
-        <div class="mt-8 grid gap-4 md:grid-cols-3">
-          <div class="step-tile">01 · {{ t('home.process.step1') }}</div>
-          <div class="step-tile">02 · {{ t('home.process.step2') }}</div>
-          <div class="step-tile">03 · {{ t('home.process.step3') }}</div>
+    <!-- SEKCJA: Jak pracujemy – 4 kroki -->
+    <section class="mx-auto max-w-6xl px-6 pb-16 md:px-10">
+      <div class="process-block">
+        <h2 class="process-title">{{ t('home.process.title') }}</h2>
+        <div class="process-grid">
+          <div *ngFor="let step of processSteps; let i = index" class="process-step">
+            <div class="step-num">{{ i + 1 }}</div>
+            <div class="step-content">
+              <h3 class="step-title">{{ t(step.title) }}</h3>
+              <p class="step-body">{{ t(step.body) }}</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
+
+    <!-- SEKCJA: Dlaczego WickyWave -->
+    <section class="mx-auto max-w-6xl px-6 pb-14 md:px-10">
+      <h2 class="theme-heading section-title">{{ t('home.whyus.title') }}</h2>
+      <p class="theme-copy section-lead">{{ t('home.whyus.lead') }}</p>
+      <ul class="check-list mt-5">
+        <li *ngFor="let item of whyusItems">{{ t(item) }}</li>
+      </ul>
+    </section>
+
+    <!-- SEKCJA: CTA końcowe -->
+    <section class="mx-auto max-w-6xl px-6 pb-20 md:px-10">
+      <div class="cta-block">
+        <h2 class="cta-title">{{ t('home.cta.title') }}</h2>
+        <p class="cta-body">{{ t('home.cta.body') }}</p>
+        <a routerLink="/contact" class="cta-btn">{{ t('home.cta.btn') }}</a>
+      </div>
+    </section>
   `,
-  styles: [
-    `
-      .hook-card {
-        min-width: min(85vw, 22rem);
-        border-radius: 1rem;
-        border: 1px solid #E2E8F0;
-        background: #FFFFFF;
-        padding: 1.5rem;
-        box-shadow: 0 4px 16px -4px rgba(15, 23, 42, 0.07);
-      }
+  styles: [`
+    /* ── HERO ──────────────────────────────────────────────── */
+    .eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: #4F46E5;
+    }
+    .hero-title {
+      margin-top: 1rem;
+      max-width: 52rem;
+      font-size: clamp(1.75rem, 4vw, 2.625rem);
+      font-weight: 800;
+      line-height: 1.2;
+    }
+    .hero-lead {
+      margin-top: 1.25rem;
+      max-width: 62ch;
+      font-size: 1.0625rem;
+      line-height: 1.8;
+    }
+    .hero-cta {
+      display: inline-block;
+      margin-top: 2rem;
+      border-radius: 0.625rem;
+      background: #4F46E5;
+      padding: 0.8rem 1.75rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #fff;
+      text-decoration: none;
+      transition: background 150ms ease;
+    }
+    .hero-cta:hover { background: #4338CA; }
 
-      .hook-card h2 {
-        font-size: 1.15rem;
-        font-weight: 700;
-        color: #0F172A;
-      }
+    /* ── WSPÓLNE ────────────────────────────────────────────── */
+    .section-title {
+      font-size: clamp(1.3rem, 3vw, 1.875rem);
+      font-weight: 800;
+      line-height: 1.25;
+    }
+    .section-lead {
+      margin-top: 0.75rem;
+      max-width: 65ch;
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+    .section-sublabel {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--page-copy, #64748B);
+    }
+    .closing-note {
+      max-width: 70ch;
+      font-size: 0.9375rem;
+      line-height: 1.8;
+      font-style: italic;
+    }
 
-      .hook-card p {
-        margin-top: 0.6rem;
-        color: #475569;
-        line-height: 1.65;
-        font-size: 0.95rem;
-      }
+    /* ── LISTY ─────────────────────────────────────────────── */
+    .dash-list {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      gap: 0.5rem;
+    }
+    .dash-list li {
+      padding-left: 1.5rem;
+      position: relative;
+      font-size: 0.9375rem;
+      line-height: 1.65;
+      color: var(--page-copy, #475569);
+    }
+    .dash-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: #4F46E5;
+      font-weight: 700;
+    }
 
-      .step-tile {
-        border-radius: 0.75rem;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        padding: 1rem;
-        font-weight: 600;
-        font-size: 0.9rem;
-        background: rgba(255, 255, 255, 0.06);
-        color: #E2E8F0;
-      }
-    `
-  ]
+    /* Ptaszek – problemy klienta, przewagi WickyWave */
+    .check-list {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      gap: 0.5rem;
+    }
+    .check-list li {
+      padding-left: 1.75rem;
+      position: relative;
+      font-size: 0.9375rem;
+      line-height: 1.65;
+      color: var(--page-copy, #475569);
+    }
+    .check-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #4F46E5;
+      font-weight: 700;
+    }
+
+    /* Strzalka – lista uslug */
+    .services-list {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      gap: 0.5rem;
+    }
+    @media (min-width: 640px) {
+      .services-list { grid-template-columns: repeat(2, 1fr); }
+    }
+    .services-list li {
+      padding: 0.7rem 1rem 0.7rem 2.25rem;
+      position: relative;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      border-radius: 0.5rem;
+      border: 1px solid color-mix(in srgb, var(--card-copy, #334155) 15%, transparent);
+      background: var(--card-background, #FFFFFF);
+      color: var(--card-copy, #334155);
+      transition: background 150ms ease, border-color 150ms ease;
+    }
+    .services-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0.8rem;
+      color: #4F46E5;
+    }
+
+    /* ── TECHNOLOGIE ───────────────────────────────────────── */
+    .tech-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .tech-badge {
+      border-radius: 9999px;
+      background: #EEF2FF;
+      color: #4F46E5;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      padding: 0.35rem 0.9rem;
+    }
+
+    /* ── PROCESS ────────────────────────────────────────────── */
+    .process-block {
+      border-radius: 1.25rem;
+      background: #0F172A;
+      padding: 2.5rem 2rem;
+    }
+    @media (min-width: 768px) {
+      .process-block { padding: 3rem 3.5rem; }
+    }
+    .process-title {
+      font-size: clamp(1.3rem, 3vw, 1.875rem);
+      font-weight: 800;
+      color: #F1F5F9;
+    }
+    .process-grid {
+      margin-top: 2rem;
+      display: grid;
+      gap: 1.75rem;
+    }
+    @media (min-width: 768px) {
+      .process-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .process-step {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .step-num {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 2rem;
+      height: 2rem;
+      border-radius: 9999px;
+      background: #4F46E5;
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .step-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #E2E8F0;
+    }
+    .step-body {
+      margin-top: 0.35rem;
+      font-size: 0.9rem;
+      color: #94A3B8;
+      line-height: 1.65;
+    }
+
+    /* ── CTA BLOK ───────────────────────────────────────────── */
+    .cta-block {
+      border-radius: 1.25rem;
+      background: linear-gradient(135deg, #4F46E5 0%, #3730A3 100%);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+    @media (min-width: 768px) {
+      .cta-block { padding: 3.5rem; }
+    }
+    .cta-title {
+      font-size: clamp(1.3rem, 3vw, 1.875rem);
+      font-weight: 800;
+      color: #fff;
+    }
+    .cta-body {
+      margin-top: 0.75rem;
+      max-width: 55ch;
+      margin-inline: auto;
+      font-size: 0.9625rem;
+      color: rgba(255, 255, 255, 0.82);
+      line-height: 1.75;
+    }
+    .cta-btn {
+      display: inline-block;
+      margin-top: 1.75rem;
+      border-radius: 0.625rem;
+      background: #fff;
+      padding: 0.8rem 1.75rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #4F46E5;
+      text-decoration: none;
+      transition: background 150ms ease;
+    }
+    .cta-btn:hover { background: #EEF2FF; }
+  `]
 })
 export class HomePageComponent {
   private readonly i18n = inject(I18nService);
+
+  readonly problemItems = [
+    'home.problems.item1', 'home.problems.item2', 'home.problems.item3',
+    'home.problems.item4', 'home.problems.item5'
+  ];
+
+  readonly serviceItems = [
+    'home.services.item1', 'home.services.item2', 'home.services.item3',
+    'home.services.item4', 'home.services.item5', 'home.services.item6', 'home.services.item7'
+  ];
+
+  readonly whyItems = [
+    'home.why.item1', 'home.why.item2', 'home.why.item3', 'home.why.item4'
+  ];
+
+  readonly techItems = [
+    'Django', 'Angular', 'Python', 'REST API',
+    'Machine Learning / AI', 'IoT – integracje sprzętowe'
+  ];
+
+  readonly processSteps = [
+    { title: 'home.process.step1.title', body: 'home.process.step1.body' },
+    { title: 'home.process.step2.title', body: 'home.process.step2.body' },
+    { title: 'home.process.step3.title', body: 'home.process.step3.body' },
+    { title: 'home.process.step4.title', body: 'home.process.step4.body' },
+  ];
+
+  readonly whyusItems = [
+    'home.whyus.item1', 'home.whyus.item2', 'home.whyus.item3',
+    'home.whyus.item4', 'home.whyus.item5'
+  ];
 
   t(key: string): string {
     return this.i18n.t(key);

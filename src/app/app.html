@@ -1,3 +1,7 @@
+<!-- ============================================================
+     APP SHELL – główny wrapper, zarządza trybem dnia/nocy
+     Klasa .night-theme jest dodawana dynamicznie przez isDarkMode()
+     ============================================================ -->
 <div
   class="app-shell flex min-h-screen flex-col text-carbon"
   [style.--page-background]="pageBackground()"
@@ -6,10 +10,9 @@
   [style.--card-background]="themeColor([255, 255, 255], [30, 41, 59])"
   [style.--card-heading]="themeColor([15, 23, 42], [248, 250, 252])"
   [style.--card-copy]="themeColor([71, 85, 105], [203, 213, 225])"
-  [class.night-theme]="timeOfDay() > 0.72"
+  [class.night-theme]="isDarkMode()"
 >
-  <app-ocean-banner (timeChange)="setTimeOfDay($event)"></app-ocean-banner>
-
+  <!-- ── HEADER / NAWIGACJA GŁÓWNA ────────────────────────────── -->
   <header class="site-header sticky top-0 z-40">
     <div
       class="relative mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-5 md:px-10"
@@ -48,15 +51,29 @@
       >
         <a
           *ngFor="let item of navItems"
-          [routerLink]="item.path"
-          routerLinkActive="menu-link-active"
+          [routerLink]="item.scrollTarget ? null : item.path"
+          [routerLinkActive]="item.skipActive ? '' : 'menu-link-active'"
+          (click)="scrollToSection(item.scrollTarget)"
           class="menu-link"
+          [class.cursor-pointer]="!!item.scrollTarget"
         >
           {{ t(item.label) }}
         </a>
       </nav>
 
       <div class="hidden items-center gap-2 xl:flex">
+        <button
+          class="theme-btn"
+          (click)="toggleDarkMode()"
+          type="button"
+          [attr.aria-label]="isDarkMode() ? 'Tryb dzienny' : 'Tryb nocny'"
+        >
+          @if (isDarkMode()) {
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          } @else {
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          }
+        </button>
         <button
           class="locale-btn"
           [class.locale-btn-active]="locale() === 'pl'"
@@ -88,6 +105,7 @@
     </div>
   </header>
 
+  <!-- ── MOBILE MENU – panel wysuwany z góry (widoczny < xl) ──── -->
   <div class="mobile-shell" [class.mobile-shell-open]="isMobileMenuOpen()">
     <div class="mobile-backdrop" (click)="closeMobileMenu()"></div>
     <nav class="mobile-panel" aria-label="Mobile menu">
@@ -127,8 +145,9 @@
       <div class="mt-10 grid gap-3">
         <a
           *ngFor="let item of navItems"
-          [routerLink]="item.path"
-          (click)="closeMobileMenu()"
+          [routerLink]="item.scrollTarget ? null : item.path"
+          [fragment]="undefined"
+          (click)="closeMobileMenu(); scrollToSection(item.scrollTarget)"
           class="mobile-link"
         >
           {{ t(item.label) }}
@@ -152,20 +171,34 @@
         >
           EN
         </button>
+        <button
+          class="theme-btn-mobile"
+          (click)="toggleDarkMode()"
+          type="button"
+          [attr.aria-label]="isDarkMode() ? 'Tryb dzienny' : 'Tryb nocny'"
+        >
+          @if (isDarkMode()) {
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          } @else {
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          }
+        </button>
       </div>
     </nav>
   </div>
 
+  <!-- ── MAIN CONTENT – router-outlet wstrzykuje tutaj strony ─── -->
   <main class="flex-1">
     <router-outlet></router-outlet>
   </main>
 
+  <!-- ── FOOTER – animacja oceanu zmienia się z trybem dnia/nocy  -->
   <footer
     class="site-footer px-6 pb-12 pt-20 text-sm text-slate-400 md:px-10 md:pb-14 md:pt-24"
   >
     <app-ocean-banner
       class="footer-ocean"
-      [time]="timeOfDay()"
+      [time]="footerTime()"
       [decorative]="true"
     ></app-ocean-banner>
 

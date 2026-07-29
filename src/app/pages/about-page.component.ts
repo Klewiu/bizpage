@@ -5,8 +5,8 @@ import { I18nService } from '../i18n/i18n.service';
   selector: 'app-about-page',
   standalone: true,
   template: `
+    <!-- SEKCJA: O nas – opis firmy -->
     <section class="page-shell">
-      <h1>{{ t('about.title') }}</h1>
       <p>{{ t('about.body') }}</p>
     </section>
   `,

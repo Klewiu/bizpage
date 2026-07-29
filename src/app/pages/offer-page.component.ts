@@ -7,8 +7,8 @@ import { I18nService } from '../i18n/i18n.service';
   standalone: true,
   imports: [NgFor],
   template: `
+    <!-- SEKCJA: Oferta – lead + lista usług -->
     <section class="page-shell">
-      <h1>{{ t('offer.title') }}</h1>
       <p>{{ t('offer.lead') }}</p>
       <ul>
         <li *ngFor="let item of items">{{ t(item) }}</li>
