@@ -7,8 +7,8 @@ import { I18nService } from '../i18n/i18n.service';
   standalone: true,
   imports: [NgFor],
   template: `
+    <!-- SEKCJA: Xoaila – opis produktu SaaS + lista punktów -->
     <section class="page-shell">
-      <h1>{{ t('xoaila.title') }}</h1>
       <p>{{ t('xoaila.body') }}</p>
 
       <ul>

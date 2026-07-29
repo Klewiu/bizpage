@@ -5,8 +5,8 @@ import { I18nService } from '../i18n/i18n.service';
   selector: 'app-news-page',
   standalone: true,
   template: `
+    <!-- SEKCJA: News – lead + siatka 3 kart artykułów -->
     <section class="page-shell">
-      <h1>{{ t('news.title') }}</h1>
       <p>{{ t('news.body') }}</p>
       <div class="news-grid">
         <article>{{ t('news.card1') }}</article>

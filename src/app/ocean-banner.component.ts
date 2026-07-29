@@ -71,8 +71,8 @@ interface Palette {
 
     .ocean-scene {
       position: relative;
-      height: clamp(210px, 28vw, 290px);
-      min-height: 210px;
+      height: clamp(140px, 16vw, 200px);
+      min-height: 140px;
       overflow: hidden;
       background: #28305c;
       color: white;
@@ -222,9 +222,11 @@ export class OceanBannerComponent implements AfterViewInit, OnDestroy {
   }));
 
   private readonly palettes: Palette[] = [
-    { t: 0, name: 'dawn', skyTop: [38, 44, 86], skyHorizon: [247, 176, 128], sun: [255, 238, 206], waterFar: [176, 150, 150], waterNear: [34, 62, 84], foam: [255, 244, 234], sunHeight: 0.1, stars: 0 },
-    { t: 0.28, name: 'morning', skyTop: [64, 134, 206], skyHorizon: [188, 222, 236], sun: [255, 255, 246], waterFar: [120, 186, 196], waterNear: [20, 92, 114], foam: [255, 255, 255], sunHeight: 0.55, stars: 0 },
-    { t: 0.5, name: 'midday', skyTop: [58, 142, 214], skyHorizon: [176, 216, 230], sun: [255, 255, 248], waterFar: [96, 178, 188], waterNear: [16, 96, 120], foam: [255, 255, 255], sunHeight: 0.92, stars: 0 },
+    { t: 0,    name: 'dawn',     skyTop: [38, 44, 86],   skyHorizon: [247, 176, 128], sun: [255, 238, 206], waterFar: [176, 150, 150], waterNear: [34, 62, 84],   foam: [255, 244, 234], sunHeight: 0.1,  stars: 0 },
+    { t: 0.28, name: 'morning',  skyTop: [64, 134, 206], skyHorizon: [188, 222, 236], sun: [255, 255, 246], waterFar: [120, 186, 196], waterNear: [20, 92, 114],  foam: [255, 255, 255], sunHeight: 0.55, stars: 0 },
+    // Paleta brandowa – fiolet/indygo korelujący z kolorem logotypu (#4F46E5). Używana w stopce w trybie dziennym.
+    { t: 0.35, name: 'brand',    skyTop: [56, 48, 160],  skyHorizon: [120, 108, 220],sun: [220, 215, 255], waterFar: [95, 85, 215],  waterNear: [40, 30, 140], foam: [185, 178, 255], sunHeight: 0.65, stars: 0 },
+    { t: 0.5,  name: 'midday',   skyTop: [58, 142, 214], skyHorizon: [176, 216, 230], sun: [255, 255, 248], waterFar: [96, 178, 188],  waterNear: [16, 96, 120],  foam: [255, 255, 255], sunHeight: 0.92, stars: 0 },
     { t: 0.68, name: 'goldenHour', skyTop: [74, 92, 156], skyHorizon: [255, 202, 120], sun: [255, 236, 194], waterFar: [206, 164, 118], waterNear: [34, 78, 98], foam: [255, 244, 228], sunHeight: 0.3, stars: 0 },
     { t: 0.84, name: 'sunset', skyTop: [48, 38, 86], skyHorizon: [255, 108, 68], sun: [255, 206, 148], waterFar: [188, 98, 84], waterNear: [30, 42, 72], foam: [255, 222, 200], sunHeight: 0.06, stars: 0.15 },
     { t: 1, name: 'moonlit', skyTop: [8, 12, 30], skyHorizon: [34, 44, 82], sun: [228, 234, 255], waterFar: [28, 42, 76], waterNear: [6, 16, 32], foam: [196, 208, 234], sunHeight: 0.55, stars: 1 }
@@ -308,21 +310,25 @@ export class OceanBannerComponent implements AfterViewInit, OnDestroy {
 
     this.elapsed += 0.016;
     const p = this.palette();
-    const horizon = this.decorative ? -8 : this.horizon;
+    const horizon = this.decorative ? -8 : this.horizon; // dekoracyjny = tylko woda, brak nieba
     const oceanHeight = this.height - horizon;
     const sunX = this.width * 0.5;
     const sunY = horizon - p.sunHeight * horizon * 0.82;
 
+    // ── TRYB DEKORACYJNY (np. stopka) ────────────────────────────
+    // Rysuje tylko jednolite tło wody – niebo i słońce są ukryte
     if (this.decorative) {
       ctx.fillStyle = this.color(p.waterFar);
       ctx.fillRect(0, 0, this.width, this.height);
     } else {
+      // ── NIEBO ─────────────────────────────────────────────────
       const sky = ctx.createLinearGradient(0, 0, 0, horizon);
       sky.addColorStop(0, this.color(p.skyTop));
       sky.addColorStop(1, this.color(p.skyHorizon));
       ctx.fillStyle = sky;
       ctx.fillRect(0, 0, this.width, horizon + 2);
 
+      // ── GWIAZDY (widoczne tylko przy wysokim stars > 0) ────────
       if (p.stars > 0.01) {
         for (const star of this.stars) {
           const twinkle = 0.5 + 0.5 * Math.sin(this.elapsed * 2 + star.phase);
@@ -333,6 +339,7 @@ export class OceanBannerComponent implements AfterViewInit, OnDestroy {
         }
       }
 
+      // ── SŁOŃCE / KSIĘŻYC – poświata i tarcza ──────────────────
       const glow = ctx.createRadialGradient(sunX, sunY, 0, sunX, sunY, Math.min(this.width, this.height) * 0.42);
       glow.addColorStop(0, this.color(p.sun, 0.5));
       glow.addColorStop(1, this.color(p.sun, 0));
@@ -344,6 +351,7 @@ export class OceanBannerComponent implements AfterViewInit, OnDestroy {
       ctx.arc(sunX, sunY, Math.min(this.width, this.height) * 0.04, 0, Math.PI * 2);
       ctx.fill();
 
+      // ── CHMURY ────────────────────────────────────────────────
       for (const cloud of this.clouds) {
         cloud.x += cloud.speed;
         if (cloud.x > 1.25) cloud.x = -0.25;
@@ -357,6 +365,8 @@ export class OceanBannerComponent implements AfterViewInit, OnDestroy {
       }
     }
 
+    // ── FALE OCEANU ───────────────────────────────────────────────
+    // 22 warstwy fal od horyzontu do przodu; kolor interpolowany między waterFar i waterNear
     const waveCount = 22;
     for (let wave = 0; wave < waveCount; wave++) {
       const depth = wave / (waveCount - 1);
@@ -377,11 +387,13 @@ export class OceanBannerComponent implements AfterViewInit, OnDestroy {
       ctx.fillStyle = this.color(waveColor);
       ctx.fill();
 
+      // grzebień fali (foam)
       ctx.strokeStyle = this.color(this.mix(waveColor, p.foam, 0.5), 0.08 + depth * 0.2);
       ctx.lineWidth = 0.5 + depth * 1.6;
       ctx.stroke();
     }
 
+    // ── POŁYSKI SŁOŃCA NA WODZIE (tylko w trybie głównym) ─────────
     if (!this.decorative) {
       for (let glitter = 0; glitter < 90; glitter++) {
         const depth = Math.random();

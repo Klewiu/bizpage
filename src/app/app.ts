@@ -1,6 +1,6 @@
-import { NgFor } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { NgFor, isPlatformBrowser } from '@angular/common';
+import { Component, inject, signal, PLATFORM_ID } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { I18nService } from './i18n/i18n.service';
 import type { Locale } from './i18n/translations';
 import { OceanBannerComponent } from './ocean-banner.component';
@@ -13,17 +13,18 @@ import { OceanBannerComponent } from './ocean-banner.component';
 })
 export class App {
   private readonly i18n = inject(I18nService);
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly router = inject(Router);
 
   protected readonly isMobileMenuOpen = signal(false);
   protected readonly timeOfDay = signal(0.28);
+  protected readonly darkModeManual = signal<boolean | null>(null);
 
-  protected readonly navItems = [
-    { path: '/home', label: 'menu.home' },
-    { path: '/offer', label: 'menu.offer' },
-    { path: '/about-us', label: 'menu.about' },
-    { path: '/news', label: 'menu.news' },
+  protected readonly navItems: { path: string; label: string; skipActive?: boolean; scrollTarget?: string }[] = [
+    { path: '/home',         label: 'menu.home' },
+    { path: '/home',         label: 'menu.offer',      skipActive: true, scrollTarget: 'uslugi' },
     { path: '/aktywne-saas', label: 'menu.activeSaas' },
-    { path: '/contact', label: 'menu.contact' }
+    { path: '/contact',      label: 'menu.contact' }
   ];
 
   protected t(key: string): string {
@@ -46,8 +47,37 @@ export class App {
     this.isMobileMenuOpen.set(false);
   }
 
-  protected setTimeOfDay(time: number): void {
-    this.timeOfDay.set(time);
+  protected scrollToSection(id?: string): void {
+    if (!id || !isPlatformBrowser(this.platformId)) return;
+
+    const doScroll = () => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const header = document.querySelector<HTMLElement>('.site-header');
+      const offset = (header?.offsetHeight ?? 80) + 20;
+      const top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    };
+
+    if (this.router.url.startsWith('/home')) {
+      doScroll();
+    } else {
+      this.router.navigate(['/home']).then(() => setTimeout(doScroll, 150));
+    }
+  }
+
+  protected isDarkMode(): boolean {
+    const manual = this.darkModeManual();
+    return manual !== null ? manual : this.timeOfDay() > 0.72;
+  }
+
+  protected footerTime(): number {
+    // Tryb nocny → moonlit (t=1.0), tryb dzienny → paleta brandowa fiolet (t=0.35)
+    return this.isDarkMode() ? 1.0 : 0.35;
+  }
+
+  protected toggleDarkMode(): void {
+    this.darkModeManual.set(!this.isDarkMode());
   }
 
   protected pageBackground(): string {
