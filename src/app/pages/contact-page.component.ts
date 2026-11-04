@@ -13,7 +13,8 @@ import { SeoService } from '../seo.service';
         <p class="eyebrow">{{ t('contact.title') }}</p>
         <h2 class="contact-heading">{{ t('contact.prompt') }}</h2>
 
-        <a class="contact-email" href="mailto:hello@wickywave.wicky">
+        <div class="contact-actions">
+        <a class="contact-email" href="mailto:kontakt@wickywave.pl">
           <svg
             class="contact-email-icon"
             viewBox="0 0 24 24"
@@ -27,8 +28,23 @@ import { SeoService } from '../seo.service';
             <rect x="2" y="4" width="20" height="16" rx="3" />
             <path d="m3 7 9 6 9-6" />
           </svg>
-          <span>hello&#64;wickywave.wicky</span>
+          <span>kontakt&#64;wickywave.pl</span>
         </a>
+
+        <a class="contact-email" href="tel:+48516551316">
+          <svg class="contact-email-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.63a2 2 0 0 1-.45 2.11L8 9.73a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.85.29 1.73.5 2.63.62A2 2 0 0 1 22 16.92z" />
+          </svg>
+          <span>516 551 316</span>
+        </a>
+
+        <a class="contact-email" href="tel:+48500083971">
+          <svg class="contact-email-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.63a2 2 0 0 1-.45 2.11L8 9.73a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.85.29 1.73.5 2.63.62A2 2 0 0 1 22 16.92z" />
+          </svg>
+          <span>500 083 971</span>
+        </a>
+        </div>
 
         <p class="contact-note">{{ t('contact.reply') }}</p>
       </div>
@@ -46,9 +62,11 @@ import { SeoService } from '../seo.service';
     }
 
     .contact-card {
+      box-sizing: border-box;
+      overflow: hidden;
       border-radius: 1.5rem;
       background: #ffffff;
-      padding: 2.25rem 1.5rem;
+      padding: 2.25rem 1rem;
       text-align: center;
       box-shadow: 0 20px 45px -30px rgba(15, 23, 42, 0.35);
       transition: background-color 300ms ease;
@@ -73,17 +91,27 @@ import { SeoService } from '../seo.service';
       transition: color 300ms ease;
     }
 
+    .contact-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 1.75rem;
+      width: 100%;
+      min-width: 0;
+    }
+
     .contact-email {
       display: inline-flex;
       align-items: center;
-      gap: 0.6rem;
-      margin-top: 1.75rem;
+      gap: 0.8rem;
       max-width: 100%;
+      box-sizing: border-box;
       border-radius: 9999px;
       padding: 0.9rem 1.1rem;
       background: rgba(124, 58, 237, 0.1);
       color: #7C3AED;
-      font-size: clamp(0.85rem, 4.6vw, 1.3rem);
+      font-size: clamp(0.8rem, 4vw, 1.3rem);
       font-weight: 700;
       text-decoration: none;
       white-space: nowrap;
@@ -110,6 +138,13 @@ import { SeoService } from '../seo.service';
     }
 
     @media (min-width: 768px) {
+      .contact-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.5rem;
+      }
+
       .contact-shell {
         padding: 4rem 1.5rem 7rem;
       }

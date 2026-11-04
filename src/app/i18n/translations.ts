@@ -151,6 +151,7 @@ export const translations: Record<string, Record<Locale, string>> = {
   'xoaila.point1': { pl: 'Monitoring obecności marki w wynikach AI i wyszukiwarkach.', en: 'Brand visibility monitoring across AI answers and search engines.' },
   'xoaila.point2': { pl: 'Rekomendacje treści pod indeksowanie semantyczne i LLM.', en: 'Content recommendations for semantic indexing and LLM relevance.' },
   'xoaila.point3': { pl: 'Dashboard wzrostu widoczności i tematów, które konwertują.', en: 'Growth dashboard for visibility and conversion-ready topic clusters.' },
+  'xoaila.soon': { pl: 'Usługa będzie dostępna wkrótce.', en: 'The service will be available soon.' },
   'contact.title': { pl: 'Kontakt', en: 'Contact' },
   'contact.body': {
     pl: 'Opowiedz nam o swoim celu. Odpowiadamy zwykle w ciągu jednego dnia roboczego.',
@@ -165,7 +166,7 @@ export const translations: Record<string, Record<Locale, string>> = {
     en: 'We usually reply within one business day.'
   },
   'contact.loading': { pl: 'Ładowanie', en: 'Loading' },
-  'contact.cta': { pl: 'Napisz: hello@wickywave.wicky', en: 'Email us: hello@wickywave.wicky' },
+  'contact.cta': { pl: 'Napisz: kontakt@wickywave.pl', en: 'Email us: kontakt@wickywave.pl' },
   'footer.copy': {
     pl: 'WickyWave Software. Nowoczesne produkty dla nowoczesnych firm.',
     en: 'WickyWave Software. Modern products for modern companies.'
