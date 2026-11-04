@@ -3,6 +3,10 @@
         "/^npm run build:ssg 2>&1 \\| Select-Object -Last 40$/": {
             "approve": true,
             "matchCommandLine": true
+        },
+        "/^npm run build 2>&1 \\| Select-String \"error\\|Prerendered\"$/": {
+            "approve": true,
+            "matchCommandLine": true
         }
     }
 }

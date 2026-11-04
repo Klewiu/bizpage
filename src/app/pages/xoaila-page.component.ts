@@ -22,6 +22,8 @@ import { SeoService } from '../seo.service';
       <ul>
         <li *ngFor="let point of points">{{ t(point) }}</li>
       </ul>
+
+      <p class="coming-soon">{{ t('xoaila.soon') }}</p>
     </section>
   `,
   styles: [
@@ -69,6 +71,11 @@ import { SeoService } from '../seo.service';
         max-width: 68ch;
         color: #475569;
         line-height: 1.75;
+      }
+
+      .page-shell .coming-soon {
+        margin-top: 1.75rem;
+        font-weight: 700;
       }
 
       .page-shell ul {

@@ -151,6 +151,7 @@ export const translations: Record<string, Record<Locale, string>> = {
   'xoaila.point1': { pl: 'Monitoring obecności marki w wynikach AI i wyszukiwarkach.', en: 'Brand visibility monitoring across AI answers and search engines.' },
   'xoaila.point2': { pl: 'Rekomendacje treści pod indeksowanie semantyczne i LLM.', en: 'Content recommendations for semantic indexing and LLM relevance.' },
   'xoaila.point3': { pl: 'Dashboard wzrostu widoczności i tematów, które konwertują.', en: 'Growth dashboard for visibility and conversion-ready topic clusters.' },
+  'xoaila.soon': { pl: 'Usługa będzie dostępna wkrótce.', en: 'The service will be available soon.' },
   'contact.title': { pl: 'Kontakt', en: 'Contact' },
   'contact.body': {
     pl: 'Opowiedz nam o swoim celu. Odpowiadamy zwykle w ciągu jednego dnia roboczego.',
@@ -165,7 +166,7 @@ export const translations: Record<string, Record<Locale, string>> = {
     en: 'We usually reply within one business day.'
   },
   'contact.loading': { pl: 'Ładowanie', en: 'Loading' },
-  'contact.cta': { pl: 'Napisz: hello@wickywave.wicky', en: 'Email us: hello@wickywave.wicky' },
+  'contact.cta': { pl: 'Napisz: kontakt@wickywave.pl', en: 'Email us: kontakt@wickywave.pl' },
   'footer.copy': {
     pl: 'WickyWave Software. Nowoczesne produkty dla nowoczesnych firm.',
     en: 'WickyWave Software. Modern products for modern companies.'
@@ -208,8 +209,8 @@ export const translations: Record<string, Record<Locale, string>> = {
   },
   'privacy.section1.title': { pl: '1. Administrator danych', en: '1. Data controller' },
   'privacy.section1.body': {
-    pl: 'Administratorem danych osobowych zbieranych za pośrednictwem tej strony jest WickyWave Software. W sprawach dotyczących ochrony danych możesz skontaktować się z nami pod adresem hello@wickywave.wicky.',
-    en: 'The controller of personal data collected through this site is WickyWave Software. For any data protection matters, you can contact us at hello@wickywave.wicky.'
+    pl: 'Administratorem danych osobowych zbieranych za pośrednictwem tej strony jest WickyWave Software. W sprawach dotyczących ochrony danych możesz skontaktować się z nami pod     adresem kontakt@wickywave.pl.',
+        en: 'The controller of personal data collected through this site is WickyWave Software. For any data protection matters, you can contact us at kontakt@wickywave.pl.'
   },
   'privacy.section2.title': { pl: '2. Jakie dane zbieramy', en: '2. What data we collect' },
   'privacy.section2.body': {
@@ -233,7 +234,7 @@ export const translations: Record<string, Record<Locale, string>> = {
   },
   'privacy.section6.title': { pl: '6. Kontakt', en: '6. Contact' },
   'privacy.section6.body': {
-    pl: 'W sprawie realizacji swoich praw lub jakichkolwiek pytań dotyczących niniejszej polityki napisz do nas: hello@wickywave.wicky.',
-    en: 'To exercise your rights or ask any questions about this policy, contact us at: hello@wickywave.wicky.'
+    pl: 'W sprawie realizacji swoich praw lub jakichkolwiek pytań dotyczących niniejszej polityki     napisz do nas: kontakt@wickywave.pl.',
+        en: 'To exercise your rights or ask any questions about this policy, contact us at: kontakt@wickywave.pl.'
   }
 };

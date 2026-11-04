@@ -38,7 +38,7 @@ export class App {
       '@type': 'Organization',
       name: SITE_NAME,
       url: SITE_URL,
-      email: 'hello@wickywave.wicky',
+      email: 'kontakt@wickywave.pl',
       description:
         'Software house tworzący dedykowane aplikacje webowe, panele administracyjne i systemy wewnętrzne.'
     });
