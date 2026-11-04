@@ -209,8 +209,8 @@ export const translations: Record<string, Record<Locale, string>> = {
   },
   'privacy.section1.title': { pl: '1. Administrator danych', en: '1. Data controller' },
   'privacy.section1.body': {
-    pl: 'Administratorem danych osobowych zbieranych za pośrednictwem tej strony jest WickyWave Software. W sprawach dotyczących ochrony danych możesz skontaktować się z nami pod adresem hello@wickywave.wicky.',
-    en: 'The controller of personal data collected through this site is WickyWave Software. For any data protection matters, you can contact us at hello@wickywave.wicky.'
+    pl: 'Administratorem danych osobowych zbieranych za pośrednictwem tej strony jest WickyWave Software. W sprawach dotyczących ochrony danych możesz skontaktować się z nami pod     adresem kontakt@wickywave.pl.',
+        en: 'The controller of personal data collected through this site is WickyWave Software. For any data protection matters, you can contact us at kontakt@wickywave.pl.'
   },
   'privacy.section2.title': { pl: '2. Jakie dane zbieramy', en: '2. What data we collect' },
   'privacy.section2.body': {
@@ -234,7 +234,7 @@ export const translations: Record<string, Record<Locale, string>> = {
   },
   'privacy.section6.title': { pl: '6. Kontakt', en: '6. Contact' },
   'privacy.section6.body': {
-    pl: 'W sprawie realizacji swoich praw lub jakichkolwiek pytań dotyczących niniejszej polityki napisz do nas: hello@wickywave.wicky.',
-    en: 'To exercise your rights or ask any questions about this policy, contact us at: hello@wickywave.wicky.'
+    pl: 'W sprawie realizacji swoich praw lub jakichkolwiek pytań dotyczących niniejszej polityki     napisz do nas: kontakt@wickywave.pl.',
+        en: 'To exercise your rights or ask any questions about this policy, contact us at: kontakt@wickywave.pl.'
   }
 };
