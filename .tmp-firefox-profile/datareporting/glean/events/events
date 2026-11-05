@@ -1,0 +1,3 @@
+{"timestamp":71568453,"category":"nimbus_events","name":"is_ready","extra":{"glean_timestamp":"1793836408622"}}
+{"timestamp":71568460,"category":"nimbus_events","name":"migration","extra":{"is_first_startup":"false","success":"true","glean_timestamp":"1793836408629","duration":"7","migration_id":"firefox-labs-enrollments"}}
+{"timestamp":71639907,"category":"glean","name":"session_start","extra":{"sampled_in":"true","session_seq":"1","glean_timestamp":"71639907","session_id":"78525527-c5ae-4e52-b4c4-0fd30ed732c3","session_start_time":"2026-11-05T00:54:40.053+01:00"}}

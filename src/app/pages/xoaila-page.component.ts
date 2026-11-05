@@ -12,7 +12,7 @@ import { SeoService } from '../seo.service';
     <div class="bg-stripes" aria-hidden="true"><span></span><span></span></div>
     <!-- SEKCJA: Xoaila – opis produktu SaaS + lista punktów -->
     <section class="page-shell">
-      <a class="logo-link" routerLink="/home" aria-label="Xoaila home">
+      <a class="logo-link" routerLink="/" aria-label="Xoaila home">
         <span class="logo-word">xoaila</span>
         <span class="logo-mark" aria-hidden="true"></span>
       </a>

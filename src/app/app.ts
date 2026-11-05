@@ -1,8 +1,9 @@
 import { NgFor, NgTemplateOutlet, isPlatformBrowser } from '@angular/common';
 import { Component, inject, signal, PLATFORM_ID } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { CookieBannerComponent } from './cookie-banner.component';
 import { CookieConsentService } from './cookie-consent.service';
+import { GoogleAnalyticsService } from './google-analytics.service';
 import { I18nService } from './i18n/i18n.service';
 import type { Locale } from './i18n/translations';
 import { OceanBannerComponent } from './ocean-banner.component';
@@ -10,7 +11,7 @@ import { SeoService, SITE_URL, SITE_NAME } from './seo.service';
 
 @Component({
   selector: 'app-root',
-  imports: [NgFor, NgTemplateOutlet, RouterLink, RouterLinkActive, RouterOutlet, OceanBannerComponent, CookieBannerComponent],
+  imports: [NgFor, NgTemplateOutlet, RouterLink, RouterOutlet, OceanBannerComponent, CookieBannerComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -19,15 +20,17 @@ export class App {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly router = inject(Router);
   private readonly cookieConsent = inject(CookieConsentService);
+  private readonly googleAnalytics = inject(GoogleAnalyticsService);
   private readonly seo = inject(SeoService);
 
   protected readonly isMobileMenuOpen = signal(false);
+  protected readonly activeHomeSection = signal<'home' | 'offer'>('home');
   protected readonly timeOfDay = signal(0.28);
   protected readonly darkModeManual = signal<boolean | null>(null);
 
-  protected readonly navItems: { path: string; label: string; skipActive?: boolean; scrollTarget?: string }[] = [
-    { path: '/home',         label: 'menu.home' },
-    { path: '/home',         label: 'menu.offer',      skipActive: true, scrollTarget: 'uslugi' },
+  protected readonly navItems: { path: string; label: string; scrollTarget?: string }[] = [
+    { path: '/',             label: 'menu.home' },
+    { path: '/',             label: 'menu.offer',      scrollTarget: 'uslugi' },
     { path: '/aktywne-saas', label: 'menu.activeSaas' },
     { path: '/contact',      label: 'menu.contact' }
   ];
@@ -71,6 +74,26 @@ export class App {
     this.isMobileMenuOpen.set(false);
   }
 
+  protected handleNavClick(item: { path: string; scrollTarget?: string }): void {
+    this.closeMobileMenu();
+    this.activeHomeSection.set(item.scrollTarget ? 'offer' : 'home');
+    this.scrollToSection(item.scrollTarget);
+  }
+
+  protected isNavItemActive(item: { path: string; scrollTarget?: string }): boolean {
+    const currentPath = this.router.url.split(/[?#]/, 1)[0];
+
+    if (item.scrollTarget) {
+      return currentPath === '/' && this.activeHomeSection() === 'offer';
+    }
+
+    if (item.path === '/') {
+      return currentPath === '/' && this.activeHomeSection() === 'home';
+    }
+
+    return currentPath === item.path;
+  }
+
   protected scrollToSection(id?: string): void {
     if (!id || !isPlatformBrowser(this.platformId)) return;
 
@@ -83,10 +106,10 @@ export class App {
       window.scrollTo({ top, behavior: 'smooth' });
     };
 
-    if (this.router.url.startsWith('/home')) {
+    if (this.router.url === '/') {
       doScroll();
     } else {
-      this.router.navigate(['/home']).then(() => setTimeout(doScroll, 150));
+      this.router.navigate(['/']).then(() => setTimeout(doScroll, 150));
     }
   }
 
@@ -106,6 +129,14 @@ export class App {
 
   protected openCookiePreferences(): void {
     this.cookieConsent.openPreferences();
+  }
+
+  protected scrollHomeToTop(): void {
+    this.closeMobileMenu();
+    this.activeHomeSection.set('home');
+
+    if (!isPlatformBrowser(this.platformId)) return;
+    setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }));
   }
 
   protected pageBackground(): string {

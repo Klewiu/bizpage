@@ -115,12 +115,20 @@ import { SeoService } from '../seo.service';
       font-weight: 700;
       text-decoration: none;
       white-space: nowrap;
-      transition: background-color 180ms ease, transform 150ms ease;
+      transition: background-color 180ms ease;
     }
 
     .contact-email:hover {
       background: rgba(124, 58, 237, 0.18);
-      transform: translateY(-1px);
+    }
+
+    .contact-email:focus {
+      outline: none;
+    }
+
+    .contact-email:focus-visible {
+      outline: 3px solid rgba(124, 58, 237, 0.45);
+      outline-offset: 3px;
     }
 
     .contact-email-icon {

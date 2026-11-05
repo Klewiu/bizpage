@@ -11,8 +11,8 @@ export const translations: Record<string, Record<Locale, string>> = {
   },
   'seo.offer.title': { pl: 'Oferta — aplikacje webowe, panele i automatyzacja | WickyWave', en: 'Offer — Web Apps, Admin Panels & Automation | WickyWave' },
   'seo.offer.description': {
-    pl: 'Aplikacje webowe B2B/B2C, panele administracyjne, automatyzacja procesów, integracje API oraz opieka powdrożeniowa.',
-    en: 'B2B/B2C web applications, admin panels, process automation, API integrations and post-launch support.'
+    pl: 'Aplikacje webowe B2B/B2C, strony internetowe (landing page), panele administracyjne, automatyzacja, integracje API i opieka powdrożeniowa.',
+    en: 'B2B/B2C web applications, websites (landing pages), admin panels, automation, API integrations and post-launch support.'
   },
   'seo.about.title': { pl: 'O nas — software house WickyWave', en: 'About us — WickyWave software house' },
   'seo.about.description': {
@@ -77,7 +77,7 @@ export const translations: Record<string, Record<Locale, string>> = {
   'home.services.title':    { pl: 'Projektujemy oprogramowanie dopasowane do sposobu działania Twojej firmy', en: 'We design software tailored to the way your business works' },
   'home.services.lead':     { pl: 'Tworzymy rozwiązania, które wspierają codzienną pracę zespołów oraz obsługę klientów.', en: 'We create solutions that support daily team operations and customer service.' },
   'home.services.sublabel': { pl: 'Najczęściej realizujemy:', en: 'We most often build:' },
-  'home.services.item1':    { pl: 'aplikacje webowe B2B i B2C', en: 'B2B and B2C web applications' },
+  'home.services.item1':    { pl: 'aplikacje webowe B2B i B2C / strony internetowe (landing page)', en: 'B2B and B2C web applications / websites (landing pages)' },
   'home.services.item2':    { pl: 'systemy do zarządzania procesami', en: 'process management systems' },
   'home.services.item3':    { pl: 'panele administracyjne', en: 'admin panels' },
   'home.services.item4':    { pl: 'portale klienta', en: 'client portals' },
@@ -126,7 +126,7 @@ export const translations: Record<string, Record<Locale, string>> = {
   'home.cta.btn':   { pl: 'Umów bezpłatną konsultację', en: 'Schedule a free consultation' },
   'offer.title': { pl: 'Oferta', en: 'Offer' },
   'offer.lead': { pl: 'Budujemy produkty, które są szybkie, skalowalne i zrozumiałe dla zespołu.', en: 'We build products that are fast, scalable, and easy for your team to use.' },
-  'offer.item1': { pl: 'Aplikacje webowe B2B/B2C', en: 'B2B/B2C web applications' },
+  'offer.item1': { pl: 'Aplikacje webowe B2B i B2C / strony internetowe (landing page)', en: 'B2B and B2C web applications / websites (landing pages)' },
   'offer.item2': { pl: 'Panele administracyjne i dashboardy', en: 'Admin panels and dashboards' },
   'offer.item3': { pl: 'Automatyzacja procesów i integracje API', en: 'Process automation and API integrations' },
   'offer.item4': { pl: 'Opieka powdrożeniowa i rozwój', en: 'Post-launch support and evolution' },
@@ -171,6 +171,8 @@ export const translations: Record<string, Record<Locale, string>> = {
     pl: 'WickyWave Software. Nowoczesne produkty dla nowoczesnych firm.',
     en: 'WickyWave Software. Modern products for modern companies.'
   },
+  'footer.brand': { pl: 'WickyWave Software.', en: 'WickyWave Software.' },
+  'footer.tagline': { pl: 'Nowoczesne produkty dla nowoczesnych firm.', en: 'Modern products for modern companies.' },
   'footer.privacyLink': { pl: 'Polityka prywatności', en: 'Privacy policy' },
   'footer.cookieSettings': { pl: 'Ustawienia cookie', en: 'Cookie settings' },
 
@@ -202,39 +204,64 @@ export const translations: Record<string, Record<Locale, string>> = {
 
   // ── POLITYKA PRYWATNOŚCI ─────────────────────────────────────────────────
   'privacy.title': { pl: 'Polityka prywatności', en: 'Privacy policy' },
-  'privacy.updated': { pl: 'Ostatnia aktualizacja: wrzesień 2026', en: 'Last updated: September 2026' },
+  'privacy.updated': { pl: 'Ostatnia aktualizacja: listopad 2026', en: 'Last updated: November 2026' },
   'privacy.intro': {
     pl: 'Szanujemy Twoją prywatność. Ta polityka wyjaśnia, jakie dane zbieramy, w jakim celu je przetwarzamy oraz jakie prawa przysługują Ci na mocy ogólnego rozporządzenia o ochronie danych (RODO/GDPR).',
     en: 'We respect your privacy. This policy explains what data we collect, why we process it, and what rights you have under the General Data Protection Regulation (GDPR).'
   },
   'privacy.section1.title': { pl: '1. Administrator danych', en: '1. Data controller' },
   'privacy.section1.body': {
-    pl: 'Administratorem danych osobowych zbieranych za pośrednictwem tej strony jest WickyWave Software. W sprawach dotyczących ochrony danych możesz skontaktować się z nami pod     adresem kontakt@wickywave.pl.',
-        en: 'The controller of personal data collected through this site is WickyWave Software. For any data protection matters, you can contact us at kontakt@wickywave.pl.'
+    pl: 'Administratorem danych osobowych zbieranych za pośrednictwem tej strony jest WICKY WAVE SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ, ul. Ezopa 57, 04-805 Warszawa, KRS 0001272202, NIP 9522290935, REGON 54598946300000. W sprawach dotyczących ochrony danych możesz skontaktować się z nami pod adresem kontakt@wickywave.pl.',
+    en: 'The controller of personal data collected through this site is WICKY WAVE SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ, ul. Ezopa 57, 04-805 Warsaw, Poland, KRS 0001272202, NIP 9522290935, REGON 54598946300000. For any data protection matters, you can contact us at kontakt@wickywave.pl.'
   },
-  'privacy.section2.title': { pl: '2. Jakie dane zbieramy', en: '2. What data we collect' },
+  'privacy.section2.title': { pl: '2. Zakres danych i ich źródła', en: '2. Categories and sources of data' },
   'privacy.section2.body': {
-    pl: 'Zbieramy dane, które przekazujesz nam samodzielnie (np. adres e-mail podczas kontaktu) oraz podstawowe dane techniczne generowane automatycznie podczas przeglądania strony (np. typ przeglądarki, orientacyjna lokalizacja, statystyki odwiedzin).',
-    en: 'We collect data you provide directly (e.g. your email address when contacting us) and basic technical data generated automatically while browsing the site (e.g. browser type, approximate location, visit statistics).'
+    pl: 'Strona nie ma formularzy, kont użytkowników ani funkcji logowania. Możemy przetwarzać dane przekazane przez Ciebie podczas bezpośredniego kontaktu e-mailowego lub telefonicznego, w szczególności dane kontaktowe oraz treść korespondencji. W związku z wyświetleniem strony infrastruktura hostingowa otrzymuje standardowe dane techniczne połączenia, takie jak adres IP, data i czas żądania, żądany adres URL oraz informacje o przeglądarce i urządzeniu. Po wyrażeniu zgody Google Analytics może dodatkowo zbierać dane opisane w punkcie 5.',
+    en: 'The site has no forms, user accounts, or login features. We may process data you provide when contacting us directly by email or telephone, in particular your contact details and the contents of correspondence. When the site is displayed, the hosting infrastructure receives standard connection data such as the IP address, request date and time, requested URL, and browser and device information. After you give consent, Google Analytics may additionally collect the data described in section 5.'
   },
-  'privacy.section3.title': { pl: '3. Pliki cookie', en: '3. Cookies' },
+  'privacy.section3.title': { pl: '3. Cele i podstawy prawne przetwarzania', en: '3. Purposes and legal bases for processing' },
   'privacy.section3.body': {
-    pl: 'Strona wykorzystuje niezbędne pliki cookie (zawsze aktywne) oraz opcjonalne pliki cookie analityczne, które są włączane wyłącznie po wyrażeniu przez Ciebie zgody. Zgodę możesz udzielić, odrzucić lub dostosować granularnie w banerze cookie, a także zmienić ją w dowolnym momencie klikając „Ustawienia cookie” w stopce strony.',
-    en: 'The site uses necessary cookies (always active) and optional analytics cookies, which are only enabled after you give consent. You can grant, decline, or granularly customize consent in the cookie banner, and change it at any time by clicking "Cookie settings" in the site footer.'
+    pl: 'Dane z korespondencji przetwarzamy w celu udzielenia odpowiedzi i prowadzenia rozmów: na podstawie art. 6 ust. 1 lit. b RODO, gdy kontakt zmierza do zawarcia lub wykonania umowy, albo art. 6 ust. 1 lit. f RODO, gdy podstawą jest nasz prawnie uzasadniony interes polegający na obsłudze korespondencji i ochronie przed roszczeniami. Dane techniczne przetwarzamy na podstawie art. 6 ust. 1 lit. f RODO w celu bezpiecznego udostępniania, diagnostyki i ochrony strony. Dane analityczne przetwarzamy wyłącznie na podstawie zgody — art. 6 ust. 1 lit. a RODO.',
+    en: 'We process correspondence data to reply and conduct discussions: under Article 6(1)(b) GDPR where the contact is intended to enter into or perform a contract, or under Article 6(1)(f) GDPR where our legitimate interest is handling correspondence and protecting against claims. We process technical data under Article 6(1)(f) GDPR to securely deliver, diagnose, and protect the site. We process analytics data solely on the basis of consent under Article 6(1)(a) GDPR.'
   },
-  'privacy.section4.title': { pl: '4. Cel przetwarzania danych', en: '4. Purpose of processing' },
+  'privacy.section4.title': { pl: '4. Pamięć lokalna, pliki cookie i zgoda', en: '4. Local storage, cookies, and consent' },
   'privacy.section4.body': {
-    pl: 'Przetwarzamy dane w celu odpowiedzi na zapytania kontaktowe, zapewnienia prawidłowego działania strony oraz — na podstawie Twojej zgody — analizy ruchu w celu poprawy jakości serwisu.',
-    en: 'We process data in order to respond to contact requests, ensure the site functions correctly, and — based on your consent — analyze traffic to improve the quality of the service.'
+    pl: 'W pamięci lokalnej przeglądarki zapisujemy niezbędny wpis „cookie-consent”, który przechowuje wybrane ustawienia, wersję zgody i datę decyzji. Opcjonalne pliki cookie analityczne są uruchamiane dopiero po wyrażeniu zgody. Zgodę możesz zaakceptować, odrzucić lub dostosować w banerze, a później zmienić albo wycofać przez „Ustawienia cookie” w stopce. Wycofanie zgody nie wpływa na zgodność z prawem wcześniejszego przetwarzania; po jej wycofaniu zatrzymujemy dalsze zbieranie danych Analytics i usuwamy dostępne dla strony analityczne pliki cookie.',
+    en: 'We store an essential “cookie-consent” entry in the browser local storage containing the selected settings, consent version, and decision date. Optional analytics cookies are activated only after consent. You can accept, reject, or customize consent in the banner and later change or withdraw it through “Cookie settings” in the footer. Withdrawal does not affect the lawfulness of processing carried out before it; after withdrawal, we stop further Analytics collection and remove analytics cookies accessible to the site.'
   },
-  'privacy.section5.title': { pl: '5. Twoje prawa (RODO/GDPR)', en: '5. Your rights (GDPR)' },
+  'privacy.section5.title': { pl: '5. Google Analytics', en: '5. Google Analytics' },
   'privacy.section5.body': {
-    pl: 'Masz prawo dostępu do swoich danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przenoszenia danych oraz wniesienia sprzeciwu wobec przetwarzania. Masz również prawo do cofnięcia zgody w dowolnym momencie oraz wniesienia skargi do organu nadzorczego.',
-    en: 'You have the right to access, rectify, erase, restrict processing, transfer your data, and object to processing. You may also withdraw your consent at any time and lodge a complaint with a supervisory authority.'
+    pl: 'Po zgodzie korzystamy z Google Analytics 4 do tworzenia statystyk korzystania ze strony. Usługa może przetwarzać informacje o odwiedzanych podstronach i zdarzeniach, sesji, typie urządzenia, systemie i przeglądarce, orientacyjnej lokalizacji oraz identyfikatorze klienta zapisanym w pliku cookie. Według Google adres IP służy do ustalenia orientacyjnej lokalizacji, po czym jest odrzucany przed zapisaniem danych. Pliki „_ga” i „_ga_<identyfikator>” mogą być przechowywane do 2 lat. Stosujemy podstawowy tryb zgody: przed zgodą tag Google nie jest pobierany i dane analityczne nie są wysyłane. Funkcje reklamowe, personalizacja reklam i Google Signals nie są przez nas używane.',
+    en: 'After consent, we use Google Analytics 4 to compile statistics on use of the site. The service may process information about visited pages and events, the session, device type, operating system and browser, approximate location, and a client identifier stored in a cookie. According to Google, the IP address is used to determine approximate location and is then discarded before data is logged. The “_ga” and “_ga_<identifier>” cookies may be stored for up to 2 years. We use Basic Consent Mode: before consent, the Google tag is not downloaded and analytics data is not sent. We do not use advertising features, ad personalization, or Google Signals.'
   },
-  'privacy.section6.title': { pl: '6. Kontakt', en: '6. Contact' },
+  'privacy.section6.title': { pl: '6. Google Search Console', en: '6. Google Search Console' },
   'privacy.section6.body': {
-    pl: 'W sprawie realizacji swoich praw lub jakichkolwiek pytań dotyczących niniejszej polityki     napisz do nas: kontakt@wickywave.pl.',
-        en: 'To exercise your rights or ask any questions about this policy, contact us at: kontakt@wickywave.pl.'
+    pl: 'Korzystamy z Google Search Console do weryfikacji własności strony oraz przeglądania zbiorczych danych o jej widoczności, kliknięciach i indeksowaniu w wyszukiwarce Google. Sama weryfikacja za pomocą rekordu DNS, pliku HTML albo znacznika meta nie jest skryptem śledzącym i nie zapisuje w przeglądarce odwiedzającego dodatkowych plików cookie. Dane raportowane w Search Console pochodzą z interakcji użytkowników z wyszukiwarką Google, a nie z dodatkowego śledzenia na tej stronie.',
+    en: 'We use Google Search Console to verify ownership of the site and view aggregated information about its visibility, clicks, and indexing in Google Search. Verification using a DNS record, HTML file, or meta tag is not a tracking script and does not place additional cookies in a visitor’s browser. Data reported in Search Console comes from users’ interactions with Google Search, not from additional tracking on this site.'
+  },
+  'privacy.section7.title': { pl: '7. Odbiorcy danych i transfery poza EOG', en: '7. Data recipients and transfers outside the EEA' },
+  'privacy.section7.body': {
+    pl: 'Dane mogą być powierzane dostawcom hostingu, infrastruktury IT i poczty elektronicznej wyłącznie w zakresie niezbędnym do świadczenia usług. W przypadku Google Analytics odbiorcą danych jest Google Ireland Limited oraz podmioty z grupy Google i jej podwykonawcy. Dane mogą być przetwarzane także poza Europejskim Obszarem Gospodarczym. Google deklaruje stosowanie odpowiednich mechanizmów prawnych, w szczególności decyzji stwierdzającej odpowiedni stopień ochrony w ramach EU–US Data Privacy Framework wobec certyfikowanych podmiotów albo standardowych klauzul umownych Komisji Europejskiej.',
+    en: 'Data may be entrusted to hosting, IT infrastructure, and email providers only to the extent necessary to provide their services. For Google Analytics, recipients include Google Ireland Limited, Google group companies, and its subprocessors. Data may also be processed outside the European Economic Area. Google states that it uses appropriate legal mechanisms, in particular the EU–US Data Privacy Framework adequacy decision for certified entities or the European Commission’s Standard Contractual Clauses.'
+  },
+  'privacy.section8.title': { pl: '8. Okres przechowywania danych', en: '8. Data retention' },
+  'privacy.section8.body': {
+    pl: 'Korespondencję przechowujemy przez czas potrzebny do udzielenia odpowiedzi i prowadzenia rozmów, a gdy jest związana z umową — przez okres jej realizacji oraz do upływu właściwych terminów przedawnienia roszczeń. Dane techniczne przechowujemy przez okres wynikający z ustawień i zasad bezpieczeństwa dostawcy hostingu, nie dłużej niż jest to niezbędne do zapewnienia bezpieczeństwa i diagnostyki strony. Dla danych użytkowników i zdarzeń Google Analytics przyjmujemy okres retencji 2 miesięcy; zagregowane raporty mogą być dostępne dłużej. Okres działania samych plików cookie Analytics wskazano w punkcie 5.',
+    en: 'We retain correspondence for the time needed to reply and conduct discussions and, where it relates to a contract, for its performance and until the relevant limitation periods for claims expire. Technical data is retained according to the hosting provider’s settings and security rules, no longer than necessary for site security and diagnostics. We apply a 2-month retention period to Google Analytics user and event data; aggregated reports may remain available for longer. The lifetime of Analytics cookies themselves is stated in section 5.'
+  },
+  'privacy.section9.title': { pl: '9. Twoje prawa (RODO/GDPR)', en: '9. Your rights (GDPR)' },
+  'privacy.section9.body': {
+    pl: 'W zależności od podstawy i okoliczności przetwarzania masz prawo dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przenoszenia oraz wniesienia sprzeciwu. Zgodę możesz wycofać w dowolnym momencie. Masz również prawo wnieść skargę do Prezesa Urzędu Ochrony Danych Osobowych (uodo.gov.pl). W celu realizacji praw możemy poprosić o informacje pozwalające potwierdzić Twoją tożsamość.',
+    en: 'Depending on the legal basis and circumstances of processing, you have the right to access, rectify, erase, restrict, and port your data, and to object to processing. You may withdraw consent at any time. You also have the right to lodge a complaint with the President of the Polish Personal Data Protection Office (uodo.gov.pl). To handle a rights request, we may ask for information necessary to verify your identity.'
+  },
+  'privacy.section10.title': { pl: '10. Dobrowolność danych i zautomatyzowane decyzje', en: '10. Voluntary provision and automated decisions' },
+  'privacy.section10.body': {
+    pl: 'Podanie danych podczas kontaktu e-mailowego lub telefonicznego jest dobrowolne, ale bez danych umożliwiających odpowiedź możemy nie być w stanie obsłużyć zapytania. Nie podejmujemy wobec osób odwiedzających stronę decyzji opartych wyłącznie na zautomatyzowanym przetwarzaniu i nie prowadzimy profilowania ani działań reklamowych lub marketingowych.',
+    en: 'Providing data when contacting us by email or telephone is voluntary, but without details that enable a response we may be unable to handle the enquiry. We do not make decisions concerning site visitors based solely on automated processing, and we do not carry out profiling, advertising, or marketing activities.'
+  },
+  'privacy.section11.title': { pl: '11. Kontakt', en: '11. Contact' },
+  'privacy.section11.body': {
+    pl: 'W sprawie realizacji swoich praw lub pytań dotyczących niniejszej polityki napisz do nas: kontakt@wickywave.pl.',
+    en: 'To exercise your rights or ask any questions about this policy, contact us at: kontakt@wickywave.pl.'
   }
 };

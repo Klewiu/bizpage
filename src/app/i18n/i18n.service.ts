@@ -5,7 +5,7 @@ import { translations } from './translations';
 
 @Injectable({ providedIn: 'root' })
 export class I18nService {
-  private readonly localeSignal = signal<Locale>('en');
+  private readonly localeSignal = signal<Locale>('pl');
 
   constructor(
     @Inject(PLATFORM_ID) private readonly platformId: object,
@@ -31,7 +31,7 @@ export class I18nService {
 
   private detectLocale(): Locale {
     if (!isPlatformBrowser(this.platformId)) {
-      return 'en';
+      return 'pl';
     }
 
     const language = (navigator.language || '').toLowerCase();

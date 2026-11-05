@@ -41,6 +41,31 @@ import { SeoService } from '../seo.service';
         <h2>{{ t('privacy.section6.title') }}</h2>
         <p>{{ t('privacy.section6.body') }}</p>
       </div>
+
+      <div class="privacy-section">
+        <h2>{{ t('privacy.section7.title') }}</h2>
+        <p>{{ t('privacy.section7.body') }}</p>
+      </div>
+
+      <div class="privacy-section">
+        <h2>{{ t('privacy.section8.title') }}</h2>
+        <p>{{ t('privacy.section8.body') }}</p>
+      </div>
+
+      <div class="privacy-section">
+        <h2>{{ t('privacy.section9.title') }}</h2>
+        <p>{{ t('privacy.section9.body') }}</p>
+      </div>
+
+      <div class="privacy-section">
+        <h2>{{ t('privacy.section10.title') }}</h2>
+        <p>{{ t('privacy.section10.body') }}</p>
+      </div>
+
+      <div class="privacy-section">
+        <h2>{{ t('privacy.section11.title') }}</h2>
+        <p>{{ t('privacy.section11.body') }}</p>
+      </div>
     </section>
   `,
   styles: [`
