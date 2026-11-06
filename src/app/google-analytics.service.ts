@@ -12,10 +12,9 @@ type AnalyticsWindow = Window & {
 };
 
 /**
- * Google Consent Mode v2 (tryb zaawansowany):
- * - GTM ładuje się zawsze, ale wszystkie zgody (analytics_storage, ad_storage,
- *   ad_user_data, ad_personalization) są domyślnie "denied" – bez cookies i identyfikatorów,
- * - zgoda na analitykę przełącza tylko analytics_storage na "granted",
+ * Google Consent Mode v2 (tryb podstawowy):
+ * - GTM nie jest ładowany przed zgodą analityczną,
+ * - po zgodzie ustawiamy sygnały zgody przed załadowaniem kontenera,
  * - zgody reklamowe pozostają zawsze "denied",
  * - cofnięcie zgody przywraca "denied" i usuwa cookies analityczne.
  */
@@ -32,26 +31,34 @@ export class GoogleAnalyticsService {
     const analyticsWindow = this.document.defaultView as AnalyticsWindow | null;
     if (!analyticsWindow) return;
 
-    this.ensureGtag(analyticsWindow);
-    analyticsWindow.gtag?.('consent', 'default', { ...this.deniedConsent(), wait_for_update: 500 });
-    this.loadTagManager(analyticsWindow);
-
     effect(() => {
       if (this.consent.choices().analytics) {
-        analyticsWindow.gtag?.('consent', 'update', {
-          ...this.deniedConsent(),
-          analytics_storage: 'granted'
-        });
+        this.enableAnalytics(analyticsWindow);
       } else {
-        analyticsWindow.gtag?.('consent', 'update', this.deniedConsent());
+        if (this.document.getElementById(GOOGLE_TAG_SCRIPT_ID)) {
+          analyticsWindow.gtag?.('consent', 'update', this.deniedConsent());
+        }
         this.clearAnalyticsCookies();
       }
     });
   }
 
-  private loadTagManager(analyticsWindow: AnalyticsWindow): void {
-    if (this.document.getElementById(GOOGLE_TAG_SCRIPT_ID)) return;
+  private enableAnalytics(analyticsWindow: AnalyticsWindow): void {
+    const tagManagerLoaded = Boolean(this.document.getElementById(GOOGLE_TAG_SCRIPT_ID));
 
+    this.ensureGtag(analyticsWindow);
+    if (!tagManagerLoaded) {
+      analyticsWindow.gtag?.('consent', 'default', { ...this.deniedConsent(), wait_for_update: 500 });
+    }
+    analyticsWindow.gtag?.('consent', 'update', {
+      ...this.deniedConsent(),
+      analytics_storage: 'granted'
+    });
+
+    if (!tagManagerLoaded) this.loadTagManager(analyticsWindow);
+  }
+
+  private loadTagManager(analyticsWindow: AnalyticsWindow): void {
     analyticsWindow.gtag?.('js', new Date());
     analyticsWindow.dataLayer?.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
 
