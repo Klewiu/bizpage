@@ -24,7 +24,16 @@
    ========================================================= */
 .app-shell {
 	background: var(--page-background, #F8FAFC);
-	transition: background-color 500ms ease;
+	color: var(--page-copy, #475569);
+	transition: background-color 500ms ease, color 500ms ease;
+}
+
+.night-theme .brand-logo {
+	filter: invert(1) hue-rotate(180deg);
+}
+
+.night-theme {
+	--xoaila-logo: #e2e8f0;
 }
 
 /* ── OPT-IN: dodaj .theme-heading / .theme-copy do elementów
@@ -48,13 +57,14 @@
 	transition: color 500ms ease;
 }
 
-.app-shell main ::ng-deep .page-shell > p {
+.app-shell main ::ng-deep .page-shell > p,
+.app-shell main ::ng-deep .privacy-section p {
 	color: var(--page-copy);
 	transition: color 500ms ease;
 }
 
 .app-shell main ::ng-deep .page-shell > p.coming-soon {
-	color: #a78bfa;
+	color: var(--violet-text);
 }
 
 /* ── KARTY – hook-card / news-grid article / page-shell li ── */
@@ -77,4 +87,3 @@
 	color: var(--card-copy);
 	transition: color 500ms ease;
 }
-

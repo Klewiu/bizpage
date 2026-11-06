@@ -47,6 +47,8 @@ export const translations: Record<string, Record<Locale, string>> = {
   'menu.news': { pl: 'Aktualności', en: 'News' },
   'menu.contact': { pl: 'Kontakt', en: 'Contact' },
   'menu.cta': { pl: 'Umów rozmowę', en: 'Book a call' },
+  'theme.light': { pl: 'Włącz tryb jasny', en: 'Switch to light mode' },
+  'theme.dark': { pl: 'Włącz tryb ciemny', en: 'Switch to dark mode' },
   'ocean.tagline': {
     pl: 'Mamy pomysł na software na każdą porę dnia.',
     en: 'We have a software idea for every time of the day.'

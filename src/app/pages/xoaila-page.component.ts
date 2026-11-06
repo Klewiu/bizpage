@@ -47,7 +47,7 @@ import { SeoService } from '../seo.service';
         font-weight: 800;
         letter-spacing: -0.04em;
         line-height: 1;
-        color: #284b63;
+        color: var(--xoaila-logo, #284b63);
       }
 
       .logo-mark {

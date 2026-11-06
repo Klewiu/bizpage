@@ -144,9 +144,7 @@ export class App {
   }
 
   protected themeColor(light: number[], dark: number[]): string {
-    const amount = Math.max(0, Math.min(1, (this.timeOfDay() - 0.45) / 0.55));
-    const rgb = light.map((value, index) => Math.round(value + (dark[index] - value) * amount));
+    const rgb = this.isDarkMode() ? dark : light;
     return `rgb(${rgb.join(', ')})`;
   }
 }
-

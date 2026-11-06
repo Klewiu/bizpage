@@ -70,7 +70,7 @@ import { SeoService } from '../seo.service';
       box-sizing: border-box;
       overflow: hidden;
       border-radius: 1.5rem;
-      background: #ffffff;
+      background: var(--card-background, #ffffff);
       padding: 2.25rem 1rem;
       text-align: center;
       box-shadow: 0 20px 45px -30px rgba(15, 23, 42, 0.35);
@@ -79,7 +79,7 @@ import { SeoService } from '../seo.service';
 
     .eyebrow {
       margin: 0;
-      color: #7C3AED;
+      color: var(--violet-text, #7C3AED);
       font-size: 0.78rem;
       font-weight: 700;
       letter-spacing: 0.14em;
@@ -115,7 +115,7 @@ import { SeoService } from '../seo.service';
       border-radius: 9999px;
       padding: 0.9rem 1.1rem;
       background: rgba(124, 58, 237, 0.1);
-      color: #7C3AED;
+      color: var(--violet-text, #7C3AED);
       font-size: clamp(0.8rem, 4vw, 1.3rem);
       font-weight: 700;
       text-decoration: none;
@@ -145,8 +145,8 @@ import { SeoService } from '../seo.service';
     .company-details {
       margin: 2rem auto 0;
       padding-top: 1.5rem;
-      border-top: 1px solid #e2e8f0;
-      color: #475569;
+      border-top: 1px solid color-mix(in srgb, var(--card-copy, #475569) 22%, transparent);
+      color: var(--card-copy, #475569);
       font-size: 0.9rem;
       line-height: 1.6;
     }

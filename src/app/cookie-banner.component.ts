@@ -102,20 +102,20 @@ import { I18nService } from './i18n/i18n.service';
       max-height: calc(100dvh - 2rem);
       overflow-y: auto;
       border-radius: 1rem;
-      background: #0F172A;
+      background: var(--card-background, #ffffff);
       padding: 1.25rem 1.5rem;
       box-shadow: 0 20px 45px -20px rgba(15, 23, 42, 0.55);
     }
 
     .cookie-text {
       margin: 0;
-      color: #E2E8F0;
+      color: var(--card-copy, #475569);
       font-size: 0.85rem;
       line-height: 1.6;
     }
 
     .cookie-link {
-      color: #C4B5FD;
+      color: var(--violet-text, #7C3AED);
       text-decoration: underline;
       text-underline-offset: 2px;
     }
@@ -139,13 +139,13 @@ import { I18nService } from './i18n/i18n.service';
     .cookie-btn-decline,
     .cookie-btn-manage {
       background: transparent;
-      color: #CBD5E1;
-      border: 1px solid rgba(203, 213, 225, 0.35);
+      color: var(--card-copy, #475569);
+      border: 1px solid color-mix(in srgb, var(--card-copy, #475569) 35%, transparent);
     }
 
     .cookie-btn-decline:hover,
     .cookie-btn-manage:hover {
-      background: rgba(203, 213, 225, 0.1);
+      background: color-mix(in srgb, var(--card-copy, #475569) 10%, transparent);
     }
 
     .cookie-btn-accept {
@@ -159,14 +159,14 @@ import { I18nService } from './i18n/i18n.service';
 
     .cookie-prefs-title {
       margin: 0;
-      color: #F8FAFC;
+      color: var(--card-heading, #0F172A);
       font-size: 1rem;
       font-weight: 800;
     }
 
     .cookie-prefs-desc {
       margin: 0.4rem 0 0;
-      color: #CBD5E1;
+      color: var(--card-copy, #475569);
       font-size: 0.82rem;
       line-height: 1.6;
     }
@@ -185,14 +185,14 @@ import { I18nService } from './i18n/i18n.service';
     }
 
     .cookie-category-name {
-      color: #F1F5F9;
+      color: var(--card-heading, #0F172A);
       font-size: 0.88rem;
       font-weight: 700;
     }
 
     .cookie-category-desc {
       margin: 0.35rem 0 0;
-      color: #94A3B8;
+      color: var(--card-copy, #475569);
       font-size: 0.78rem;
       line-height: 1.55;
     }
