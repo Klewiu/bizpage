@@ -3,7 +3,7 @@
   <img
     src="/wickylogoline.png"
     alt="WickyWave Software"
-    class="block h-[55px] w-auto sm:h-16 lg:h-[74px]"
+    class="brand-logo block h-[55px] w-auto sm:h-16 lg:h-[74px]"
   />
 </ng-template>
 
@@ -16,13 +16,16 @@
 </ng-template>
 
 <div
-  class="app-shell flex min-h-screen flex-col text-carbon"
+  class="app-shell flex min-h-screen flex-col"
   [style.--page-background]="pageBackground()"
   [style.--page-heading]="themeColor([15, 23, 42], [248, 250, 252])"
   [style.--page-copy]="themeColor([71, 85, 105], [203, 213, 225])"
   [style.--card-background]="themeColor([255, 255, 255], [30, 41, 59])"
   [style.--card-heading]="themeColor([15, 23, 42], [248, 250, 252])"
   [style.--card-copy]="themeColor([71, 85, 105], [203, 213, 225])"
+  [style.--accent-text]="themeColor([79, 70, 229], [165, 180, 252])"
+  [style.--violet-text]="themeColor([124, 58, 237], [196, 181, 253])"
+  [style.--badge-background]="themeColor([238, 242, 255], [49, 46, 80])"
   [class.night-theme]="isDarkMode()"
 >
   <!-- HEADER -->
@@ -52,14 +55,15 @@
           type="button"
           class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition-colors hover:border-accent hover:text-accent dark:border-white/20 dark:text-slate-200 dark:hover:border-indigo-300 dark:hover:text-indigo-300"
           (click)="toggleDarkMode()"
-          [attr.aria-label]="isDarkMode() ? 'Tryb dzienny' : 'Tryb nocny'"
+          [attr.aria-label]="t(isDarkMode() ? 'theme.light' : 'theme.dark')"
+          [attr.aria-pressed]="isDarkMode()"
         >
           <ng-container *ngTemplateOutlet="themeIcon"></ng-container>
         </button>
         <button
           type="button"
           class="rounded-full border px-2.5 py-1 text-[0.8rem] font-semibold transition-colors"
-          [class]="locale() === 'pl' ? 'border-accent bg-accent text-white' : 'border-slate-200 text-slate-500 hover:border-accent hover:text-accent dark:border-white/20'"
+          [class]="locale() === 'pl' ? 'border-accent bg-accent text-white' : 'border-slate-200 text-slate-500 hover:border-accent hover:text-accent dark:border-white/20 dark:text-slate-200'"
           (click)="setLocale('pl')"
         >
           PL
@@ -67,7 +71,7 @@
         <button
           type="button"
           class="rounded-full border px-2.5 py-1 text-[0.8rem] font-semibold transition-colors"
-          [class]="locale() === 'en' ? 'border-accent bg-accent text-white' : 'border-slate-200 text-slate-500 hover:border-accent hover:text-accent dark:border-white/20'"
+          [class]="locale() === 'en' ? 'border-accent bg-accent text-white' : 'border-slate-200 text-slate-500 hover:border-accent hover:text-accent dark:border-white/20 dark:text-slate-200'"
           (click)="setLocale('en')"
         >
           EN
@@ -151,7 +155,8 @@
           type="button"
           class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-900/15 text-slate-500 dark:border-white/20 dark:bg-white/5 dark:text-slate-200"
           (click)="toggleDarkMode()"
-          [attr.aria-label]="isDarkMode() ? 'Tryb dzienny' : 'Tryb nocny'"
+          [attr.aria-label]="t(isDarkMode() ? 'theme.light' : 'theme.dark')"
+          [attr.aria-pressed]="isDarkMode()"
         >
           <ng-container *ngTemplateOutlet="themeIcon"></ng-container>
         </button>

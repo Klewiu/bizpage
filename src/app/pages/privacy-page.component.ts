@@ -77,7 +77,7 @@ import { SeoService } from '../seo.service';
 
     .eyebrow {
       margin: 0;
-      color: #7C3AED;
+      color: var(--violet-text, #7C3AED);
       font-size: 0.78rem;
       font-weight: 700;
       letter-spacing: 0.14em;

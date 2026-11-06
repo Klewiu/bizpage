@@ -46,7 +46,22 @@ import { SeoService } from '../seo.service';
         </a>
         </div>
 
-        <p class="contact-note">{{ t('contact.reply') }}</p>
+        <div class="social-details">
+          <h3>{{ t('contact.socialMedia') }}</h3>
+          <a class="contact-email" href="https://www.linkedin.com/company/wicky-wave-sp-z-o-o" target="_blank" rel="noopener noreferrer" [attr.aria-label]="t('contact.linkedin')">
+            <svg class="contact-email-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M20.45 2H3.55C2.69 2 2 2.68 2 3.52v16.96c0 .84.69 1.52 1.55 1.52h16.9c.86 0 1.55-.68 1.55-1.52V3.52c0-.84-.69-1.52-1.55-1.52ZM7.93 18.74H4.97V9.2h2.96v9.54ZM6.45 7.9a1.72 1.72 0 1 1 0-3.44 1.72 1.72 0 0 1 0 3.44Zm12.3 10.84h-2.96V14.1c0-1.11-.02-2.54-1.55-2.54-1.55 0-1.79 1.21-1.79 2.46v4.72H9.5V9.2h2.84v1.3h.04a3.11 3.11 0 0 1 2.8-1.54c3 0 3.56 1.97 3.56 4.53v5.25Z" />
+            </svg>
+            <span>LinkedIn</span>
+          </a>
+        </div>
+
+        <div class="company-details">
+          <h3>{{ t('contact.companyDetails') }}</h3>
+          <p>Wicky Wave Sp. z o.o.</p>
+          <p>ul. Ezopa 57, 04-805 Warszawa</p>
+          <p>{{ t('contact.taxId') }}: 9522290935</p>
+        </div>
       </div>
     </section>
   `,
@@ -65,7 +80,7 @@ import { SeoService } from '../seo.service';
       box-sizing: border-box;
       overflow: hidden;
       border-radius: 1.5rem;
-      background: #ffffff;
+      background: var(--card-background, #ffffff);
       padding: 2.25rem 1rem;
       text-align: center;
       box-shadow: 0 20px 45px -30px rgba(15, 23, 42, 0.35);
@@ -74,7 +89,7 @@ import { SeoService } from '../seo.service';
 
     .eyebrow {
       margin: 0;
-      color: #7C3AED;
+      color: var(--violet-text, #7C3AED);
       font-size: 0.78rem;
       font-weight: 700;
       letter-spacing: 0.14em;
@@ -110,7 +125,7 @@ import { SeoService } from '../seo.service';
       border-radius: 9999px;
       padding: 0.9rem 1.1rem;
       background: rgba(124, 58, 237, 0.1);
-      color: #7C3AED;
+      color: var(--violet-text, #7C3AED);
       font-size: clamp(0.8rem, 4vw, 1.3rem);
       font-weight: 700;
       text-decoration: none;
@@ -137,12 +152,34 @@ import { SeoService } from '../seo.service';
       flex-shrink: 0;
     }
 
-    .contact-note {
-      margin: 1.25rem auto 0;
-      max-width: 40ch;
+    .social-details {
+      margin-top: 2rem;
+    }
+
+    .social-details h3 {
+      margin: 0 0 0.75rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .company-details {
+      margin: 2rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid color-mix(in srgb, var(--card-copy, #475569) 22%, transparent);
+      color: var(--card-copy, #475569);
       font-size: 0.9rem;
-      color: #475569;
-      transition: color 300ms ease;
+      line-height: 1.6;
+    }
+
+    .company-details h3 {
+      margin: 0 0 0.5rem;
+      color: #0F172A;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .company-details p {
+      margin: 0.2rem 0;
     }
 
     @media (min-width: 768px) {

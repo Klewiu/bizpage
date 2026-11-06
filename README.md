@@ -36,6 +36,12 @@ ng build
 
 This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
+Firebase Hosting serves the static production build from `dist/bizpage/browser`.
+Unknown URLs use `public/404.html` as the custom HTTP 404 page; Angular also
+handles unknown routes during client-side navigation. Keep both error views
+consistent when updating their content. The sitemap and `llms` files should
+list only published routes.
+
 ## Running unit tests
 
 To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:

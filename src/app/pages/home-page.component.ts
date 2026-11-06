@@ -153,7 +153,7 @@ import { SeoService, SITE_NAME, SITE_URL } from '../seo.service';
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.2em;
-      color: #4F46E5;
+      color: var(--accent-text, #4F46E5);
     }
     .hero-title {
       margin-top: 1rem;
@@ -257,7 +257,7 @@ import { SeoService, SITE_NAME, SITE_URL } from '../seo.service';
       content: '—';
       position: absolute;
       left: 0;
-      color: #4F46E5;
+      color: var(--accent-text, #4F46E5);
       font-weight: 700;
     }
 
@@ -279,7 +279,7 @@ import { SeoService, SITE_NAME, SITE_URL } from '../seo.service';
       content: '✓';
       position: absolute;
       left: 0;
-      color: #4F46E5;
+      color: var(--accent-text, #4F46E5);
       font-weight: 700;
     }
 
@@ -308,7 +308,7 @@ import { SeoService, SITE_NAME, SITE_URL } from '../seo.service';
       content: '→';
       position: absolute;
       left: 0.8rem;
-      color: #4F46E5;
+      color: var(--accent-text, #4F46E5);
     }
 
     /* ── TECHNOLOGIE ───────────────────────────────────────── */
@@ -320,8 +320,8 @@ import { SeoService, SITE_NAME, SITE_URL } from '../seo.service';
     .tech-badge {
       overflow: hidden;
       border-radius: 9999px;
-      background: #EEF2FF;
-      color: #4F46E5;
+      background: var(--badge-background, #EEF2FF);
+      color: var(--accent-text, #4F46E5);
       font-size: 0.8125rem;
       font-weight: 600;
       padding: 0.35rem 0.9rem;

@@ -1,7 +1,7 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Injectable, PLATFORM_ID, effect, inject } from '@angular/core';
 import { CookieConsentService } from './cookie-consent.service';
-import { GOOGLE_ANALYTICS_MEASUREMENT_ID } from './google-analytics.config';
+import { GOOGLE_TAG_MANAGER_ID } from './google-analytics.config';
 
 const GOOGLE_TAG_SCRIPT_ID = 'google-analytics-gtag';
 const ANALYTICS_COOKIE_PREFIXES = ['_ga', '_gid', '_gat', '_gac_', '_gcl_'];
@@ -12,67 +12,61 @@ type AnalyticsWindow = Window & {
 };
 
 /**
- * Podstawowy Google Consent Mode:
- * - tag Google nie jest pobierany przed zgodą na analitykę,
- * - zgoda reklamowa i personalizacja pozostają zawsze wyłączone,
- * - cofnięcie zgody zatrzymuje kolekcję i usuwa cookies analityczne.
+ * Google Consent Mode v2 (tryb podstawowy):
+ * - GTM nie jest ładowany przed zgodą analityczną,
+ * - po zgodzie ustawiamy sygnały zgody przed załadowaniem kontenera,
+ * - zgody reklamowe pozostają zawsze "denied",
+ * - cofnięcie zgody przywraca "denied" i usuwa cookies analityczne.
  */
 @Injectable({ providedIn: 'root' })
 export class GoogleAnalyticsService {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly document = inject(DOCUMENT);
   private readonly consent = inject(CookieConsentService);
-  private readonly measurementId = GOOGLE_ANALYTICS_MEASUREMENT_ID.trim();
+  private readonly measurementId = GOOGLE_TAG_MANAGER_ID.trim();
 
   constructor() {
-    if (!isPlatformBrowser(this.platformId)) return;
-
-    effect(() => {
-      if (this.consent.choices().analytics) {
-        this.enableAnalytics();
-      } else {
-        this.disableAnalytics();
-      }
-    });
-  }
-
-  private enableAnalytics(): void {
-    if (!this.hasValidMeasurementId()) return;
+    if (!isPlatformBrowser(this.platformId) || !this.hasValidMeasurementId()) return;
 
     const analyticsWindow = this.document.defaultView as AnalyticsWindow | null;
     if (!analyticsWindow) return;
 
-    this.setCollectionDisabled(analyticsWindow, false);
-    this.ensureGtag(analyticsWindow);
+    effect(() => {
+      if (this.consent.choices().analytics) {
+        this.enableAnalytics(analyticsWindow);
+      } else {
+        if (this.document.getElementById(GOOGLE_TAG_SCRIPT_ID)) {
+          analyticsWindow.gtag?.('consent', 'update', this.deniedConsent());
+        }
+        this.clearAnalyticsCookies();
+      }
+    });
+  }
 
-    analyticsWindow.gtag?.('consent', 'default', this.deniedConsent());
+  private enableAnalytics(analyticsWindow: AnalyticsWindow): void {
+    const tagManagerLoaded = Boolean(this.document.getElementById(GOOGLE_TAG_SCRIPT_ID));
+
+    this.ensureGtag(analyticsWindow);
+    if (!tagManagerLoaded) {
+      analyticsWindow.gtag?.('consent', 'default', { ...this.deniedConsent(), wait_for_update: 500 });
+    }
     analyticsWindow.gtag?.('consent', 'update', {
       ...this.deniedConsent(),
       analytics_storage: 'granted'
     });
 
-    if (!this.document.getElementById(GOOGLE_TAG_SCRIPT_ID)) {
-      analyticsWindow.gtag?.('js', new Date());
-      analyticsWindow.gtag?.('config', this.measurementId);
-
-      const script = this.document.createElement('script');
-      script.id = GOOGLE_TAG_SCRIPT_ID;
-      script.async = true;
-      script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(this.measurementId)}`;
-      this.document.head.appendChild(script);
-    }
+    if (!tagManagerLoaded) this.loadTagManager(analyticsWindow);
   }
 
-  private disableAnalytics(): void {
-    const analyticsWindow = this.document.defaultView as AnalyticsWindow | null;
+  private loadTagManager(analyticsWindow: AnalyticsWindow): void {
+    analyticsWindow.gtag?.('js', new Date());
+    analyticsWindow.dataLayer?.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
 
-    if (analyticsWindow && this.hasValidMeasurementId()) {
-      this.setCollectionDisabled(analyticsWindow, true);
-      analyticsWindow.gtag?.('consent', 'update', this.deniedConsent());
-    }
-
-    this.document.getElementById(GOOGLE_TAG_SCRIPT_ID)?.remove();
-    this.clearAnalyticsCookies();
+    const script = this.document.createElement('script');
+    script.id = GOOGLE_TAG_SCRIPT_ID;
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(this.measurementId)}`;
+    this.document.head.appendChild(script);
   }
 
   private ensureGtag(analyticsWindow: AnalyticsWindow): void {
@@ -81,11 +75,6 @@ export class GoogleAnalyticsService {
     analyticsWindow.gtag ??= function gtag(..._args: unknown[]): void {
       analyticsWindow.dataLayer?.push(arguments);
     };
-  }
-
-  private setCollectionDisabled(analyticsWindow: AnalyticsWindow, disabled: boolean): void {
-    const state = analyticsWindow as unknown as Record<string, unknown>;
-    state[`ga-disable-${this.measurementId}`] = disabled;
   }
 
   private clearAnalyticsCookies(): void {
@@ -109,7 +98,7 @@ export class GoogleAnalyticsService {
   }
 
   private hasValidMeasurementId(): boolean {
-    return /^G-[A-Z0-9]+$/i.test(this.measurementId);
+    return /^GTM-[A-Z0-9]+$/i.test(this.measurementId);
   }
 
   private deniedConsent(): Record<string, 'denied'> {

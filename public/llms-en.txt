@@ -13,11 +13,9 @@ and AI-generated answers.
 ## Pages
 
 - [Home](https://wickywave.pl/): overview of services, the delivery process, and the technology stack.
-- [Services](https://wickywave.pl/offer): web applications, websites (landing pages), administration panels, automation, API integrations, and post-launch support.
+- [Services](https://wickywave.pl/#uslugi): web applications, websites (landing pages), administration panels, automation, API integrations, and post-launch support.
 - [Xoaila — active SaaS](https://wickywave.pl/aktywne-saas): a SaaS product for monitoring and building brand visibility in search engines and AI.
-- [About us](https://wickywave.pl/about-us): information about the company and its approach to project delivery.
-- [News](https://wickywave.pl/news): case studies, guides, and product updates.
-- [Contact](https://wickywave.pl/contact): contact details and form, email kontakt@wickywave.pl, phone 516 551 316 / 500 083 971.
+- [Contact](https://wickywave.pl/contact): contact details, email kontakt@wickywave.pl, phone 516 551 316 / 500 083 971.
 - [Privacy policy](https://wickywave.pl/privacy-policy): rules for processing personal data and cookies.
 
 ## Notes

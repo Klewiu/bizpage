@@ -3,6 +3,7 @@ import { Injectable, PLATFORM_ID, inject, signal } from '@angular/core';
 
 const STORAGE_KEY = 'cookie-consent';
 const CONSENT_VERSION = 1;
+const CONSENT_MAX_AGE_MS = 365 * 24 * 60 * 60 * 1000;
 
 export interface CookieConsentChoices {
   /** Niezbędne cookies – zawsze aktywne, wymagane do działania strony. */
@@ -93,6 +94,11 @@ export class CookieConsentService {
       if (!raw) return null;
       const parsed = JSON.parse(raw) as StoredConsent;
       if (parsed.version !== CONSENT_VERSION || !parsed.choices) return null;
+      const decidedAt = Date.parse(parsed.decidedAt);
+      if (Number.isNaN(decidedAt) || Date.now() - decidedAt > CONSENT_MAX_AGE_MS) {
+        localStorage.removeItem(STORAGE_KEY);
+        return null;
+      }
       return parsed;
     } catch {
       return null;
