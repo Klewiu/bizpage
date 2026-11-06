@@ -104,7 +104,10 @@ import { I18nService } from './i18n/i18n.service';
       border-radius: 1rem;
       background: var(--card-background, #ffffff);
       padding: 1.25rem 1.5rem;
-      box-shadow: 0 20px 45px -20px rgba(15, 23, 42, 0.55);
+      border: 1px solid color-mix(in srgb, var(--card-copy, #475569) 45%, transparent);
+      box-shadow:
+        0 0 0 4px color-mix(in srgb, var(--card-copy, #475569) 12%, transparent),
+        0 18px 50px -8px rgba(0, 0, 0, 0.55);
     }
 
     .cookie-text {
@@ -136,23 +139,23 @@ import { I18nService } from './i18n/i18n.service';
       border: none;
     }
 
-    .cookie-btn-decline,
     .cookie-btn-manage {
       background: transparent;
       color: var(--card-copy, #475569);
       border: 1px solid color-mix(in srgb, var(--card-copy, #475569) 35%, transparent);
     }
 
-    .cookie-btn-decline:hover,
     .cookie-btn-manage:hover {
       background: color-mix(in srgb, var(--card-copy, #475569) 10%, transparent);
     }
 
+    .cookie-btn-decline,
     .cookie-btn-accept {
       background: #7C3AED;
       color: #ffffff;
     }
 
+    .cookie-btn-decline:hover,
     .cookie-btn-accept:hover {
       background: #6D28D9;
     }
