@@ -12,7 +12,7 @@ export interface SeoTags {
   description: string;
   /** Opcjonalna ścieżka do obrazu OG/Twitter (względem SITE_URL). */
   image?: string;
-  /** Opcjonalne wymuszenie ścieżki canonical (np. '/' dla strony głównej zamiast '/home'). */
+  /** Opcjonalne wymuszenie ścieżki canonical (np. '/' dla strony głównej). */
   canonicalPath?: string;
 }
 

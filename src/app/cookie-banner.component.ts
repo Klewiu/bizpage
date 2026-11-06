@@ -28,14 +28,14 @@ import { I18nService } from './i18n/i18n.service';
             {{ t('cookie.text') }}
             <a routerLink="/privacy-policy" class="cookie-link">{{ t('cookie.policyLink') }}</a>
           </p>
-          <div class="cookie-actions">
-            <button type="button" class="cookie-btn cookie-btn-manage" (click)="consent.openPreferences()">
+          <div class="cookie-actions flex-col sm:flex-row">
+            <button type="button" class="cookie-btn cookie-btn-manage w-full sm:w-auto" (click)="consent.openPreferences()">
               {{ t('cookie.manage') }}
             </button>
-            <button type="button" class="cookie-btn cookie-btn-decline" (click)="consent.rejectAll()">
+            <button type="button" class="cookie-btn cookie-btn-decline w-full sm:w-auto" (click)="consent.rejectAll()">
               {{ t('cookie.decline') }}
             </button>
-            <button type="button" class="cookie-btn cookie-btn-accept" (click)="consent.acceptAll()">
+            <button type="button" class="cookie-btn cookie-btn-accept w-full sm:w-auto" (click)="consent.acceptAll()">
               {{ t('cookie.accept') }}
             </button>
           </div>
@@ -72,14 +72,14 @@ import { I18nService } from './i18n/i18n.service';
               <p class="cookie-category-desc">{{ t('cookie.analytics.desc') }}</p>
             </div>
 
-            <div class="cookie-actions">
-              <button type="button" class="cookie-btn cookie-btn-decline" (click)="consent.rejectAll()">
+            <div class="cookie-actions mt-6 flex-col sm:flex-row">
+              <button type="button" class="cookie-btn cookie-btn-decline w-full sm:w-auto" (click)="consent.rejectAll()">
                 {{ t('cookie.decline') }}
               </button>
-              <button type="button" class="cookie-btn cookie-btn-manage" (click)="save()">
+              <button type="button" class="cookie-btn cookie-btn-manage w-full sm:w-auto" (click)="save()">
                 {{ t('cookie.save') }}
               </button>
-              <button type="button" class="cookie-btn cookie-btn-accept" (click)="consent.acceptAll()">
+              <button type="button" class="cookie-btn cookie-btn-accept w-full sm:w-auto" (click)="consent.acceptAll()">
                 {{ t('cookie.accept') }}
               </button>
             </div>

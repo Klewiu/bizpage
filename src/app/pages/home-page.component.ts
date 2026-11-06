@@ -26,7 +26,9 @@ import { SeoService, SITE_NAME, SITE_URL } from '../seo.service';
       <p class="eyebrow">{{ t('home.eyebrow') }}</p>
       <h1 class="theme-heading hero-title">{{ t('home.title') }}</h1>
       <p class="theme-copy hero-lead">{{ t('home.subtitle') }}</p>
-      <a routerLink="/contact" class="hero-cta">{{ t('home.hero.cta') }}</a>
+      <div class="max-sm:portrait:flex max-sm:portrait:justify-center">
+        <a routerLink="/contact" class="hero-cta">{{ t('home.hero.cta') }}</a>
+      </div>
     </section>
 
     <!-- SEKCJA: Problemy – czy któryś brzmi znajomo? -->

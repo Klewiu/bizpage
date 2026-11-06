@@ -14,10 +14,11 @@ describe('App', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render brand name', () => {
+  it('should render the brand logo', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.textContent).toContain('WickyWave Software');
+    const logo = compiled.querySelector<HTMLImageElement>('img[src="/wickylogoline.png"]');
+    expect(logo?.alt).toBe('WickyWave Software');
   });
 });
