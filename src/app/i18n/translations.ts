@@ -165,6 +165,11 @@ export const translations: Record<string, Record<Locale, string>> = {
   },
   'contact.companyDetails': { pl: 'Dane firmy', en: 'Company details' },
   'contact.taxId': { pl: 'NIP', en: 'Tax ID' },
+  'contact.socialMedia': { pl: 'Social Media', en: 'Social Media' },
+  'contact.linkedin': { pl: 'Wicky Wave na LinkedIn (otwiera się w nowej karcie)', en: 'Wicky Wave on LinkedIn (opens in a new tab)' },
+  'notFound.title': { pl: 'Nie znaleziono strony', en: 'Page not found' },
+  'notFound.body': { pl: 'Ta strona nie istnieje lub została usunięta.', en: 'This page does not exist or has been removed.' },
+  'notFound.home': { pl: 'Wróć na stronę główną', en: 'Back to home' },
   'contact.loading': { pl: 'Ładowanie', en: 'Loading' },
   'contact.cta': { pl: 'Napisz: kontakt@wickywave.pl', en: 'Email us: kontakt@wickywave.pl' },
   'footer.copy': {

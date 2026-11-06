@@ -46,6 +46,16 @@ import { SeoService } from '../seo.service';
         </a>
         </div>
 
+        <div class="social-details">
+          <h3>{{ t('contact.socialMedia') }}</h3>
+          <a class="contact-email" href="https://www.linkedin.com/company/wicky-wave-sp-z-o-o" target="_blank" rel="noopener noreferrer" [attr.aria-label]="t('contact.linkedin')">
+            <svg class="contact-email-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M20.45 2H3.55C2.69 2 2 2.68 2 3.52v16.96c0 .84.69 1.52 1.55 1.52h16.9c.86 0 1.55-.68 1.55-1.52V3.52c0-.84-.69-1.52-1.55-1.52ZM7.93 18.74H4.97V9.2h2.96v9.54ZM6.45 7.9a1.72 1.72 0 1 1 0-3.44 1.72 1.72 0 0 1 0 3.44Zm12.3 10.84h-2.96V14.1c0-1.11-.02-2.54-1.55-2.54-1.55 0-1.79 1.21-1.79 2.46v4.72H9.5V9.2h2.84v1.3h.04a3.11 3.11 0 0 1 2.8-1.54c3 0 3.56 1.97 3.56 4.53v5.25Z" />
+            </svg>
+            <span>LinkedIn</span>
+          </a>
+        </div>
+
         <div class="company-details">
           <h3>{{ t('contact.companyDetails') }}</h3>
           <p>Wicky Wave Sp. z o.o.</p>
@@ -140,6 +150,16 @@ import { SeoService } from '../seo.service';
       width: 20px;
       height: 20px;
       flex-shrink: 0;
+    }
+
+    .social-details {
+      margin-top: 2rem;
+    }
+
+    .social-details h3 {
+      margin: 0 0 0.75rem;
+      font-size: 0.95rem;
+      font-weight: 700;
     }
 
     .company-details {
