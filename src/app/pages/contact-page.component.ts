@@ -46,7 +46,12 @@ import { SeoService } from '../seo.service';
         </a>
         </div>
 
-        <p class="contact-note">{{ t('contact.reply') }}</p>
+        <div class="company-details">
+          <h3>{{ t('contact.companyDetails') }}</h3>
+          <p>Wicky Wave Sp. z o.o.</p>
+          <p>ul. Ezopa 57, 04-805 Warszawa</p>
+          <p>{{ t('contact.taxId') }}: 9522290935</p>
+        </div>
       </div>
     </section>
   `,
@@ -129,12 +134,24 @@ import { SeoService } from '../seo.service';
       flex-shrink: 0;
     }
 
-    .contact-note {
-      margin: 1.25rem auto 0;
-      max-width: 40ch;
-      font-size: 0.9rem;
+    .company-details {
+      margin: 2rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e2e8f0;
       color: #475569;
-      transition: color 300ms ease;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .company-details h3 {
+      margin: 0 0 0.5rem;
+      color: #0F172A;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .company-details p {
+      margin: 0.2rem 0;
     }
 
     @media (min-width: 768px) {

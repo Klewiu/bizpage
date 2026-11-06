@@ -26,8 +26,8 @@ export const translations: Record<string, Record<Locale, string>> = {
   },
   'seo.contact.title': { pl: 'Kontakt — porozmawiajmy o Twoim projekcie | WickyWave', en: 'Contact — let\'s talk about your project | WickyWave' },
   'seo.contact.description': {
-    pl: 'Napisz do nas, aby omówić swój projekt. Odpowiadamy zwykle w ciągu jednego dnia roboczego.',
-    en: 'Reach out to discuss your project. We usually reply within one business day.'
+    pl: 'Napisz do nas, aby omówić swój projekt.',
+    en: 'Reach out to discuss your project.'
   },
   'seo.privacy.title': { pl: 'Polityka prywatności | WickyWave Software', en: 'Privacy policy | WickyWave Software' },
   'seo.privacy.description': {
@@ -154,17 +154,15 @@ export const translations: Record<string, Record<Locale, string>> = {
   'xoaila.soon': { pl: 'Usługa będzie dostępna wkrótce.', en: 'The service will be available soon.' },
   'contact.title': { pl: 'Kontakt', en: 'Contact' },
   'contact.body': {
-    pl: 'Opowiedz nam o swoim celu. Odpowiadamy zwykle w ciągu jednego dnia roboczego.',
-    en: 'Tell us about your goal. We usually reply within one business day.'
+    pl: 'Opowiedz nam o swoim celu.',
+    en: 'Tell us about your goal.'
   },
   'contact.prompt': {
     pl: 'Porozmawiajmy o Twoim projekcie.',
     en: 'Let’s talk about your project.'
   },
-  'contact.reply': {
-    pl: 'Odpowiadamy zwykle w ciągu jednego dnia roboczego.',
-    en: 'We usually reply within one business day.'
-  },
+  'contact.companyDetails': { pl: 'Dane firmy', en: 'Company details' },
+  'contact.taxId': { pl: 'NIP', en: 'Tax ID' },
   'contact.loading': { pl: 'Ładowanie', en: 'Loading' },
   'contact.cta': { pl: 'Napisz: kontakt@wickywave.pl', en: 'Email us: kontakt@wickywave.pl' },
   'footer.copy': {
