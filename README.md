@@ -42,6 +42,16 @@ handles unknown routes during client-side navigation. Keep both error views
 consistent when updating their content. The sitemap and `llms` files should
 list only published routes.
 
+## SEO and prerendering
+
+The production build prerenders the published routes, including their canonical
+URLs, metadata and JSON-LD in the HTML returned before JavaScript runs. Company
+structured data is maintained in `src/app/app.ts`. When adding or removing a
+published route, update both `public/sitemap.xml` and `public/sitemap.txt`, as
+well as the relevant `llms` files. Both sitemaps are advertised in `robots.txt`.
+The root `favicon.ico` is used by browsers for non-HTML resources; keep it in
+sync with the brand favicon referenced by the HTML pages.
+
 ## Running unit tests
 
 To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:

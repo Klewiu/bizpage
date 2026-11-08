@@ -38,12 +38,24 @@ export class App {
   constructor() {
     this.seo.setJsonLd('organization', {
       '@context': 'https://schema.org',
-      '@type': 'Organization',
+      '@type': 'Corporation',
+      '@id': `${SITE_URL}/#organization`,
       name: SITE_NAME,
-      url: SITE_URL,
+      legalName: 'WICKY WAVE SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ',
+      url: `${SITE_URL}/`,
       email: 'kontakt@wickywave.pl',
       description:
-        'Software house tworzący dedykowane aplikacje webowe, panele administracyjne i systemy wewnętrzne.'
+        'Tworzenie dedykowanych aplikacji webowych, systemów B2B, platform SaaS oraz integracji API.',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Warszawa',
+        addressRegion: 'mazowieckie',
+        addressCountry: 'PL'
+      },
+      areaServed: {
+        '@type': 'Country',
+        name: 'Poland'
+      }
     });
 
     this.seo.setJsonLd('website', {

@@ -3,3 +3,4 @@ Allow: /
 
 # Pliki pomocnicze dla wyszukiwarek i modeli AI
 Sitemap: https://wickywave.pl/sitemap.xml
+Sitemap: https://wickywave.pl/sitemap.txt

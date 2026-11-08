@@ -16,6 +16,19 @@ describe('App', () => {
     expect(app).toBeTruthy();
   });
 
+  it('publishes the company structured data', () => {
+    TestBed.createComponent(App);
+    const script = document.querySelector<HTMLScriptElement>('#jsonld-organization');
+    expect(script?.type).toBe('application/ld+json');
+    const data = JSON.parse(script?.textContent ?? '{}');
+    expect(data['@type']).toBe('Corporation');
+    expect(data['@id']).toBe('https://wickywave.pl/#organization');
+    expect(data.legalName).toBe('WICKY WAVE SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ');
+    expect(data.address.addressLocality).toBe('Warszawa');
+    expect(data.address.addressCountry).toBe('PL');
+    expect(data.areaServed.name).toBe('Poland');
+  });
+
   it('should render the brand logo', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
