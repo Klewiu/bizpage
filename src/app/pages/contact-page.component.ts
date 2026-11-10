@@ -1,4 +1,4 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, OnDestroy, effect, inject } from '@angular/core';
 import { I18nService } from '../i18n/i18n.service';
 import { SeoService } from '../seo.service';
 
@@ -200,7 +200,7 @@ import { SeoService } from '../seo.service';
     }
   `]
 })
-export class ContactPageComponent {
+export class ContactPageComponent implements OnDestroy {
   private readonly i18n = inject(I18nService);
   private readonly seo = inject(SeoService);
 
@@ -214,6 +214,7 @@ export class ContactPageComponent {
       this.seo.setJsonLd('contactpage', {
         '@context': 'https://schema.org',
         '@type': 'ContactPage',
+        inLanguage: this.i18n.locale(),
         name: this.t('seo.contact.title'),
         description: this.t('seo.contact.description')
       });
@@ -222,5 +223,9 @@ export class ContactPageComponent {
 
   t(key: string): string {
     return this.i18n.t(key);
+  }
+
+  ngOnDestroy(): void {
+    this.seo.removeJsonLd('contactpage');
   }
 }

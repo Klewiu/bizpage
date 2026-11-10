@@ -1,5 +1,5 @@
 import { NgFor, NgTemplateOutlet, isPlatformBrowser } from '@angular/common';
-import { Component, inject, signal, PLATFORM_ID } from '@angular/core';
+import { Component, effect, inject, signal, PLATFORM_ID } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { CookieBannerComponent } from './cookie-banner.component';
 import { CookieConsentService } from './cookie-consent.service';
@@ -36,14 +36,16 @@ export class App {
   ];
 
   constructor() {
-    this.seo.setJsonLd('organization', {
-      '@context': 'https://schema.org',
-      '@type': 'Organization',
-      name: SITE_NAME,
-      url: SITE_URL,
-      email: 'kontakt@wickywave.pl',
-      description:
-        'Software house tworzący dedykowane aplikacje webowe, panele administracyjne i systemy wewnętrzne.'
+    effect(() => {
+      this.seo.setJsonLd('organization', {
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        name: SITE_NAME,
+        url: SITE_URL,
+        email: 'kontakt@wickywave.pl',
+        description: this.t('seo.home.description'),
+        inLanguage: this.locale()
+      });
     });
 
     this.seo.setJsonLd('website', {
@@ -63,7 +65,16 @@ export class App {
   }
 
   protected setLocale(locale: Locale): void {
-    this.i18n.setLocale(locale);
+    const url = this.router.parseUrl(this.router.url);
+    const path = this.router.url.split(/[?#]/, 1)[0];
+    this.router.navigate([this.i18n.localizedPath(path, locale)], {
+      queryParams: url.queryParams,
+      fragment: url.fragment ?? undefined
+    });
+  }
+
+  protected localizedPath(path: string): string {
+    return this.i18n.localizedPath(path);
   }
 
   protected toggleMobileMenu(): void {
@@ -81,7 +92,7 @@ export class App {
   }
 
   protected isNavItemActive(item: { path: string; scrollTarget?: string }): boolean {
-    const currentPath = this.router.url.split(/[?#]/, 1)[0];
+    const currentPath = this.i18n.localizedPath(this.router.url.split(/[?#]/, 1)[0], 'pl');
 
     if (item.scrollTarget) {
       return currentPath === '/' && this.activeHomeSection() === 'offer';
@@ -106,10 +117,10 @@ export class App {
       window.scrollTo({ top, behavior: 'smooth' });
     };
 
-    if (this.router.url === '/') {
+    if (this.i18n.localizedPath(this.router.url.split(/[?#]/, 1)[0], 'pl') === '/') {
       doScroll();
     } else {
-      this.router.navigate(['/']).then(() => setTimeout(doScroll, 150));
+      this.router.navigate([this.localizedPath('/')]).then(() => setTimeout(doScroll, 150));
     }
   }
 

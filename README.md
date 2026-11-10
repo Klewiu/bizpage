@@ -44,15 +44,19 @@ list only published routes.
 
 ## Languages
 
-The site supports Polish, English and German. In the browser, Polish and
-German are selected from the browser language; other languages default to
-English. Prerendered pages default to Polish. Visitors can switch languages
-in the desktop or mobile menu; the selection lasts for the current session
-in the app and is not stored across page reloads.
+The site supports Polish, English and German. Polish pages use the existing
+unprefixed URLs; English and German pages use `/en` and `/de` respectively.
+Each published route is prerendered in all three languages and includes
+language-specific canonical and alternate links. The language switcher
+navigates to the equivalent localized URL, preserving query and fragment.
+Unprefixed URLs always display Polish, so crawlers and visitors see the same
+content. Internal links retain the selected language across navigation.
 
 Polish and English translations are in `src/app/i18n/translations.ts`, with
 German translations in `src/app/i18n/translations.de.ts`. When adding a key,
 provide all three translations.
+Update all three `public/llms*.txt` files and the sitemap when published
+pages or product descriptions change.
 
 ## Running unit tests
 

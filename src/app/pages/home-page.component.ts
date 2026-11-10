@@ -23,7 +23,7 @@ import { SeoService, SITE_NAME, SITE_URL } from '../seo.service';
     <div class="bg-stripes" aria-hidden="true"><span></span><span></span></div>
 
     <a
-      routerLink="/aktywne-saas"
+      [routerLink]="localizedPath('/aktywne-saas')"
       class="saas-tab fixed right-0 top-1/2 z-30 hidden -translate-y-1/2 rounded-l-2xl bg-indigo-600 px-4 py-4 text-sm font-semibold leading-snug text-white shadow-lg transition-colors hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 lg:block"
     >
       <span class="block">{{ t('home.saasTab.title') }}</span>
@@ -36,7 +36,7 @@ import { SeoService, SITE_NAME, SITE_URL } from '../seo.service';
       <h1 class="theme-heading hero-title">{{ t('home.title') }}</h1>
       <p class="theme-copy hero-lead">{{ t('home.subtitle') }}</p>
       <div class="max-sm:portrait:flex max-sm:portrait:justify-center">
-        <a routerLink="/contact" class="hero-cta">{{ t('home.hero.cta') }}</a>
+        <a [routerLink]="localizedPath('/contact')" class="hero-cta">{{ t('home.hero.cta') }}</a>
       </div>
     </section>
 
@@ -152,12 +152,12 @@ import { SeoService, SITE_NAME, SITE_URL } from '../seo.service';
       <div class="cta-block">
         <h2 class="cta-title">{{ t('home.cta.title') }}</h2>
         <p class="cta-body">{{ t('home.cta.body') }}</p>
-        <a routerLink="/contact" class="cta-btn">{{ t('home.cta.btn') }}</a>
+        <a [routerLink]="localizedPath('/contact')" class="cta-btn">{{ t('home.cta.btn') }}</a>
       </div>
     </section>
 
     <section class="mx-auto max-w-6xl px-6 pb-20 md:px-10 lg:hidden">
-      <a routerLink="/aktywne-saas" class="saas-banner block rounded-3xl bg-indigo-600 px-6 py-7 text-center text-white shadow-lg transition-colors hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+      <a [routerLink]="localizedPath('/aktywne-saas')" class="saas-banner block rounded-3xl bg-indigo-600 px-6 py-7 text-center text-white shadow-lg transition-colors hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
         <span class="block text-xl font-bold">{{ t('home.saasTab.title') }}</span>
         <span class="mt-2 block text-sm leading-relaxed text-indigo-100">{{ t('home.saasBanner.description') }}</span>
         <span class="mt-4 inline-block font-semibold">{{ t('home.saasTab.action') }} <span aria-hidden="true">→</span></span>
@@ -451,10 +451,13 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
       });
     });
 
-    this.seo.setJsonLd('breadcrumb', {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [{ '@type': 'ListItem', position: 1, name: SITE_NAME, item: `${SITE_URL}/` }]
+    effect(() => {
+      this.seo.setJsonLd('breadcrumb', {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        inLanguage: this.i18n.locale(),
+        itemListElement: [{ '@type': 'ListItem', position: 1, name: SITE_NAME, item: `${SITE_URL}${this.i18n.localizedPath('/')}` }]
+      });
     });
   }
 
@@ -495,6 +498,10 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
 
   t(key: string): string {
     return this.i18n.t(key);
+  }
+
+  localizedPath(path: string): string {
+    return this.i18n.localizedPath(path);
   }
 
   headingWords(key: string): string[] {
@@ -544,5 +551,6 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.slideObserver?.disconnect();
+    this.seo.removeJsonLd('breadcrumb');
   }
 }

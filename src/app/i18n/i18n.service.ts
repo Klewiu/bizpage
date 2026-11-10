@@ -26,6 +26,11 @@ export class I18nService {
     this.document.documentElement.lang = locale;
   }
 
+  localizedPath(path: string, locale: Locale = this.locale()): string {
+    const unprefixedPath = path.replace(/^\/(en|de)(?=\/|$)/, '') || '/';
+    return locale === 'pl' ? unprefixedPath : `/${locale}${unprefixedPath === '/' ? '' : unprefixedPath}`;
+  }
+
   t(key: string): string {
     const locale = this.localeSignal();
     if (locale === 'de') {

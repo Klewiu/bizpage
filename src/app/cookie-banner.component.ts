@@ -26,7 +26,7 @@ import { I18nService } from './i18n/i18n.service';
         @if (!consent.showPreferences()) {
           <p class="cookie-text">
             {{ t('cookie.text') }}
-            <a routerLink="/privacy-policy" class="cookie-link">{{ t('cookie.policyLink') }}</a>
+            <a [routerLink]="localizedPath('/privacy-policy')" class="cookie-link">{{ t('cookie.policyLink') }}</a>
           </p>
           <div class="cookie-actions flex-col sm:flex-row">
             <button type="button" class="cookie-btn cookie-btn-manage w-full sm:w-auto" (click)="consent.openPreferences()">
@@ -272,5 +272,9 @@ export class CookieBannerComponent {
 
   protected t(key: string): string {
     return this.i18n.t(key);
+  }
+
+  protected localizedPath(path: string): string {
+    return this.i18n.localizedPath(path);
   }
 }

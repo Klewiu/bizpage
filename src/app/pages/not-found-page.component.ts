@@ -12,7 +12,7 @@ import { I18nService } from '../i18n/i18n.service';
       <p class="error-code">404</p>
       <h1>{{ t('notFound.title') }}</h1>
       <p>{{ t('notFound.body') }}</p>
-      <a routerLink="/">{{ t('notFound.home') }}</a>
+      <a [routerLink]="localizedPath('/')">{{ t('notFound.home') }}</a>
     </section>
   `,
   styles: [`
@@ -71,5 +71,9 @@ export class NotFoundPageComponent implements OnDestroy {
 
   t(key: string): string {
     return this.i18n.t(key);
+  }
+
+  localizedPath(path: string): string {
+    return this.i18n.localizedPath(path);
   }
 }

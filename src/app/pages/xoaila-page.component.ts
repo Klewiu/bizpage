@@ -1,4 +1,4 @@
-﻿import { Component, effect, inject } from '@angular/core';
+import { Component, OnDestroy, effect, inject } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { I18nService } from '../i18n/i18n.service';
@@ -12,7 +12,7 @@ import { SeoService } from '../seo.service';
     <div class="bg-stripes" aria-hidden="true"><span></span><span></span></div>
     <div class="saas-shell">
       <section class="saas-card">
-        <a class="logo-link" href="https://midgrator.pl/">
+        <a class="logo-link mid-grator-link" href="https://midgrator.pl/">
           <img class="mid-grator-logo" src="/mid-grator-logo.jpg" alt="Mid-Grator" width="640" height="160">
         </a>
 
@@ -26,7 +26,7 @@ import { SeoService } from '../seo.service';
       </section>
 
       <section class="saas-card">
-        <a class="logo-link" routerLink="/" aria-label="Xoaila home">
+        <a class="logo-link" [routerLink]="localizedPath('/')" aria-label="Xoaila home">
           <span class="logo-word">xoaila</span>
           <span class="logo-mark" aria-hidden="true"></span>
         </a>
@@ -73,7 +73,7 @@ import { SeoService } from '../seo.service';
 
       .mid-grator-logo {
         display: block;
-        width: min(100%, 20rem);
+        width: 100%;
         height: auto;
         border-radius: 0.5rem;
       }
@@ -87,8 +87,12 @@ import { SeoService } from '../seo.service';
         }
       }
 
+      .mid-grator-link {
+        width: min(100%, 10rem);
+      }
+
       .logo-word {
-        font-size: clamp(2rem, 4vw, 2.5rem);
+        font-size: 2rem;
         font-weight: 800;
         letter-spacing: -0.04em;
         line-height: 1;
@@ -107,12 +111,12 @@ import { SeoService } from '../seo.service';
 
       @media (max-width: 640px) {
         .logo-word {
-          font-size: 2.75rem;
+          font-size: 2rem;
         }
 
         .logo-mark {
-          width: 0.8rem;
-          height: 0.8rem;
+          width: 0.625rem;
+          height: 0.625rem;
         }
       }
 
@@ -193,7 +197,7 @@ import { SeoService } from '../seo.service';
     `
   ]
 })
-export class XoailaPageComponent {
+export class XoailaPageComponent implements OnDestroy {
   private readonly i18n = inject(I18nService);
   private readonly seo = inject(SeoService);
 
@@ -212,6 +216,7 @@ export class XoailaPageComponent {
         '@graph': [
           {
             '@type': 'SoftwareApplication',
+            inLanguage: this.i18n.locale(),
             name: 'Mid-Grator',
             url: 'https://midgrator.pl/',
             applicationCategory: 'BusinessApplication',
@@ -220,6 +225,7 @@ export class XoailaPageComponent {
           },
           {
             '@type': 'SoftwareApplication',
+            inLanguage: this.i18n.locale(),
             name: 'Xoaila',
             applicationCategory: 'BusinessApplication',
             operatingSystem: 'Web',
@@ -232,5 +238,13 @@ export class XoailaPageComponent {
 
   t(key: string): string {
     return this.i18n.t(key);
+  }
+
+  localizedPath(path: string): string {
+    return this.i18n.localizedPath(path);
+  }
+
+  ngOnDestroy(): void {
+    this.seo.removeJsonLd('softwareapp');
   }
 }

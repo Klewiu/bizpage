@@ -42,13 +42,46 @@ describe('Published routes', () => {
     expect(harness.routeNativeElement?.textContent).toContain('Wir entwickeln Webanwendungen');
     expect(TestBed.inject(Title).getTitle()).toContain('individuelle Webanwendungen');
     expect(TestBed.inject(Meta).getTag('name="description"')?.content).toContain('Wir entwickeln');
-    await harness.navigateByUrl('/aktywne-saas', XoailaPageComponent);
+    await harness.navigateByUrl('/de/aktywne-saas', XoailaPageComponent);
     expect(harness.routeNativeElement?.textContent).toContain('ZUM SERVICE');
     expect(harness.routeNativeElement?.textContent).toContain('SERVICESTART IN KÜRZE');
-    await harness.navigateByUrl('/privacy-policy', PrivacyPageComponent);
+    await harness.navigateByUrl('/de/privacy-policy', PrivacyPageComponent);
     expect(harness.routeNativeElement?.textContent).toContain('Datenschutzerklärung');
     expect(harness.routeNativeElement?.textContent).toContain('Google Consent Mode v2');
     expect(TestBed.inject(Title).getTitle()).toContain('Datenschutzerklärung');
+  });
+
+  it('uses localized canonical, alternate links, keywords and JSON-LD', async () => {
+    const harness = await RouterTestingHarness.create();
+    const meta = TestBed.inject(Meta);
+    for (const [prefix, locale, keyword] of [
+      ['', 'pl', 'tworzenie oprogramowania'],
+      ['/en', 'en', 'software development'],
+      ['/de', 'de', 'Softwareentwicklung']
+    ]) {
+      await harness.navigateByUrl(prefix || '/', HomePageComponent);
+      expect(document.documentElement.lang).toBe(locale);
+      expect(meta.getTag('name="keywords"')?.content).toContain(keyword);
+      expect(document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.href)
+        .toBe(`https://wickywave.pl${prefix || '/'}`);
+      expect(document.querySelector<HTMLLinkElement>('link[hreflang="de"]')?.href)
+        .toBe('https://wickywave.pl/de');
+      const breadcrumb = JSON.parse(document.getElementById('jsonld-breadcrumb')!.textContent!);
+      expect(breadcrumb.inLanguage).toBe(locale);
+      expect(breadcrumb.itemListElement[0].item).toBe(`https://wickywave.pl${prefix || '/'}`);
+    }
+
+    await harness.navigateByUrl('/de/aktywne-saas', XoailaPageComponent);
+    expect(document.getElementById('jsonld-breadcrumb')).toBeNull();
+    expect(document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.href)
+      .toBe('https://wickywave.pl/de/aktywne-saas');
+    expect(document.querySelector<HTMLLinkElement>('link[hreflang="en"]')?.href)
+      .toBe('https://wickywave.pl/en/aktywne-saas');
+    const software = JSON.parse(document.getElementById('jsonld-softwareapp')!.textContent!);
+    expect(software['@graph'][0].inLanguage).toBe('de');
+    expect(software['@graph'][0].description).toContain('Großhändlern');
+    await harness.navigateByUrl('/de/privacy-policy', PrivacyPageComponent);
+    expect(document.getElementById('jsonld-softwareapp')).toBeNull();
   });
 
   it('shows 404 for removed and unknown routes and restores robots on navigation', async () => {

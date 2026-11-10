@@ -1,13 +1,14 @@
 import { TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { Router, provideRouter } from '@angular/router';
 import { App } from './app';
 import { I18nService } from './i18n/i18n.service';
+import { routes } from './app.routes';
 
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
-      providers: [provideRouter([])],
+      providers: [provideRouter(routes)],
     }).compileComponents();
   });
 
@@ -25,7 +26,7 @@ describe('App', () => {
     expect(logo?.alt).toBe('WickyWave Software');
   });
 
-  it('switches to German from both language menus', () => {
+  it('switches to German from both language menus', async () => {
     const fixture = TestBed.createComponent(App);
     const i18n = TestBed.inject(I18nService);
     i18n.setLocale('pl');
@@ -34,13 +35,15 @@ describe('App', () => {
     const germanButtons = Array.from(compiled.querySelectorAll('button')).filter(button => button.textContent?.trim() === 'DE');
     expect(germanButtons.length).toBe(2);
     germanButtons[0].click();
+    await fixture.whenStable();
     fixture.detectChanges();
     expect(i18n.locale()).toBe('de');
     expect(document.documentElement.lang).toBe('de');
     expect(compiled.textContent).toContain('Aktive SaaS-Produkte');
-    i18n.setLocale('en');
+    await TestBed.inject(Router).navigateByUrl('/en');
     fixture.detectChanges();
     germanButtons[1].click();
+    await fixture.whenStable();
     fixture.detectChanges();
     expect(i18n.locale()).toBe('de');
     expect(compiled.textContent).toContain('Datenschutzerklärung');

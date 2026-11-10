@@ -33,14 +33,14 @@
     class="site-header sticky top-0 z-40 border-b border-slate-200 bg-white transition-colors duration-500 dark:border-white/10 dark:bg-[rgba(18,24,40,0.94)] dark:backdrop-blur-md"
   >
     <div class="relative mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-10 lg:py-4">
-      <a routerLink="/" (click)="closeMobileMenu(); activeHomeSection.set('home')" aria-label="WickyWave Software">
+      <a [routerLink]="localizedPath('/')" (click)="closeMobileMenu(); activeHomeSection.set('home')" aria-label="WickyWave Software">
         <ng-container *ngTemplateOutlet="logo"></ng-container>
       </a>
 
       <nav class="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 lg:flex" [attr.aria-label]="t('menu.mainLabel')">
         <a
           *ngFor="let item of navItems"
-          [routerLink]="item.scrollTarget ? null : item.path"
+          [routerLink]="item.scrollTarget ? null : localizedPath(item.path)"
           [class.menu-link-active]="isNavItemActive(item)"
           (click)="handleNavClick(item)"
           class="whitespace-nowrap rounded-full px-3.5 py-1.5 text-sm font-medium text-slate-800 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white [&.menu-link-active]:bg-indigo-50 [&.menu-link-active]:font-semibold [&.menu-link-active]:text-accent dark:[&.menu-link-active]:bg-indigo-500/20 dark:[&.menu-link-active]:text-indigo-300"
@@ -116,7 +116,7 @@
       [attr.aria-label]="t('menu.mobileLabel')"
     >
       <div class="flex items-center justify-between">
-        <a routerLink="/" (click)="closeMobileMenu(); activeHomeSection.set('home')" aria-label="WickyWave Software">
+        <a [routerLink]="localizedPath('/')" (click)="closeMobileMenu(); activeHomeSection.set('home')" aria-label="WickyWave Software">
           <ng-container *ngTemplateOutlet="logo"></ng-container>
         </a>
         <button
@@ -132,7 +132,7 @@
       <div class="my-4 grid flex-1 content-center gap-3 sm:grid-cols-2 sm:gap-4">
         <a
           *ngFor="let item of navItems"
-          [routerLink]="item.scrollTarget ? null : item.path"
+          [routerLink]="item.scrollTarget ? null : localizedPath(item.path)"
           [fragment]="undefined"
           [class.menu-link-active]="isNavItemActive(item)"
           (click)="handleNavClick(item)"
@@ -198,12 +198,12 @@
       <span>{{ t("footer.brand") }}</span>
       <span>{{ t("footer.tagline") }}</span>
       <div class="flex flex-wrap justify-center gap-x-3 gap-y-1">
-        <a routerLink="/privacy-policy" class="text-violet-300 underline underline-offset-2 hover:text-white">{{ t("footer.privacyLink") }}</a>
+        <a [routerLink]="localizedPath('/privacy-policy')" class="text-violet-300 underline underline-offset-2 hover:text-white">{{ t("footer.privacyLink") }}</a>
         <button type="button" class="text-violet-300 underline underline-offset-2 hover:text-white" (click)="openCookiePreferences()">
           {{ t("footer.cookieSettings") }}
         </button>
       </div>
-      <a routerLink="/" (click)="scrollHomeToTop()" class="mt-4 inline-flex" [attr.aria-label]="t('brand.homeLabel')">
+      <a [routerLink]="localizedPath('/')" (click)="scrollHomeToTop()" class="mt-4 inline-flex" [attr.aria-label]="t('brand.homeLabel')">
         <img src="/logoW.png" alt="WickyWave Software" class="h-16 w-auto" />
       </a>
     </div>
@@ -211,12 +211,12 @@
     <div class="relative z-10 mx-auto hidden max-w-6xl items-center justify-between text-white landscape:flex md:flex">
       <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
         <span>{{ t("footer.copy") }}</span>
-        <a routerLink="/privacy-policy" class="text-violet-300 underline underline-offset-2 hover:text-white">{{ t("footer.privacyLink") }}</a>
+        <a [routerLink]="localizedPath('/privacy-policy')" class="text-violet-300 underline underline-offset-2 hover:text-white">{{ t("footer.privacyLink") }}</a>
         <button type="button" class="text-violet-300 underline underline-offset-2 hover:text-white" (click)="openCookiePreferences()">
           {{ t("footer.cookieSettings") }}
         </button>
       </div>
-      <a routerLink="/" (click)="scrollHomeToTop()" class="ml-6 inline-flex shrink-0" [attr.aria-label]="t('brand.homeLabel')">
+      <a [routerLink]="localizedPath('/')" (click)="scrollHomeToTop()" class="ml-6 inline-flex shrink-0" [attr.aria-label]="t('brand.homeLabel')">
         <img src="/logoW.png" alt="WickyWave Software" class="h-14 w-auto" />
       </a>
     </div>
