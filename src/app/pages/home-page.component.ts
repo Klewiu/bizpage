@@ -27,7 +27,7 @@ import { SeoService, SITE_NAME, SITE_URL } from '../seo.service';
       class="saas-tab fixed right-0 top-1/2 z-30 hidden -translate-y-1/2 rounded-l-2xl bg-indigo-600 px-4 py-4 text-sm font-semibold leading-snug text-white shadow-lg transition-colors hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 lg:block"
     >
       <span class="block">{{ t('home.saasTab.title') }}</span>
-      <span class="mt-1 block text-indigo-100">{{ t('home.saasTab.action') }} <span aria-hidden="true">→</span></span>
+      <span class="mt-1 block text-indigo-100">{{ t('home.saasTab.action') }}</span>
     </a>
 
     <!-- SEKCJA: Hero – główny nagłówek z CTA -->
@@ -148,20 +148,24 @@ import { SeoService, SITE_NAME, SITE_URL } from '../seo.service';
     </section>
 
     <!-- SEKCJA: CTA końcowe -->
-    <section class="mx-auto max-w-6xl px-6 pb-6 md:px-10 lg:pb-20">
+    <section class="mx-auto max-w-6xl px-6 pb-12 md:px-10 lg:pb-20">
       <div class="cta-block">
         <h2 class="cta-title">{{ t('home.cta.title') }}</h2>
         <p class="cta-body">{{ t('home.cta.body') }}</p>
         <a [routerLink]="localizedPath('/contact')" class="cta-btn">{{ t('home.cta.btn') }}</a>
+        <footer class="saas-banner-section mt-8 border-t border-white/20 pt-6 lg:hidden">
+          <a
+            [routerLink]="localizedPath('/aktywne-saas')"
+            class="saas-banner mx-auto flex max-w-6xl flex-col items-center gap-3 text-center text-white no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-violet-300 sm:flex-row sm:justify-between sm:gap-6 sm:text-left"
+          >
+            <span>
+              <span class="block text-lg font-bold">{{ t('home.saasTab.title') }}</span>
+              <span class="mt-1 block text-sm leading-relaxed text-indigo-100">{{ t('home.saasBanner.description') }}</span>
+            </span>
+            <span class="shrink-0 rounded-lg border border-violet-200/70 px-4 py-2 font-bold text-violet-100">{{ t('home.saasTab.action') }}</span>
+          </a>
+        </footer>
       </div>
-    </section>
-
-    <section class="mx-auto max-w-6xl px-6 pb-20 md:px-10 lg:hidden">
-      <a [routerLink]="localizedPath('/aktywne-saas')" class="saas-banner block rounded-3xl bg-indigo-600 px-6 py-7 text-center text-white shadow-lg transition-colors hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-        <span class="block text-xl font-bold">{{ t('home.saasTab.title') }}</span>
-        <span class="mt-2 block text-sm leading-relaxed text-indigo-100">{{ t('home.saasBanner.description') }}</span>
-        <span class="mt-4 inline-block font-semibold">{{ t('home.saasTab.action') }} <span aria-hidden="true">→</span></span>
-      </a>
     </section>
   `,
   styles: [`
@@ -401,7 +405,7 @@ import { SeoService, SITE_NAME, SITE_URL } from '../seo.service';
     .cta-block {
       border-radius: 1.25rem;
       background: linear-gradient(135deg, #4F46E5 0%, #3730A3 100%);
-      padding: 2.5rem 2rem;
+      padding: 2.5rem 2rem 1.5rem;
       text-align: center;
     }
     @media (min-width: 768px) {

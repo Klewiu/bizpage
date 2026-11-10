@@ -112,27 +112,34 @@ describe('Published routes', () => {
     expect(meta.getTag('name="keywords"')).toBeNull();
   });
 
-  it('links from the homepage SaaS tab and mobile banner to the product page in both languages', async () => {
+  it('links from the homepage SaaS tab and CTA footer to the product page in both languages', async () => {
     const i18n = TestBed.inject(I18nService);
     i18n.setLocale('pl');
     const harness = await RouterTestingHarness.create();
     await harness.navigateByUrl('/', HomePageComponent);
 
     const tab = harness.routeNativeElement!.querySelector<HTMLAnchorElement>('a.saas-tab')!;
-    const banner = harness.routeNativeElement!.querySelector<HTMLAnchorElement>('a.saas-banner')!;
+    const cta = harness.routeNativeElement!.querySelector<HTMLElement>('.cta-block')!;
+    const bannerSection = cta.querySelector<HTMLElement>('.saas-banner-section')!;
+    const banner = bannerSection.querySelector<HTMLAnchorElement>('a.saas-banner')!;
+    expect(cta.lastElementChild).toBe(bannerSection);
+    expect(bannerSection.tagName).toBe('FOOTER');
+    expect(bannerSection.classList.contains('lg:hidden')).toBeTrue();
     for (const link of [tab, banner]) {
       expect(link.getAttribute('href')).toBe('/aktywne-saas');
       expect(link.textContent).toContain('Nasze produkty SaaS');
-      expect(link.textContent).toContain('Sprawdź je');
+      expect(link.textContent).toContain('Kliknij i sprawdź');
+      expect(link.textContent).not.toContain('→');
     }
-    expect(banner.textContent).toContain('Poznaj nasze aplikacje');
+    expect(banner.textContent).toContain('Poznaj nasze gotowe aplikacje');
     i18n.setLocale('en');
     harness.detectChanges();
     for (const link of [tab, banner]) {
       expect(link.textContent).toContain('Our SaaS products');
-      expect(link.textContent).toContain('Explore them');
+      expect(link.textContent).toContain('Click to explore');
+      expect(link.textContent).not.toContain('→');
     }
-    expect(banner.textContent).toContain('Discover our applications');
+    expect(banner.textContent).toContain('Discover our ready-made applications');
 
     banner.click();
     await harness.fixture.whenStable();
@@ -159,7 +166,9 @@ describe('Published routes', () => {
     expect(sections.length).toBe(2);
     expect(sections[0].classList.contains('saas-card')).toBeTrue();
     expect(sections[1].classList.contains('saas-card')).toBeTrue();
-    const link = sections[0].querySelector<HTMLAnchorElement>('a');
+    expect(sections[0].firstElementChild?.tagName).toBe('HEADER');
+    expect(sections[1].firstElementChild?.tagName).toBe('HEADER');
+    const link = sections[0].querySelector<HTMLAnchorElement>('.saas-card-header a');
     expect(link?.href).toBe('https://midgrator.pl/');
     expect(link?.querySelector('img')?.getAttribute('src')).toBe('/mid-grator-logo.jpg');
     expect(link?.querySelector('img')?.alt).toBe('Mid-Grator');
@@ -168,10 +177,12 @@ describe('Published routes', () => {
     const visit = sections[0].querySelector<HTMLAnchorElement>('a.service-button');
     expect(visit?.href).toBe('https://midgrator.pl/');
     expect(visit?.textContent?.trim()).toBe('PRZEJDŹ DO SERWISU');
+    expect(sections[0].lastElementChild).toBe(visit);
     expect(sections[1].textContent).toContain('xoaila');
     const soon = sections[1].querySelector<HTMLButtonElement>('button.service-button');
     expect(soon?.disabled).toBeTrue();
     expect(soon?.textContent?.trim()).toBe('START USŁUGI WKRÓTCE');
+    expect(sections[1].lastElementChild).toBe(soon);
     expect(sections[1].textContent).not.toContain('Usługa będzie dostępna wkrótce.');
     expect(TestBed.inject(Title).getTitle()).toContain('Mid-Grator');
 

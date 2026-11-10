@@ -75,8 +75,8 @@ export const translations = {
   'home.subtitle': { pl: 'Projektujemy i rozwijamy dedykowane aplikacje B2B, platformy dla klientów oraz systemy wewnętrzne oparte na Django, Angular i nowoczesnych API. Dostarczamy rozwiązania, które automatyzują pracę, integrują dane i eliminują ograniczenia gotowych systemów.', en: 'We design and develop custom B2B applications, client platforms and internal systems built on Django, Angular and modern APIs — automating work, integrating data, and eliminating the limits of off-the-shelf software.' },
   'home.hero.cta': { pl: 'Porozmawiajmy o projekcie', en: 'Let\'s talk about your project' },
   'home.saasTab.title': { pl: 'Nasze produkty SaaS', en: 'Our SaaS products' },
-  'home.saasTab.action': { pl: 'Sprawdź je', en: 'Explore them' },
-  'home.saasBanner.description': { pl: 'Poznaj nasze aplikacje, które ułatwiają codzienną pracę.', en: 'Discover our applications designed to make everyday work easier.' },
+  'home.saasTab.action': { pl: 'Kliknij i sprawdź', en: 'Click to explore' },
+  'home.saasBanner.description': { pl: 'Poznaj nasze gotowe aplikacje, które ułatwiają codzienną pracę.', en: 'Discover our ready-made applications designed to make everyday work easier.' },
 
   // Problemy
   'home.problems.title':   { pl: 'Czy któryś z tych problemów brzmi znajomo?', en: 'Do any of these problems sound familiar?' },

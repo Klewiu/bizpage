@@ -12,9 +12,11 @@ import { SeoService } from '../seo.service';
     <div class="bg-stripes" aria-hidden="true"><span></span><span></span></div>
     <div class="saas-shell">
       <section class="saas-card">
-        <a class="logo-link mid-grator-link" href="https://midgrator.pl/">
-          <img class="mid-grator-logo" src="/mid-grator-logo.jpg" alt="Mid-Grator" width="640" height="160">
-        </a>
+        <header class="saas-card-header">
+          <a class="logo-link mid-grator-link" href="https://midgrator.pl/">
+            <img class="mid-grator-logo" src="/mid-grator-logo.jpg" alt="Mid-Grator" width="640" height="160">
+          </a>
+        </header>
 
         <p>{{ t('midgrator.body') }}</p>
 
@@ -26,10 +28,12 @@ import { SeoService } from '../seo.service';
       </section>
 
       <section class="saas-card">
-        <a class="logo-link" [routerLink]="localizedPath('/')" aria-label="Xoaila home">
-          <span class="logo-word">xoaila</span>
-          <span class="logo-mark" aria-hidden="true"></span>
-        </a>
+        <header class="saas-card-header">
+          <a class="logo-link" [routerLink]="localizedPath('/')" aria-label="Xoaila home">
+            <span class="logo-word">xoaila</span>
+            <span class="logo-mark" aria-hidden="true"></span>
+          </a>
+        </header>
 
         <p>{{ t('xoaila.body') }}</p>
 
@@ -61,6 +65,12 @@ import { SeoService } from '../seo.service';
         color: var(--card-copy, #334155);
         box-shadow: 0 20px 45px -30px rgba(15, 23, 42, 0.35);
         transition: color 500ms ease, background-color 500ms ease, border-color 500ms ease;
+      }
+
+      .saas-card-header {
+        margin-bottom: 1.25rem;
+        padding-bottom: 1.25rem;
+        border-bottom: 1px solid color-mix(in srgb, currentColor 12%, transparent);
       }
 
       .logo-link {
@@ -170,10 +180,11 @@ import { SeoService } from '../seo.service';
       }
 
       .saas-card li::before {
-        content: '→';
+        content: '✓';
         position: absolute;
         left: 0;
         color: var(--accent-text, #4F46E5);
+        font-weight: 700;
       }
 
       @media (max-width: 640px) {
@@ -192,6 +203,10 @@ import { SeoService } from '../seo.service';
         .saas-card li::before {
           position: static;
           margin-right: 0.5rem;
+        }
+
+        .saas-card-header .logo-link {
+          margin-inline: auto;
         }
       }
     `
