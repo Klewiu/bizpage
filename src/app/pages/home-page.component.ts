@@ -23,7 +23,7 @@ import { SeoService, SITE_NAME, SITE_URL } from '../seo.service';
 
     <a
       routerLink="/aktywne-saas"
-      class="fixed right-0 top-1/2 z-30 hidden -translate-y-1/2 rounded-l-2xl bg-indigo-600 px-4 py-4 text-sm font-semibold leading-snug text-white shadow-lg transition-colors hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 lg:block"
+      class="saas-tab fixed right-0 top-1/2 z-30 hidden -translate-y-1/2 rounded-l-2xl bg-indigo-600 px-4 py-4 text-sm font-semibold leading-snug text-white shadow-lg transition-colors hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 lg:block"
     >
       <span class="block">{{ t('home.saasTab.title') }}</span>
       <span class="mt-1 block text-indigo-100">{{ t('home.saasTab.action') }} <span aria-hidden="true">→</span></span>
@@ -146,12 +146,20 @@ import { SeoService, SITE_NAME, SITE_URL } from '../seo.service';
     </section>
 
     <!-- SEKCJA: CTA końcowe -->
-    <section class="mx-auto max-w-6xl px-6 pb-20 md:px-10">
+    <section class="mx-auto max-w-6xl px-6 pb-6 md:px-10 lg:pb-20">
       <div class="cta-block">
         <h2 class="cta-title">{{ t('home.cta.title') }}</h2>
         <p class="cta-body">{{ t('home.cta.body') }}</p>
         <a routerLink="/contact" class="cta-btn">{{ t('home.cta.btn') }}</a>
       </div>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-6 pb-20 md:px-10 lg:hidden">
+      <a routerLink="/aktywne-saas" class="saas-banner block rounded-3xl bg-indigo-600 px-6 py-7 text-center text-white shadow-lg transition-colors hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+        <span class="block text-xl font-bold">{{ t('home.saasTab.title') }}</span>
+        <span class="mt-2 block text-sm leading-relaxed text-indigo-100">{{ t('home.saasBanner.description') }}</span>
+        <span class="mt-4 inline-block font-semibold">{{ t('home.saasTab.action') }} <span aria-hidden="true">→</span></span>
+      </a>
     </section>
   `,
   styles: [`

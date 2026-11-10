@@ -53,21 +53,29 @@ describe('Published routes', () => {
     expect(meta.getTag('name="keywords"')).toBeNull();
   });
 
-  it('links from the homepage SaaS tab to the product page in both languages', async () => {
+  it('links from the homepage SaaS tab and mobile banner to the product page in both languages', async () => {
     const i18n = TestBed.inject(I18nService);
     i18n.setLocale('pl');
     const harness = await RouterTestingHarness.create();
     await harness.navigateByUrl('/', HomePageComponent);
 
-    const link = harness.routeNativeElement!.querySelector<HTMLAnchorElement>('a[href="/aktywne-saas"]')!;
-    expect(link.textContent).toContain('Nasze produkty SaaS');
-    expect(link.textContent).toContain('Sprawdź je');
+    const tab = harness.routeNativeElement!.querySelector<HTMLAnchorElement>('a.saas-tab')!;
+    const banner = harness.routeNativeElement!.querySelector<HTMLAnchorElement>('a.saas-banner')!;
+    for (const link of [tab, banner]) {
+      expect(link.getAttribute('href')).toBe('/aktywne-saas');
+      expect(link.textContent).toContain('Nasze produkty SaaS');
+      expect(link.textContent).toContain('Sprawdź je');
+    }
+    expect(banner.textContent).toContain('Poznaj nasze aplikacje');
     i18n.setLocale('en');
     harness.detectChanges();
-    expect(link.textContent).toContain('Our SaaS products');
-    expect(link.textContent).toContain('Explore them');
+    for (const link of [tab, banner]) {
+      expect(link.textContent).toContain('Our SaaS products');
+      expect(link.textContent).toContain('Explore them');
+    }
+    expect(banner.textContent).toContain('Discover our applications');
 
-    link.click();
+    banner.click();
     await harness.fixture.whenStable();
     expect(harness.routeNativeElement?.querySelectorAll('.saas-card').length).toBe(2);
   });

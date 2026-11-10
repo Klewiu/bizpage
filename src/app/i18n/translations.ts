@@ -71,6 +71,7 @@ export const translations: Record<string, Record<Locale, string>> = {
   'home.hero.cta': { pl: 'Porozmawiajmy o projekcie', en: 'Let\'s talk about your project' },
   'home.saasTab.title': { pl: 'Nasze produkty SaaS', en: 'Our SaaS products' },
   'home.saasTab.action': { pl: 'Sprawdź je', en: 'Explore them' },
+  'home.saasBanner.description': { pl: 'Poznaj nasze aplikacje, które ułatwiają codzienną pracę.', en: 'Discover our applications designed to make everyday work easier.' },
 
   // Problemy
   'home.problems.title':   { pl: 'Czy któryś z tych problemów brzmi znajomo?', en: 'Do any of these problems sound familiar?' },
