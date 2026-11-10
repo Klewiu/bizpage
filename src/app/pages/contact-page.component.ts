@@ -1,4 +1,4 @@
-﻿import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { I18nService } from '../i18n/i18n.service';
 import { SeoService } from '../seo.service';
 
@@ -205,16 +205,18 @@ export class ContactPageComponent {
   private readonly seo = inject(SeoService);
 
   constructor() {
-    this.seo.updateTags({
-      title: this.t('seo.contact.title'),
-      description: this.t('seo.contact.description')
-    });
+    effect(() => {
+      this.seo.updateTags({
+        title: this.t('seo.contact.title'),
+        description: this.t('seo.contact.description')
+      });
 
-    this.seo.setJsonLd('contactpage', {
-      '@context': 'https://schema.org',
-      '@type': 'ContactPage',
-      name: this.t('seo.contact.title'),
-      description: this.t('seo.contact.description')
+      this.seo.setJsonLd('contactpage', {
+        '@context': 'https://schema.org',
+        '@type': 'ContactPage',
+        name: this.t('seo.contact.title'),
+        description: this.t('seo.contact.description')
+      });
     });
   }
 

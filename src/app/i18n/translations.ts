@@ -1,6 +1,6 @@
-export type Locale = 'pl' | 'en';
+export type Locale = 'pl' | 'en' | 'de';
 
-export const translations: Record<string, Record<Locale, string>> = {
+export const translations = {
   'brand.name': { pl: 'WickyWave Software', en: 'WickyWave Software' },
 
   // ── SEO: tytuły i meta-opisy (title ≤60 znaków, description ≤160 znaków) ──
@@ -51,6 +51,11 @@ export const translations: Record<string, Record<Locale, string>> = {
   'menu.news': { pl: 'Aktualności', en: 'News' },
   'menu.contact': { pl: 'Kontakt', en: 'Contact' },
   'menu.cta': { pl: 'Umów rozmowę', en: 'Book a call' },
+  'menu.mainLabel': { pl: 'Menu główne', en: 'Main menu' },
+  'menu.mobileLabel': { pl: 'Menu mobilne', en: 'Mobile menu' },
+  'menu.open': { pl: 'Otwórz menu', en: 'Open mobile menu' },
+  'menu.close': { pl: 'Zamknij menu', en: 'Close mobile menu' },
+  'brand.homeLabel': { pl: 'WickyWave Software — strona główna', en: 'WickyWave Software — home' },
   'theme.light': { pl: 'Włącz tryb jasny', en: 'Switch to light mode' },
   'theme.dark': { pl: 'Włącz tryb ciemny', en: 'Switch to dark mode' },
   'ocean.tagline': {
@@ -108,6 +113,7 @@ export const translations: Record<string, Record<Locale, string>> = {
   'home.tech.title':    { pl: 'Technologie, które wybieramy pod potrzeby projektu', en: 'Technologies we select based on project needs' },
   'home.tech.sublabel': { pl: 'Pracujemy głównie z:', en: 'We primarily work with:' },
   'home.tech.closing':  { pl: 'Technologia jest dla nas narzędziem. Najpierw projektujemy rozwiązanie biznesowe, dopiero później dobieramy odpowiedni stos technologiczny.', en: 'Technology is a tool for us. We design the business solution first, then choose the appropriate technology stack.' },
+  'home.tech.iot': { pl: 'IoT – integracje sprzętowe', en: 'IoT – hardware integrations' },
 
   // Jak pracujemy
   'home.process.title':       { pl: 'Przejrzysty proces. Jedna odpowiedzialność.', en: 'Clear process. Single point of accountability.' },
@@ -201,6 +207,7 @@ export const translations: Record<string, Record<Locale, string>> = {
     pl: 'Ta strona wykorzystuje pliki cookie niezbędne do jej działania. Google Analytics uruchamiamy wyłącznie po uzyskaniu Twojej zgody. Możesz zaakceptować analitykę, odrzucić ją lub dostosować swój wybór.',
     en: 'This site uses cookies required for it to function. We only load Google Analytics after you give consent. You can accept analytics, decline it, or customize your choice.'
   },
+  'cookie.dialogLabel': { pl: 'Zgoda na pliki cookie', en: 'Cookie consent' },
   'cookie.accept': { pl: 'Akceptuję wszystkie', en: 'Accept all' },
   'cookie.decline': { pl: 'Odrzuć opcjonalne', en: 'Decline optional' },
   'cookie.manage': { pl: 'Dostosuj', en: 'Customize' },
@@ -284,4 +291,4 @@ export const translations: Record<string, Record<Locale, string>> = {
     pl: 'W sprawie realizacji swoich praw lub pytań dotyczących niniejszej polityki napisz do nas: kontakt@wickywave.pl.',
     en: 'To exercise your rights or ask any questions about this policy, contact us at: kontakt@wickywave.pl.'
   }
-};
+} satisfies Record<string, Record<'pl' | 'en', string>>;

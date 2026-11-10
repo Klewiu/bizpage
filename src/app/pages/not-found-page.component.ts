@@ -1,4 +1,4 @@
-import { Component, OnDestroy, inject } from '@angular/core';
+import { Component, OnDestroy, effect, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { I18nService } from '../i18n/i18n.service';
@@ -56,7 +56,8 @@ export class NotFoundPageComponent implements OnDestroy {
   private readonly previousRobots = this.meta.getTag('name="robots"')?.getAttribute('content');
 
   constructor() {
-    inject(Title).setTitle(`404 — ${this.t('notFound.title')} | WickyWave`);
+    const title = inject(Title);
+    effect(() => title.setTitle(`404 — ${this.t('notFound.title')} | WickyWave`));
     this.meta.updateTag({ name: 'robots', content: 'noindex, follow' });
   }
 

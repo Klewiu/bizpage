@@ -42,6 +42,18 @@ handles unknown routes during client-side navigation. Keep both error views
 consistent when updating their content. The sitemap and `llms` files should
 list only published routes.
 
+## Languages
+
+The site supports Polish, English and German. In the browser, Polish and
+German are selected from the browser language; other languages default to
+English. Prerendered pages default to Polish. Visitors can switch languages
+in the desktop or mobile menu; the selection lasts for the current session
+in the app and is not stored across page reloads.
+
+Polish and English translations are in `src/app/i18n/translations.ts`, with
+German translations in `src/app/i18n/translations.de.ts`. When adding a key,
+provide all three translations.
+
 ## Running unit tests
 
 To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:

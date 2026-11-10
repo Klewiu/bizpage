@@ -21,7 +21,7 @@ import { I18nService } from './i18n/i18n.service';
         [class.cookie-banner-simple]="!consent.showPreferences()"
         role="dialog"
         aria-live="polite"
-        aria-label="Zgoda na pliki cookie"
+        [attr.aria-label]="t('cookie.dialogLabel')"
       >
         @if (!consent.showPreferences()) {
           <p class="cookie-text">

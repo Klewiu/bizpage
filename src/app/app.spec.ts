@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { App } from './app';
+import { I18nService } from './i18n/i18n.service';
 
 describe('App', () => {
   beforeEach(async () => {
@@ -22,6 +23,27 @@ describe('App', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const logo = compiled.querySelector<HTMLImageElement>('img[src="/wickylogoline.png"]');
     expect(logo?.alt).toBe('WickyWave Software');
+  });
+
+  it('switches to German from both language menus', () => {
+    const fixture = TestBed.createComponent(App);
+    const i18n = TestBed.inject(I18nService);
+    i18n.setLocale('pl');
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const germanButtons = Array.from(compiled.querySelectorAll('button')).filter(button => button.textContent?.trim() === 'DE');
+    expect(germanButtons.length).toBe(2);
+    germanButtons[0].click();
+    fixture.detectChanges();
+    expect(i18n.locale()).toBe('de');
+    expect(document.documentElement.lang).toBe('de');
+    expect(compiled.textContent).toContain('Aktive SaaS-Produkte');
+    i18n.setLocale('en');
+    fixture.detectChanges();
+    germanButtons[1].click();
+    fixture.detectChanges();
+    expect(i18n.locale()).toBe('de');
+    expect(compiled.textContent).toContain('Datenschutzerklärung');
   });
 
   it('should switch page and card colors together with the theme from either menu', () => {

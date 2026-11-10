@@ -2,6 +2,7 @@
   AfterViewInit,
   Component,
   ElementRef,
+  effect,
   inject,
   OnDestroy,
   PLATFORM_ID,
@@ -102,6 +103,7 @@ import { SeoService, SITE_NAME, SITE_URL } from '../seo.service';
       <p class="section-sublabel">{{ t('home.tech.sublabel') }}</p>
       <div class="tech-grid mt-4">
         <span *ngFor="let tech of techItems" class="tech-badge">{{ tech }}</span>
+        <span class="tech-badge">{{ t('home.tech.iot') }}</span>
       </div>
       <p class="theme-copy closing-note mt-5">{{ t('home.tech.closing') }}</p>
     </section>
@@ -440,11 +442,13 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
   private slideObserver?: IntersectionObserver;
 
   constructor() {
-    this.seo.updateTags({
-      title: this.t('seo.home.title'),
-      description: this.t('seo.home.description'),
-      keywords: this.t('seo.home.keywords'),
-      canonicalPath: '/'
+    effect(() => {
+      this.seo.updateTags({
+        title: this.t('seo.home.title'),
+        description: this.t('seo.home.description'),
+        keywords: this.t('seo.home.keywords'),
+        canonicalPath: '/'
+      });
     });
 
     this.seo.setJsonLd('breadcrumb', {
@@ -474,7 +478,7 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
 
   readonly techItems = [
     'Django', 'Angular', 'Python', 'REST API',
-    'Machine Learning / AI', 'IoT – integracje sprzętowe'
+    'Machine Learning / AI'
   ];
 
   readonly processSteps = [

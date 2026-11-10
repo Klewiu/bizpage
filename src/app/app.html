@@ -37,7 +37,7 @@
         <ng-container *ngTemplateOutlet="logo"></ng-container>
       </a>
 
-      <nav class="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 lg:flex" aria-label="Main menu">
+      <nav class="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 lg:flex" [attr.aria-label]="t('menu.mainLabel')">
         <a
           *ngFor="let item of navItems"
           [routerLink]="item.scrollTarget ? null : item.path"
@@ -76,13 +76,21 @@
         >
           EN
         </button>
+        <button
+          type="button"
+          class="rounded-full border px-2.5 py-1 text-[0.8rem] font-semibold transition-colors"
+          [class]="locale() === 'de' ? 'border-accent bg-accent text-white' : 'border-slate-200 text-slate-500 hover:border-accent hover:text-accent dark:border-white/20 dark:text-slate-200'"
+          (click)="setLocale('de')"
+        >
+          DE
+        </button>
       </div>
 
       <button
         type="button"
         class="grid gap-1 rounded-lg border border-slate-200 p-2 dark:border-white/20 lg:hidden"
         (click)="toggleMobileMenu()"
-        aria-label="Open mobile menu"
+        [attr.aria-label]="t('menu.open')"
       >
         <span class="block h-0.5 w-[18px] rounded-sm bg-slate-700 dark:bg-slate-200"></span>
         <span class="block h-0.5 w-[18px] rounded-sm bg-slate-700 dark:bg-slate-200"></span>
@@ -105,7 +113,7 @@
     <nav
       class="absolute inset-0 flex flex-col overflow-y-auto bg-white px-4 py-4 text-slate-900 transition-transform duration-200 dark:bg-slate-900 dark:text-slate-50 sm:px-6 sm:py-6"
       [class.-translate-y-full]="!isMobileMenuOpen()"
-      aria-label="Mobile menu"
+      [attr.aria-label]="t('menu.mobileLabel')"
     >
       <div class="flex items-center justify-between">
         <a routerLink="/" (click)="closeMobileMenu(); activeHomeSection.set('home')" aria-label="WickyWave Software">
@@ -115,7 +123,7 @@
           type="button"
           class="p-2 text-lg leading-none text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-50"
           (click)="closeMobileMenu()"
-          aria-label="Close mobile menu"
+          [attr.aria-label]="t('menu.close')"
         >
           ✕
         </button>
@@ -153,6 +161,14 @@
         </button>
         <button
           type="button"
+          class="h-11 flex-1 rounded-full border text-sm font-semibold transition-colors"
+          [class]="locale() === 'de' ? 'border-accent bg-accent text-white' : 'border-slate-900/15 text-slate-500 dark:border-white/20 dark:bg-white/5 dark:text-slate-200'"
+          (click)="setLocale('de')"
+        >
+          DE
+        </button>
+        <button
+          type="button"
           class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-900/15 text-slate-500 dark:border-white/20 dark:bg-white/5 dark:text-slate-200"
           (click)="toggleDarkMode()"
           [attr.aria-label]="t(isDarkMode() ? 'theme.light' : 'theme.dark')"
@@ -187,7 +203,7 @@
           {{ t("footer.cookieSettings") }}
         </button>
       </div>
-      <a routerLink="/" (click)="scrollHomeToTop()" class="mt-4 inline-flex" aria-label="WickyWave Software — strona główna">
+      <a routerLink="/" (click)="scrollHomeToTop()" class="mt-4 inline-flex" [attr.aria-label]="t('brand.homeLabel')">
         <img src="/logoW.png" alt="WickyWave Software" class="h-16 w-auto" />
       </a>
     </div>
@@ -200,7 +216,7 @@
           {{ t("footer.cookieSettings") }}
         </button>
       </div>
-      <a routerLink="/" (click)="scrollHomeToTop()" class="ml-6 inline-flex shrink-0" aria-label="WickyWave Software — strona główna">
+      <a routerLink="/" (click)="scrollHomeToTop()" class="ml-6 inline-flex shrink-0" [attr.aria-label]="t('brand.homeLabel')">
         <img src="/logoW.png" alt="WickyWave Software" class="h-14 w-auto" />
       </a>
     </div>

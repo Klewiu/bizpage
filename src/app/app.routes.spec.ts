@@ -9,6 +9,8 @@ import { NotFoundPageComponent } from './pages/not-found-page.component';
 import { PrivacyPageComponent } from './pages/privacy-page.component';
 import { XoailaPageComponent } from './pages/xoaila-page.component';
 import { I18nService } from './i18n/i18n.service';
+import { translations } from './i18n/translations';
+import { germanTranslations } from './i18n/translations.de';
 
 describe('Published routes', () => {
   beforeEach(() => {
@@ -23,6 +25,30 @@ describe('Published routes', () => {
     expect(link?.target).toBe('_blank');
     expect(link?.rel).toContain('noopener');
     expect(link?.querySelector('svg')).toBeTruthy();
+  });
+
+  it('provides German translations for every translation key', () => {
+    expect(Object.keys(germanTranslations).sort()).toEqual(Object.keys(translations).sort());
+    expect(Object.values(germanTranslations).every(value => value.trim().length > 0)).toBeTrue();
+  });
+
+  it('updates page content and SEO when switching to German', async () => {
+    const i18n = TestBed.inject(I18nService);
+    i18n.setLocale('pl');
+    const harness = await RouterTestingHarness.create();
+    await harness.navigateByUrl('/', HomePageComponent);
+    i18n.setLocale('de');
+    harness.detectChanges();
+    expect(harness.routeNativeElement?.textContent).toContain('Wir entwickeln Webanwendungen');
+    expect(TestBed.inject(Title).getTitle()).toContain('individuelle Webanwendungen');
+    expect(TestBed.inject(Meta).getTag('name="description"')?.content).toContain('Wir entwickeln');
+    await harness.navigateByUrl('/aktywne-saas', XoailaPageComponent);
+    expect(harness.routeNativeElement?.textContent).toContain('ZUM SERVICE');
+    expect(harness.routeNativeElement?.textContent).toContain('SERVICESTART IN KÜRZE');
+    await harness.navigateByUrl('/privacy-policy', PrivacyPageComponent);
+    expect(harness.routeNativeElement?.textContent).toContain('Datenschutzerklärung');
+    expect(harness.routeNativeElement?.textContent).toContain('Google Consent Mode v2');
+    expect(TestBed.inject(Title).getTitle()).toContain('Datenschutzerklärung');
   });
 
   it('shows 404 for removed and unknown routes and restores robots on navigation', async () => {

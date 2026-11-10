@@ -1,4 +1,4 @@
-﻿import { Component, inject } from '@angular/core';
+﻿import { Component, effect, inject } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { I18nService } from '../i18n/i18n.service';
@@ -201,30 +201,32 @@ export class XoailaPageComponent {
   readonly midgratorPoints = ['midgrator.point1', 'midgrator.point2', 'midgrator.point3'];
 
   constructor() {
-    this.seo.updateTags({
-      title: this.t('seo.saas.title'),
-      description: this.t('seo.saas.description')
-    });
+    effect(() => {
+      this.seo.updateTags({
+        title: this.t('seo.saas.title'),
+        description: this.t('seo.saas.description')
+      });
 
-    this.seo.setJsonLd('softwareapp', {
-      '@context': 'https://schema.org',
-      '@graph': [
-        {
-          '@type': 'SoftwareApplication',
-          name: 'Mid-Grator',
-          url: 'https://midgrator.pl/',
-          applicationCategory: 'BusinessApplication',
-          operatingSystem: 'Web',
-          description: this.t('midgrator.body')
-        },
-        {
-          '@type': 'SoftwareApplication',
-          name: 'Xoaila',
-          applicationCategory: 'BusinessApplication',
-          operatingSystem: 'Web',
-          description: this.t('xoaila.body')
-        }
-      ]
+      this.seo.setJsonLd('softwareapp', {
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'SoftwareApplication',
+            name: 'Mid-Grator',
+            url: 'https://midgrator.pl/',
+            applicationCategory: 'BusinessApplication',
+            operatingSystem: 'Web',
+            description: this.t('midgrator.body')
+          },
+          {
+            '@type': 'SoftwareApplication',
+            name: 'Xoaila',
+            applicationCategory: 'BusinessApplication',
+            operatingSystem: 'Web',
+            description: this.t('xoaila.body')
+          }
+        ]
+      });
     });
   }
 
