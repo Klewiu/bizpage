@@ -21,6 +21,14 @@ import { SeoService, SITE_NAME, SITE_URL } from '../seo.service';
     <!-- TŁO: długi skośny pas rysowany wraz ze scrollem (style w styles.css) -->
     <div class="bg-stripes" aria-hidden="true"><span></span><span></span></div>
 
+    <a
+      routerLink="/aktywne-saas"
+      class="fixed right-0 top-1/2 z-30 hidden -translate-y-1/2 rounded-l-2xl bg-indigo-600 px-4 py-4 text-sm font-semibold leading-snug text-white shadow-lg transition-colors hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 lg:block"
+    >
+      <span class="block">{{ t('home.saasTab.title') }}</span>
+      <span class="mt-1 block text-indigo-100">{{ t('home.saasTab.action') }} <span aria-hidden="true">→</span></span>
+    </a>
+
     <!-- SEKCJA: Hero – główny nagłówek z CTA -->
     <section class="mx-auto max-w-6xl px-6 pt-10 pb-14 md:px-10 md:pt-16">
       <p class="eyebrow">{{ t('home.eyebrow') }}</p>

@@ -10,28 +10,57 @@ import { SeoService } from '../seo.service';
   imports: [NgFor, RouterLink],
   template: `
     <div class="bg-stripes" aria-hidden="true"><span></span><span></span></div>
-    <!-- SEKCJA: Xoaila – opis produktu SaaS + lista punktów -->
-    <section class="page-shell">
-      <a class="logo-link" routerLink="/" aria-label="Xoaila home">
-        <span class="logo-word">xoaila</span>
-        <span class="logo-mark" aria-hidden="true"></span>
-      </a>
+    <div class="saas-shell">
+      <section class="saas-card">
+        <a class="logo-link" href="https://midgrator.pl/">
+          <img class="mid-grator-logo" src="/mid-grator-logo.jpg" alt="Mid-Grator" width="640" height="160">
+        </a>
 
-      <p>{{ t('xoaila.body') }}</p>
+        <p>{{ t('midgrator.body') }}</p>
 
-      <ul>
-        <li *ngFor="let point of points">{{ t(point) }}</li>
-      </ul>
+        <ul>
+          <li *ngFor="let point of midgratorPoints">{{ t(point) }}</li>
+        </ul>
 
-      <p class="coming-soon">{{ t('xoaila.soon') }}</p>
-    </section>
+        <a class="service-button" href="https://midgrator.pl/">{{ t('midgrator.visit') }}</a>
+      </section>
+
+      <section class="saas-card">
+        <a class="logo-link" routerLink="/" aria-label="Xoaila home">
+          <span class="logo-word">xoaila</span>
+          <span class="logo-mark" aria-hidden="true"></span>
+        </a>
+
+        <p>{{ t('xoaila.body') }}</p>
+
+        <ul>
+          <li *ngFor="let point of points">{{ t(point) }}</li>
+        </ul>
+
+        <button class="service-button" type="button" disabled>{{ t('xoaila.soon') }}</button>
+      </section>
+    </div>
   `,
   styles: [
     `
-      .page-shell {
+      .saas-shell {
         margin: 0 auto;
         max-width: 72rem;
         padding: 3rem 1.5rem 6rem;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1.5rem;
+      }
+
+      .saas-card {
+        min-width: 0;
+        border: 1px solid color-mix(in srgb, var(--card-copy, #334155) 15%, transparent);
+        border-radius: 1.5rem;
+        background: var(--card-background, #fff);
+        padding: clamp(1.5rem, 4vw, 2.5rem);
+        color: var(--card-copy, #334155);
+        box-shadow: 0 20px 45px -30px rgba(15, 23, 42, 0.35);
+        transition: color 500ms ease, background-color 500ms ease, border-color 500ms ease;
       }
 
       .logo-link {
@@ -40,6 +69,22 @@ import { SeoService } from '../seo.service';
         gap: 0.25rem;
         flex-shrink: 0;
         text-decoration: none;
+      }
+
+      .mid-grator-logo {
+        display: block;
+        width: min(100%, 20rem);
+        height: auto;
+        border-radius: 0.5rem;
+      }
+
+      @media (max-width: 640px) {
+        .logo-link {
+          display: flex;
+          width: max-content;
+          max-width: 100%;
+          margin-inline: auto;
+        }
       }
 
       .logo-word {
@@ -60,38 +105,90 @@ import { SeoService } from '../seo.service';
         flex-shrink: 0;
       }
 
-      .page-shell h1 {
-        font-size: 2.25rem;
-        font-weight: 800;
-        color: #0F172A;
+      @media (max-width: 640px) {
+        .logo-word {
+          font-size: 2.75rem;
+        }
+
+        .logo-mark {
+          width: 0.8rem;
+          height: 0.8rem;
+        }
       }
 
-      .page-shell p {
+      .saas-card p {
         margin-top: 0.8rem;
         max-width: 68ch;
-        color: #475569;
         line-height: 1.75;
       }
 
-      .page-shell .coming-soon {
+      .service-button {
+        display: inline-block;
         margin-top: 1.75rem;
-        font-weight: 700;
+        border: 0;
+        border-radius: 0.625rem;
+        background: #4F46E5;
+        padding: 0.8rem 1.75rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #fff;
+        text-decoration: none;
+        transition: background 150ms ease;
       }
 
-      .page-shell ul {
+      .service-button:not(:disabled):hover {
+        background: #4338CA;
+      }
+
+      .service-button:focus-visible {
+        outline: 3px solid #818cf8;
+        outline-offset: 3px;
+      }
+
+      .service-button:disabled {
+        background: #64748b;
+        cursor: not-allowed;
+      }
+
+      .saas-card ul {
         margin-top: 1.4rem;
         display: grid;
         gap: 0.75rem;
+        list-style: none;
+        padding: 0;
       }
 
-      .page-shell li {
-        border-radius: 0.75rem;
-        border: 1px solid #E2E8F0;
-        background: #FFFFFF;
-        padding: 0.9rem 1.1rem;
+      .saas-card li {
+        position: relative;
+        padding-left: 1.5rem;
         font-weight: 500;
-        color: #334155;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        line-height: 1.65;
+      }
+
+      .saas-card li::before {
+        content: '→';
+        position: absolute;
+        left: 0;
+        color: var(--accent-text, #4F46E5);
+      }
+
+      @media (max-width: 640px) {
+        .saas-card {
+          text-align: center;
+        }
+
+        .saas-card p {
+          margin-inline: auto;
+        }
+
+        .saas-card li {
+          padding-left: 0;
+        }
+
+        .saas-card li::before {
+          position: static;
+          margin-right: 0.5rem;
+        }
       }
     `
   ]
@@ -101,20 +198,33 @@ export class XoailaPageComponent {
   private readonly seo = inject(SeoService);
 
   readonly points = ['xoaila.point1', 'xoaila.point2', 'xoaila.point3'];
+  readonly midgratorPoints = ['midgrator.point1', 'midgrator.point2', 'midgrator.point3'];
 
   constructor() {
     this.seo.updateTags({
-      title: this.t('seo.xoaila.title'),
-      description: this.t('seo.xoaila.description')
+      title: this.t('seo.saas.title'),
+      description: this.t('seo.saas.description')
     });
 
     this.seo.setJsonLd('softwareapp', {
       '@context': 'https://schema.org',
-      '@type': 'SoftwareApplication',
-      name: 'Xoaila',
-      applicationCategory: 'BusinessApplication',
-      operatingSystem: 'Web',
-      description: this.t('seo.xoaila.description')
+      '@graph': [
+        {
+          '@type': 'SoftwareApplication',
+          name: 'Mid-Grator',
+          url: 'https://midgrator.pl/',
+          applicationCategory: 'BusinessApplication',
+          operatingSystem: 'Web',
+          description: this.t('midgrator.body')
+        },
+        {
+          '@type': 'SoftwareApplication',
+          name: 'Xoaila',
+          applicationCategory: 'BusinessApplication',
+          operatingSystem: 'Web',
+          description: this.t('xoaila.body')
+        }
+      ]
     });
   }
 

@@ -38,10 +38,10 @@ export const translations: Record<string, Record<Locale, string>> = {
     pl: 'Dowiedz się, jak WickyWave Software przetwarza dane osobowe i pliki cookie zgodnie z RODO.',
     en: 'Learn how WickyWave Software processes personal data and cookies in compliance with GDPR.'
   },
-  'seo.xoaila.title': { pl: 'Xoaila — aktywny SaaS do pozycjonowania w AI | WickyWave', en: 'Xoaila — active SaaS for AI search visibility | WickyWave' },
-  'seo.xoaila.description': {
-    pl: 'Xoaila pomaga markom budować widoczność w nowym modelu wyszukiwania: od klasycznego SEO po odpowiedzi generowane przez AI.',
-    en: 'Xoaila helps brands build visibility in the new search model: from classic SEO to AI-generated answer surfaces.'
+  'seo.saas.title': { pl: 'Produkty SaaS Mid-Grator i Xoaila | WickyWave', en: 'Mid-Grator and Xoaila SaaS products | WickyWave' },
+  'seo.saas.description': {
+    pl: 'Poznaj Mid-Grator do integracji danych CSV oraz Xoaila — powstające narzędzie do budowania widoczności w wyszukiwarkach i AI.',
+    en: 'Discover Mid-Grator for CSV data integration and Xoaila, an upcoming tool for visibility in search engines and AI.'
   },
 
   'menu.home': { pl: 'Home', en: 'Home' },
@@ -69,6 +69,8 @@ export const translations: Record<string, Record<Locale, string>> = {
   'home.title':    { pl: 'Tworzymy aplikacje webowe, które usprawniają procesy i wspierają rozwój Twojego biznesu.', en: 'We build web applications that improve processes and support your business growth.' },
   'home.subtitle': { pl: 'Projektujemy i rozwijamy dedykowane aplikacje B2B, platformy dla klientów oraz systemy wewnętrzne oparte na Django, Angular i nowoczesnych API. Dostarczamy rozwiązania, które automatyzują pracę, integrują dane i eliminują ograniczenia gotowych systemów.', en: 'We design and develop custom B2B applications, client platforms and internal systems built on Django, Angular and modern APIs — automating work, integrating data, and eliminating the limits of off-the-shelf software.' },
   'home.hero.cta': { pl: 'Porozmawiajmy o projekcie', en: 'Let\'s talk about your project' },
+  'home.saasTab.title': { pl: 'Nasze produkty SaaS', en: 'Our SaaS products' },
+  'home.saasTab.action': { pl: 'Sprawdź je', en: 'Explore them' },
 
   // Problemy
   'home.problems.title':   { pl: 'Czy któryś z tych problemów brzmi znajomo?', en: 'Do any of these problems sound familiar?' },
@@ -149,15 +151,23 @@ export const translations: Record<string, Record<Locale, string>> = {
   'news.card1': { pl: 'Jak skracamy czas obsługi zamówienia o 43%', en: 'How we reduced order processing time by 43%' },
   'news.card2': { pl: 'Checklist MVP dla startupu B2B', en: 'MVP checklist for B2B startups' },
   'news.card3': { pl: 'Kiedy warto zamienić Excel na aplikację', en: 'When to replace spreadsheets with an app' },
-  'xoaila.title': { pl: 'Xoaila - aktywny SaaS pod nowoczesne pozycjonowanie AI', en: 'Xoaila - active SaaS for modern AI-first positioning' },
+  'midgrator.body': {
+    pl: 'Mid-Grator to aktywny produkt SaaS, który pomaga dopasować dane z plików CSV hurtowni do wymagań integratora sklepu lub firmy.',
+    en: 'Mid-Grator is an active SaaS product that helps adapt wholesaler CSV data to the requirements of your store or business integration.'
+  },
+  'midgrator.point1': { pl: 'Pobieranie pliku CSV hurtowni oraz wybór i zmiana nazw kolumn.', en: 'Import wholesaler CSV files, select columns and rename them.' },
+  'midgrator.point2': { pl: 'Zmiana wartości, przeliczanie cen i własne reguły dla danych.', en: 'Transform values, adjust prices and define custom data rules.' },
+  'midgrator.point3': { pl: 'Udostępnianie gotowego pliku pod indywidualnym linkiem i jego regularna aktualizacja.', en: 'Share the resulting file through a dedicated link and update it regularly.' },
+  'midgrator.visit': { pl: 'PRZEJDŹ DO SERWISU', en: 'VISIT THE SERVICE' },
+  'xoaila.title': { pl: 'Xoaila - SaaS pod nowoczesne pozycjonowanie AI', en: 'Xoaila - SaaS for modern AI-first positioning' },
   'xoaila.body': {
-    pl: 'Xoaila to aktywny produkt SaaS, który pomaga markom budować widoczność w nowym modelu wyszukiwania: od klasycznego SEO po odpowiedzi generowane przez AI.',
-    en: 'Xoaila is an active SaaS product helping brands build visibility in a new search model: from classic SEO to AI-generated answer surfaces.'
+    pl: 'Xoaila to powstający produkt SaaS, który pomoże markom budować widoczność w nowym modelu wyszukiwania: od klasycznego SEO po odpowiedzi generowane przez AI.',
+    en: 'Xoaila is an upcoming SaaS product designed to help brands build visibility in a new search model: from classic SEO to AI-generated answer surfaces.'
   },
   'xoaila.point1': { pl: 'Monitoring obecności marki w wynikach AI i wyszukiwarkach.', en: 'Brand visibility monitoring across AI answers and search engines.' },
   'xoaila.point2': { pl: 'Rekomendacje treści pod indeksowanie semantyczne i LLM.', en: 'Content recommendations for semantic indexing and LLM relevance.' },
   'xoaila.point3': { pl: 'Dashboard wzrostu widoczności i tematów, które konwertują.', en: 'Growth dashboard for visibility and conversion-ready topic clusters.' },
-  'xoaila.soon': { pl: 'Usługa będzie dostępna wkrótce.', en: 'The service will be available soon.' },
+  'xoaila.soon': { pl: 'START USŁUGI WKRÓTCE', en: 'SERVICE LAUNCHING SOON' },
   'contact.title': { pl: 'Kontakt', en: 'Contact' },
   'contact.body': {
     pl: 'Opowiedz nam o swoim celu.',
