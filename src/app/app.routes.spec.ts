@@ -27,6 +27,16 @@ describe('Published routes', () => {
     expect(link?.querySelector('svg')).toBeTruthy();
   });
 
+  it('shows the YouTube link on the contact page', async () => {
+    const harness = await RouterTestingHarness.create();
+    await harness.navigateByUrl('/contact', ContactPageComponent);
+    const link = harness.routeNativeElement?.querySelector<HTMLAnchorElement>('a[href="https://www.youtube.com/@WickyWave"]');
+    expect(link).toBeTruthy();
+    expect(link?.target).toBe('_blank');
+    expect(link?.rel).toContain('noopener');
+    expect(link?.querySelector('svg')).toBeTruthy();
+  });
+
   it('provides German translations for every translation key', () => {
     expect(Object.keys(germanTranslations).sort()).toEqual(Object.keys(translations).sort());
     expect(Object.values(germanTranslations).every(value => value.trim().length > 0)).toBeTrue();

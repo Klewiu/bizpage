@@ -124,6 +124,7 @@ export const germanTranslations = {
   'contact.taxId': 'Steuernummer (NIP)',
   'contact.socialMedia': 'Social Media',
   'contact.linkedin': 'Wicky Wave auf LinkedIn (öffnet sich in einem neuen Tab)',
+  'contact.youtube': 'Wicky Wave auf YouTube (öffnet sich in einem neuen Tab)',
   'notFound.title': 'Seite nicht gefunden',
   'notFound.body': 'Diese Seite existiert nicht oder wurde entfernt.',
   'notFound.home': 'Zurück zur Startseite',
