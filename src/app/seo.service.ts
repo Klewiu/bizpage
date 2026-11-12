@@ -2,6 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Injectable, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { I18nService } from './i18n/i18n.service';
 
 /** Publiczny adres produkcyjny strony – używany do canonical, Open Graph i JSON-LD. */
 export const SITE_URL = 'https://wickywave.pl';
@@ -27,11 +28,11 @@ export class SeoService {
   private readonly meta = inject(Meta);
   private readonly router = inject(Router);
   private readonly document = inject(DOCUMENT);
+  private readonly i18n = inject(I18nService);
 
   updateTags(tags: SeoTags): void {
-    const canonicalUrl = tags.canonicalPath
-      ? this.buildUrl(tags.canonicalPath)
-      : this.canonicalUrl();
+    const path = tags.canonicalPath || this.router.url.split(/[?#]/, 1)[0];
+    const canonicalUrl = this.buildUrl(this.i18n.localizedPath(path));
 
     this.title.setTitle(tags.title);
 
@@ -46,6 +47,8 @@ export class SeoService {
     this.meta.updateTag({ property: 'og:url', content: canonicalUrl });
     this.meta.updateTag({ property: 'og:site_name', content: SITE_NAME });
     this.meta.updateTag({ property: 'og:type', content: 'website' });
+    const ogLocales = { pl: 'pl_PL', en: 'en_US', de: 'de_DE' };
+    this.meta.updateTag({ property: 'og:locale', content: ogLocales[this.i18n.locale()] });
     this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
     this.meta.updateTag({ name: 'twitter:title', content: tags.title });
     this.meta.updateTag({ name: 'twitter:description', content: tags.description });
@@ -57,6 +60,7 @@ export class SeoService {
     }
 
     this.setCanonicalLink(canonicalUrl);
+    this.setAlternateLinks(path);
   }
 
   /** Wstrzykuje (lub podmienia) blok JSON-LD o podanym id w <head>. */
@@ -74,9 +78,8 @@ export class SeoService {
     script.textContent = JSON.stringify(data);
   }
 
-  private canonicalUrl(): string {
-    const path = this.router.url.split('?')[0].split('#')[0];
-    return this.buildUrl(path);
+  removeJsonLd(id: string): void {
+    this.document.getElementById(`jsonld-${id}`)?.remove();
   }
 
   private buildUrl(path: string): string {
@@ -93,5 +96,18 @@ export class SeoService {
     }
 
     link.setAttribute('href', url);
+  }
+
+  private setAlternateLinks(path: string): void {
+    for (const locale of ['pl', 'en', 'de', 'x-default'] as const) {
+      let link = this.document.querySelector<HTMLLinkElement>(`link[rel="alternate"][hreflang="${locale}"]`);
+      if (!link) {
+        link = this.document.createElement('link');
+        link.rel = 'alternate';
+        link.hreflang = locale;
+        this.document.head.appendChild(link);
+      }
+      link.href = this.buildUrl(this.i18n.localizedPath(path, locale === 'x-default' ? 'pl' : locale));
+    }
   }
 }

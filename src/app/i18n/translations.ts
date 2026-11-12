@@ -1,6 +1,6 @@
-export type Locale = 'pl' | 'en';
+export type Locale = 'pl' | 'en' | 'de';
 
-export const translations: Record<string, Record<Locale, string>> = {
+export const translations = {
   'brand.name': { pl: 'WickyWave Software', en: 'WickyWave Software' },
 
   // ── SEO: tytuły i meta-opisy (title ≤60 znaków, description ≤160 znaków) ──
@@ -38,10 +38,10 @@ export const translations: Record<string, Record<Locale, string>> = {
     pl: 'Dowiedz się, jak WickyWave Software przetwarza dane osobowe i pliki cookie zgodnie z RODO.',
     en: 'Learn how WickyWave Software processes personal data and cookies in compliance with GDPR.'
   },
-  'seo.xoaila.title': { pl: 'Xoaila — aktywny SaaS do pozycjonowania w AI | WickyWave', en: 'Xoaila — active SaaS for AI search visibility | WickyWave' },
-  'seo.xoaila.description': {
-    pl: 'Xoaila pomaga markom budować widoczność w nowym modelu wyszukiwania: od klasycznego SEO po odpowiedzi generowane przez AI.',
-    en: 'Xoaila helps brands build visibility in the new search model: from classic SEO to AI-generated answer surfaces.'
+  'seo.saas.title': { pl: 'Produkty SaaS Mid-Grator i Xoaila | WickyWave', en: 'Mid-Grator and Xoaila SaaS products | WickyWave' },
+  'seo.saas.description': {
+    pl: 'Poznaj Mid-Grator do integracji danych CSV oraz Xoaila — powstające narzędzie do budowania widoczności w wyszukiwarkach i AI.',
+    en: 'Discover Mid-Grator for CSV data integration and Xoaila, an upcoming tool for visibility in search engines and AI.'
   },
 
   'menu.home': { pl: 'Home', en: 'Home' },
@@ -51,6 +51,11 @@ export const translations: Record<string, Record<Locale, string>> = {
   'menu.news': { pl: 'Aktualności', en: 'News' },
   'menu.contact': { pl: 'Kontakt', en: 'Contact' },
   'menu.cta': { pl: 'Umów rozmowę', en: 'Book a call' },
+  'menu.mainLabel': { pl: 'Menu główne', en: 'Main menu' },
+  'menu.mobileLabel': { pl: 'Menu mobilne', en: 'Mobile menu' },
+  'menu.open': { pl: 'Otwórz menu', en: 'Open mobile menu' },
+  'menu.close': { pl: 'Zamknij menu', en: 'Close mobile menu' },
+  'brand.homeLabel': { pl: 'WickyWave Software — strona główna', en: 'WickyWave Software — home' },
   'theme.light': { pl: 'Włącz tryb jasny', en: 'Switch to light mode' },
   'theme.dark': { pl: 'Włącz tryb ciemny', en: 'Switch to dark mode' },
   'ocean.tagline': {
@@ -69,6 +74,9 @@ export const translations: Record<string, Record<Locale, string>> = {
   'home.title':    { pl: 'Tworzymy aplikacje webowe, które usprawniają procesy i wspierają rozwój Twojego biznesu.', en: 'We build web applications that improve processes and support your business growth.' },
   'home.subtitle': { pl: 'Projektujemy i rozwijamy dedykowane aplikacje B2B, platformy dla klientów oraz systemy wewnętrzne oparte na Django, Angular i nowoczesnych API. Dostarczamy rozwiązania, które automatyzują pracę, integrują dane i eliminują ograniczenia gotowych systemów.', en: 'We design and develop custom B2B applications, client platforms and internal systems built on Django, Angular and modern APIs — automating work, integrating data, and eliminating the limits of off-the-shelf software.' },
   'home.hero.cta': { pl: 'Porozmawiajmy o projekcie', en: 'Let\'s talk about your project' },
+  'home.saasTab.title': { pl: 'Nasze produkty SaaS', en: 'Our SaaS products' },
+  'home.saasTab.action': { pl: 'Kliknij i sprawdź', en: 'Click to explore' },
+  'home.saasBanner.description': { pl: 'Poznaj nasze gotowe aplikacje, które ułatwiają codzienną pracę.', en: 'Discover our ready-made applications designed to make everyday work easier.' },
 
   // Problemy
   'home.problems.title':   { pl: 'Czy któryś z tych problemów brzmi znajomo?', en: 'Do any of these problems sound familiar?' },
@@ -82,15 +90,30 @@ export const translations: Record<string, Record<Locale, string>> = {
   // Usługi
   'home.services.title':    { pl: 'Projektujemy oprogramowanie dopasowane do sposobu działania Twojej firmy', en: 'We design software tailored to the way your business works' },
   'home.services.lead':     { pl: 'Tworzymy rozwiązania, które wspierają codzienną pracę zespołów oraz obsługę klientów.', en: 'We create solutions that support daily team operations and customer service.' },
-  'home.services.sublabel': { pl: 'Najczęściej realizujemy:', en: 'We most often build:' },
-  'home.services.item1':    { pl: 'aplikacje webowe B2B i B2C / strony internetowe (landing page)', en: 'B2B and B2C web applications / websites (landing pages)' },
-  'home.services.item2':    { pl: 'systemy do zarządzania procesami', en: 'process management systems' },
-  'home.services.item3':    { pl: 'panele administracyjne', en: 'admin panels' },
-  'home.services.item4':    { pl: 'portale klienta', en: 'client portals' },
-  'home.services.item5':    { pl: 'platformy SaaS', en: 'SaaS platforms' },
-  'home.services.item6':    { pl: 'modele AI i Machine Learning', en: 'AI models and Machine Learning' },
-  'home.services.item7':    { pl: 'integracje z ERP, CRM i zewnętrznymi API', en: 'ERP, CRM and external API integrations' },
-  'home.services.item8':    { pl: 'automatyzację procesów biznesowych', en: 'business process automation' },
+  'home.services.category1.title': { pl: 'Aplikacje webowe i strony internetowe', en: 'Web applications and websites' },
+  'home.services.category1.item1': { pl: 'Aplikacje webowe B2B i B2C', en: 'B2B and B2C web applications' },
+  'home.services.category1.item2': { pl: 'Strony internetowe i landing page', en: 'Websites and landing pages' },
+  'home.services.category1.item3': { pl: 'Platformy SaaS i portale klienta', en: 'SaaS platforms and customer portals' },
+  'home.services.category2.title': { pl: 'Systemy biznesowe i dedykowane oprogramowanie', en: 'Business systems and custom software' },
+  'home.services.category2.item1': { pl: 'Systemy do zarządzania procesami', en: 'Process management systems' },
+  'home.services.category2.item2': { pl: 'Panele administracyjne', en: 'Admin panels' },
+  'home.services.category2.item3': { pl: 'Dedykowane systemy dopasowane do potrzeb firmy', en: 'Custom systems tailored to your business needs' },
+  'home.services.category3.title': { pl: 'Integracje i automatyzacja', en: 'Integrations and automation' },
+  'home.services.category3.item1': { pl: 'Automatyzacja procesów biznesowych', en: 'Business process automation' },
+  'home.services.category3.item2': { pl: 'Integracje z systemami ERP i CRM', en: 'Integrations with ERP and CRM systems' },
+  'home.services.category3.item3': { pl: 'Integracje z zewnętrznymi API', en: 'Integrations with external APIs' },
+  'home.services.category4.title': { pl: 'AI i Machine Learning', en: 'AI and Machine Learning' },
+  'home.services.category4.item1': { pl: 'Modele sztucznej inteligencji', en: 'Artificial intelligence models' },
+  'home.services.category4.item2': { pl: 'Rozwiązania oparte na Machine Learning', en: 'Machine Learning solutions' },
+  'home.services.category4.item3': { pl: 'Integracja AI z aplikacjami i procesami biznesowymi', en: 'AI integration with applications and business processes' },
+  'home.services.category5.title': { pl: 'IoT i rozwiązania sprzętowe', en: 'IoT and hardware solutions' },
+  'home.services.category5.item1': { pl: 'Rozwiązania IoT i integracja z czujnikami', en: 'IoT solutions and sensor integration' },
+  'home.services.category5.item2': { pl: 'Projekty wykorzystujące ESP32, Arduino i Raspberry Pi', en: 'Projects using ESP32, Arduino and Raspberry Pi' },
+  'home.services.category5.item3': { pl: 'Oprogramowanie dla urządzeń elektronicznych', en: 'Software for electronic devices' },
+  'home.services.category6.title': { pl: 'SEO, GEO i analityka internetowa', en: 'SEO, GEO and web analytics' },
+  'home.services.category6.item1': { pl: 'Pozycjonowanie stron internetowych (SEO)', en: 'Search engine optimization (SEO)' },
+  'home.services.category6.item2': { pl: 'Optymalizacja widoczności w odpowiedziach AI (GEO)', en: 'Generative Engine Optimization (GEO) for AI answer visibility' },
+  'home.services.category6.item3': { pl: 'Google Analytics i wdrożenie zgód cookie', en: 'Google Analytics and cookie consent implementation' },
 
   // Kiedy gotowe systemy przestają wystarczyć
   'home.why.title':   { pl: 'Kiedy gotowe systemy przestają wystarczyć', en: 'When off-the-shelf systems stop being enough' },
@@ -105,6 +128,7 @@ export const translations: Record<string, Record<Locale, string>> = {
   'home.tech.title':    { pl: 'Technologie, które wybieramy pod potrzeby projektu', en: 'Technologies we select based on project needs' },
   'home.tech.sublabel': { pl: 'Pracujemy głównie z:', en: 'We primarily work with:' },
   'home.tech.closing':  { pl: 'Technologia jest dla nas narzędziem. Najpierw projektujemy rozwiązanie biznesowe, dopiero później dobieramy odpowiedni stos technologiczny.', en: 'Technology is a tool for us. We design the business solution first, then choose the appropriate technology stack.' },
+  'home.tech.iot': { pl: 'IoT – integracje sprzętowe', en: 'IoT – hardware integrations' },
 
   // Jak pracujemy
   'home.process.title':       { pl: 'Przejrzysty proces. Jedna odpowiedzialność.', en: 'Clear process. Single point of accountability.' },
@@ -149,15 +173,23 @@ export const translations: Record<string, Record<Locale, string>> = {
   'news.card1': { pl: 'Jak skracamy czas obsługi zamówienia o 43%', en: 'How we reduced order processing time by 43%' },
   'news.card2': { pl: 'Checklist MVP dla startupu B2B', en: 'MVP checklist for B2B startups' },
   'news.card3': { pl: 'Kiedy warto zamienić Excel na aplikację', en: 'When to replace spreadsheets with an app' },
-  'xoaila.title': { pl: 'Xoaila - aktywny SaaS pod nowoczesne pozycjonowanie AI', en: 'Xoaila - active SaaS for modern AI-first positioning' },
+  'midgrator.body': {
+    pl: 'Mid-Grator to aktywny produkt SaaS, który pomaga dopasować dane z plików CSV hurtowni do wymagań integratora sklepu lub firmy.',
+    en: 'Mid-Grator is an active SaaS product that helps adapt wholesaler CSV data to the requirements of your store or business integration.'
+  },
+  'midgrator.point1': { pl: 'Pobieranie pliku CSV hurtowni oraz wybór i zmiana nazw kolumn.', en: 'Import wholesaler CSV files, select columns and rename them.' },
+  'midgrator.point2': { pl: 'Zmiana wartości, przeliczanie cen i własne reguły dla danych.', en: 'Transform values, adjust prices and define custom data rules.' },
+  'midgrator.point3': { pl: 'Udostępnianie gotowego pliku pod indywidualnym linkiem i jego regularna aktualizacja.', en: 'Share the resulting file through a dedicated link and update it regularly.' },
+  'midgrator.visit': { pl: 'PRZEJDŹ DO SERWISU', en: 'VISIT THE SERVICE' },
+  'xoaila.title': { pl: 'Xoaila - SaaS pod nowoczesne pozycjonowanie AI', en: 'Xoaila - SaaS for modern AI-first positioning' },
   'xoaila.body': {
-    pl: 'Xoaila to aktywny produkt SaaS, który pomaga markom budować widoczność w nowym modelu wyszukiwania: od klasycznego SEO po odpowiedzi generowane przez AI.',
-    en: 'Xoaila is an active SaaS product helping brands build visibility in a new search model: from classic SEO to AI-generated answer surfaces.'
+    pl: 'Xoaila to powstający produkt SaaS, który pomoże markom budować widoczność w nowym modelu wyszukiwania: od klasycznego SEO po odpowiedzi generowane przez AI.',
+    en: 'Xoaila is an upcoming SaaS product designed to help brands build visibility in a new search model: from classic SEO to AI-generated answer surfaces.'
   },
   'xoaila.point1': { pl: 'Monitoring obecności marki w wynikach AI i wyszukiwarkach.', en: 'Brand visibility monitoring across AI answers and search engines.' },
   'xoaila.point2': { pl: 'Rekomendacje treści pod indeksowanie semantyczne i LLM.', en: 'Content recommendations for semantic indexing and LLM relevance.' },
   'xoaila.point3': { pl: 'Dashboard wzrostu widoczności i tematów, które konwertują.', en: 'Growth dashboard for visibility and conversion-ready topic clusters.' },
-  'xoaila.soon': { pl: 'Usługa będzie dostępna wkrótce.', en: 'The service will be available soon.' },
+  'xoaila.soon': { pl: 'START USŁUGI WKRÓTCE', en: 'SERVICE LAUNCHING SOON' },
   'contact.title': { pl: 'Kontakt', en: 'Contact' },
   'contact.body': {
     pl: 'Opowiedz nam o swoim celu.',
@@ -171,6 +203,7 @@ export const translations: Record<string, Record<Locale, string>> = {
   'contact.taxId': { pl: 'NIP', en: 'Tax ID' },
   'contact.socialMedia': { pl: 'Social Media', en: 'Social Media' },
   'contact.linkedin': { pl: 'Wicky Wave na LinkedIn (otwiera się w nowej karcie)', en: 'Wicky Wave on LinkedIn (opens in a new tab)' },
+  'contact.youtube': { pl: 'Wicky Wave na YouTube (otwiera się w nowej karcie)', en: 'Wicky Wave on YouTube (opens in a new tab)' },
   'notFound.title': { pl: 'Nie znaleziono strony', en: 'Page not found' },
   'notFound.body': { pl: 'Ta strona nie istnieje lub została usunięta.', en: 'This page does not exist or has been removed.' },
   'notFound.home': { pl: 'Wróć na stronę główną', en: 'Back to home' },
@@ -190,6 +223,7 @@ export const translations: Record<string, Record<Locale, string>> = {
     pl: 'Ta strona wykorzystuje pliki cookie niezbędne do jej działania. Google Analytics uruchamiamy wyłącznie po uzyskaniu Twojej zgody. Możesz zaakceptować analitykę, odrzucić ją lub dostosować swój wybór.',
     en: 'This site uses cookies required for it to function. We only load Google Analytics after you give consent. You can accept analytics, decline it, or customize your choice.'
   },
+  'cookie.dialogLabel': { pl: 'Zgoda na pliki cookie', en: 'Cookie consent' },
   'cookie.accept': { pl: 'Akceptuję wszystkie', en: 'Accept all' },
   'cookie.decline': { pl: 'Odrzuć opcjonalne', en: 'Decline optional' },
   'cookie.manage': { pl: 'Dostosuj', en: 'Customize' },
@@ -273,4 +307,4 @@ export const translations: Record<string, Record<Locale, string>> = {
     pl: 'W sprawie realizacji swoich praw lub pytań dotyczących niniejszej polityki napisz do nas: kontakt@wickywave.pl.',
     en: 'To exercise your rights or ask any questions about this policy, contact us at: kontakt@wickywave.pl.'
   }
-};
+} satisfies Record<string, Record<'pl' | 'en', string>>;

@@ -6,19 +6,20 @@
 > instead of the limitations of off-the-shelf tools.
 
 WickyWave Software designs and delivers custom web applications, including administration panels,
-customer portals, SaaS platforms, AI/ML models, and ERP/CRM integrations. The company also develops
-an active SaaS product called Xoaila, which monitors brand visibility in traditional search engines
-and AI-generated answers.
+customer portals, SaaS platforms, AI/ML models, and ERP/CRM integrations. Its active SaaS product
+Mid-Grator adapts wholesaler CSV files to store and business integrations. Xoaila, a product for
+building brand visibility in search engines and AI-generated answers, is in development.
 
 ## Pages
 
-- [Home](https://wickywave.pl/): overview of services, the delivery process, and the technology stack.
-- [Services](https://wickywave.pl/#uslugi): web applications, websites (landing pages), administration panels, automation, API integrations, and post-launch support.
-- [Xoaila — active SaaS](https://wickywave.pl/aktywne-saas): a SaaS product for monitoring and building brand visibility in search engines and AI.
-- [Contact](https://wickywave.pl/contact): contact details, email kontakt@wickywave.pl, phone 516 551 316 / 500 083 971.
-- [Privacy policy](https://wickywave.pl/privacy-policy): rules for processing personal data and cookies.
+- [Home](https://wickywave.pl/en): overview of services, the delivery process, and the technology stack.
+- [Services](https://wickywave.pl/en#uslugi): web applications, websites (landing pages), administration panels, automation, API integrations, and post-launch support.
+- [SaaS products](https://wickywave.pl/en/aktywne-saas): active Mid-Grator and upcoming Xoaila.
+- [Contact](https://wickywave.pl/en/contact): contact details, email kontakt@wickywave.pl, phone 516 551 316 / 500 083 971.
+- [Privacy policy](https://wickywave.pl/en/privacy-policy): rules for processing personal data and cookies.
 
 ## Notes
 
-The website is available in Polish and English through the language switcher. The descriptions above
-refer to the same content regardless of the selected language.
+The website is available in Polish, English, and German.
+- [Polski](https://wickywave.pl/llms.txt)
+- [Deutsch](https://wickywave.pl/llms-de.txt)
