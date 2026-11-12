@@ -2,6 +2,7 @@
   AfterViewInit,
   Component,
   ElementRef,
+  effect,
   inject,
   OnDestroy,
   PLATFORM_ID,
@@ -21,13 +22,21 @@ import { SeoService, SITE_NAME, SITE_URL } from '../seo.service';
     <!-- TŁO: długi skośny pas rysowany wraz ze scrollem (style w styles.css) -->
     <div class="bg-stripes" aria-hidden="true"><span></span><span></span></div>
 
+    <a
+      [routerLink]="localizedPath('/aktywne-saas')"
+      class="saas-tab fixed right-0 top-1/2 z-30 hidden -translate-y-1/2 rounded-l-2xl bg-indigo-600 px-4 py-4 text-sm font-semibold leading-snug text-white shadow-lg transition-colors hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 lg:block"
+    >
+      <span class="block">{{ t('home.saasTab.title') }}</span>
+      <span class="mt-1 block text-indigo-100">{{ t('home.saasTab.action') }}</span>
+    </a>
+
     <!-- SEKCJA: Hero – główny nagłówek z CTA -->
     <section class="mx-auto max-w-6xl px-6 pt-10 pb-14 md:px-10 md:pt-16">
       <p class="eyebrow">{{ t('home.eyebrow') }}</p>
       <h1 class="theme-heading hero-title">{{ t('home.title') }}</h1>
       <p class="theme-copy hero-lead">{{ t('home.subtitle') }}</p>
       <div class="max-sm:portrait:flex max-sm:portrait:justify-center">
-        <a routerLink="/contact" class="hero-cta">{{ t('home.hero.cta') }}</a>
+        <a [routerLink]="localizedPath('/contact')" class="hero-cta">{{ t('home.hero.cta') }}</a>
       </div>
     </section>
 
@@ -58,10 +67,31 @@ import { SeoService, SITE_NAME, SITE_URL } from '../seo.service';
     <section id="uslugi" class="mx-auto max-w-6xl px-6 pb-14 md:px-10">
       <h2 class="theme-heading section-title">{{ t('home.services.title') }}</h2>
       <p class="theme-copy section-lead">{{ t('home.services.lead') }}</p>
-      <p class="section-sublabel">{{ t('home.services.sublabel') }}</p>
-      <ul class="services-list mt-3">
-        <li *ngFor="let item of serviceItems">{{ t(item) }}</li>
-      </ul>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <article
+          *ngFor="let card of serviceCards"
+          class="rounded-2xl border p-5"
+          [style.border-color]="'color-mix(in srgb, var(--card-copy, #334155) 15%, transparent)'"
+          [style.background]="'var(--card-background, #fff)'"
+        >
+          <h3 class="text-lg font-bold leading-snug" [style.color]="'var(--card-copy, #334155)'">
+            {{ t(card.title) }}
+          </h3>
+          <ul class="mt-4 grid list-none gap-2.5 p-0">
+            <li
+              *ngFor="let item of card.items"
+              class="relative pl-5 text-[0.9375rem] leading-relaxed"
+              [style.color]="'var(--card-copy, #334155)'"
+            >
+              <span
+                class="absolute left-0 font-bold"
+                [style.color]="'var(--accent-text, #4F46E5)'"
+                aria-hidden="true"
+              >✓</span>{{ t(item) }}
+            </li>
+          </ul>
+        </article>
+      </div>
     </section>
 
     <!-- SEKCJA: Kiedy gotowe systemy przestają wystarczyć -->
@@ -94,6 +124,7 @@ import { SeoService, SITE_NAME, SITE_URL } from '../seo.service';
       <p class="section-sublabel">{{ t('home.tech.sublabel') }}</p>
       <div class="tech-grid mt-4">
         <span *ngFor="let tech of techItems" class="tech-badge">{{ tech }}</span>
+        <span class="tech-badge">{{ t('home.tech.iot') }}</span>
       </div>
       <p class="theme-copy closing-note mt-5">{{ t('home.tech.closing') }}</p>
     </section>
@@ -138,11 +169,23 @@ import { SeoService, SITE_NAME, SITE_URL } from '../seo.service';
     </section>
 
     <!-- SEKCJA: CTA końcowe -->
-    <section class="mx-auto max-w-6xl px-6 pb-20 md:px-10">
+    <section class="mx-auto max-w-6xl px-6 pb-12 md:px-10 lg:pb-20">
       <div class="cta-block">
         <h2 class="cta-title">{{ t('home.cta.title') }}</h2>
         <p class="cta-body">{{ t('home.cta.body') }}</p>
-        <a routerLink="/contact" class="cta-btn">{{ t('home.cta.btn') }}</a>
+        <a [routerLink]="localizedPath('/contact')" class="cta-btn">{{ t('home.cta.btn') }}</a>
+        <footer class="saas-banner-section mt-8 border-t border-white/20 pt-6 lg:hidden">
+          <a
+            [routerLink]="localizedPath('/aktywne-saas')"
+            class="saas-banner mx-auto flex max-w-6xl flex-col items-center gap-3 text-center text-white no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-violet-300 sm:flex-row sm:justify-between sm:gap-6 sm:text-left"
+          >
+            <span>
+              <span class="block text-lg font-bold">{{ t('home.saasTab.title') }}</span>
+              <span class="mt-1 block text-sm leading-relaxed text-indigo-100">{{ t('home.saasBanner.description') }}</span>
+            </span>
+            <span class="shrink-0 rounded-lg border border-violet-200/70 px-4 py-2 font-bold text-violet-100">{{ t('home.saasTab.action') }}</span>
+          </a>
+        </footer>
       </div>
     </section>
   `,
@@ -283,34 +326,6 @@ import { SeoService, SITE_NAME, SITE_URL } from '../seo.service';
       font-weight: 700;
     }
 
-    /* Strzalka – lista uslug */
-    .services-list {
-      list-style: none;
-      padding: 0;
-      display: grid;
-      gap: 0.5rem;
-    }
-    @media (min-width: 640px) {
-      .services-list { grid-template-columns: repeat(2, 1fr); }
-    }
-    .services-list li {
-      padding: 0.7rem 1rem 0.7rem 2.25rem;
-      position: relative;
-      font-size: 0.9375rem;
-      font-weight: 500;
-      border-radius: 0.5rem;
-      border: 1px solid color-mix(in srgb, var(--card-copy, #334155) 15%, transparent);
-      background: var(--card-background, #FFFFFF);
-      color: var(--card-copy, #334155);
-      transition: background 150ms ease, border-color 150ms ease;
-    }
-    .services-list li::before {
-      content: '→';
-      position: absolute;
-      left: 0.8rem;
-      color: var(--accent-text, #4F46E5);
-    }
-
     /* ── TECHNOLOGIE ───────────────────────────────────────── */
     .tech-grid {
       display: flex;
@@ -383,7 +398,7 @@ import { SeoService, SITE_NAME, SITE_URL } from '../seo.service';
     .cta-block {
       border-radius: 1.25rem;
       background: linear-gradient(135deg, #4F46E5 0%, #3730A3 100%);
-      padding: 2.5rem 2rem;
+      padding: 2.5rem 2rem 1.5rem;
       text-align: center;
     }
     @media (min-width: 768px) {
@@ -424,17 +439,22 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
   private slideObserver?: IntersectionObserver;
 
   constructor() {
-    this.seo.updateTags({
-      title: this.t('seo.home.title'),
-      description: this.t('seo.home.description'),
-      keywords: this.t('seo.home.keywords'),
-      canonicalPath: '/'
+    effect(() => {
+      this.seo.updateTags({
+        title: this.t('seo.home.title'),
+        description: this.t('seo.home.description'),
+        keywords: this.t('seo.home.keywords'),
+        canonicalPath: '/'
+      });
     });
 
-    this.seo.setJsonLd('breadcrumb', {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [{ '@type': 'ListItem', position: 1, name: SITE_NAME, item: `${SITE_URL}/` }]
+    effect(() => {
+      this.seo.setJsonLd('breadcrumb', {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        inLanguage: this.i18n.locale(),
+        itemListElement: [{ '@type': 'ListItem', position: 1, name: SITE_NAME, item: `${SITE_URL}${this.i18n.localizedPath('/')}` }]
+      });
     });
   }
 
@@ -446,10 +466,49 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
     'home.problems.item4', 'home.problems.item5'
   ];
 
-  readonly serviceItems = [
-    'home.services.item1', 'home.services.item2', 'home.services.item3',
-    'home.services.item4', 'home.services.item5', 'home.services.item6',
-    'home.services.item7', 'home.services.item8'
+  readonly serviceCards = [
+    {
+      title: 'home.services.category1.title',
+      items: [
+        'home.services.category1.item1', 'home.services.category1.item2',
+        'home.services.category1.item3'
+      ]
+    },
+    {
+      title: 'home.services.category2.title',
+      items: [
+        'home.services.category2.item1', 'home.services.category2.item2',
+        'home.services.category2.item3'
+      ]
+    },
+    {
+      title: 'home.services.category3.title',
+      items: [
+        'home.services.category3.item1', 'home.services.category3.item2',
+        'home.services.category3.item3'
+      ]
+    },
+    {
+      title: 'home.services.category4.title',
+      items: [
+        'home.services.category4.item1', 'home.services.category4.item2',
+        'home.services.category4.item3'
+      ]
+    },
+    {
+      title: 'home.services.category5.title',
+      items: [
+        'home.services.category5.item1', 'home.services.category5.item2',
+        'home.services.category5.item3'
+      ]
+    },
+    {
+      title: 'home.services.category6.title',
+      items: [
+        'home.services.category6.item1', 'home.services.category6.item2',
+        'home.services.category6.item3'
+      ]
+    }
   ];
 
   readonly whyItems = [
@@ -458,7 +517,7 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
 
   readonly techItems = [
     'Django', 'Angular', 'Python', 'REST API',
-    'Machine Learning / AI', 'IoT – integracje sprzętowe'
+    'Machine Learning / AI'
   ];
 
   readonly processSteps = [
@@ -475,6 +534,10 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
 
   t(key: string): string {
     return this.i18n.t(key);
+  }
+
+  localizedPath(path: string): string {
+    return this.i18n.localizedPath(path);
   }
 
   headingWords(key: string): string[] {
@@ -524,5 +587,6 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.slideObserver?.disconnect();
+    this.seo.removeJsonLd('breadcrumb');
   }
 }

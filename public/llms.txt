@@ -6,19 +6,20 @@
 > biznesu zamiast ograniczeń gotowych narzędzi.
 
 WickyWave Software projektuje i wdraża dedykowane aplikacje webowe: panele administracyjne,
-portale klienta, platformy SaaS, modele AI/ML oraz integracje z systemami ERP/CRM. Firma prowadzi
-również aktywny produkt SaaS o nazwie Xoaila, który monitoruje widoczność marek w klasycznych
-wyszukiwarkach oraz w odpowiedziach generowanych przez AI.
+portale klienta, platformy SaaS, modele AI/ML oraz integracje z systemami ERP/CRM. Aktywny produkt
+Mid-Grator dostosowuje pliki CSV hurtowni do potrzeb integratorów sklepów i firm. Xoaila, produkt
+do budowania widoczności marek w wyszukiwarkach i odpowiedziach AI, jest w przygotowaniu.
 
 ## Strony
 
 - [Strona główna](https://wickywave.pl/): przegląd usług, procesu pracy i stosu technologicznego.
 - [Oferta](https://wickywave.pl/#uslugi): zakres usług — aplikacje webowe, strony internetowe (landing page), panele, automatyzacja, integracje API, opieka powdrożeniowa.
-- [Xoaila — aktywne SaaS](https://wickywave.pl/aktywne-saas): produkt SaaS do monitorowania i budowania widoczności marki w wyszukiwarkach i AI.
+- [Produkty SaaS](https://wickywave.pl/aktywne-saas): działający Mid-Grator i przygotowywana Xoaila.
 - [Kontakt](https://wickywave.pl/contact): dane kontaktowe, e-mail kontakt@wickywave.pl, telefon 516 551 316 / 500 083 971.
 - [Polityka prywatności](https://wickywave.pl/privacy-policy): zasady przetwarzania danych osobowych i plików cookie.
 
 ## Uwagi
 
-Treść serwisu jest dostępna w języku polskim i angielskim (przełącznik na stronie); powyższe opisy
-dotyczą tej samej zawartości niezależnie od wybranego języka.
+Treść serwisu jest dostępna po polsku, angielsku i niemiecku.
+- [English](https://wickywave.pl/llms-en.txt)
+- [Deutsch](https://wickywave.pl/llms-de.txt)

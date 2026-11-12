@@ -1,0 +1,24 @@
+# WickyWave Software
+
+> Softwarehaus für individuelle Webanwendungen, Administrationsoberflächen und interne Systeme
+> für B2B- und B2C-Unternehmen mit Django, Angular und modernen APIs. Wir helfen Unternehmen,
+> Prozesse zu automatisieren, Daten zu integrieren und bedarfsgerechte Software zu entwickeln.
+
+WickyWave Software entwickelt unter anderem Kundenportale, SaaS-Plattformen, KI-/ML-Modelle und
+ERP-/CRM-Integrationen. Das aktive SaaS-Produkt Mid-Grator passt CSV-Dateien von Großhändlern
+an Shop- und Unternehmensintegrationen an. Xoaila, ein Produkt für Markensichtbarkeit in
+Suchmaschinen und KI-Antworten, befindet sich in Entwicklung.
+
+## Seiten
+
+- [Startseite](https://wickywave.pl/de): Leistungen, Arbeitsprozess und Technologien.
+- [Leistungen](https://wickywave.pl/de#uslugi): Webanwendungen, Websites, Administrationsoberflächen, Automatisierung, API-Integrationen und Betreuung.
+- [SaaS-Produkte](https://wickywave.pl/de/aktywne-saas): aktiver Mid-Grator und kommendes Xoaila.
+- [Kontakt](https://wickywave.pl/de/contact): kontakt@wickywave.pl, Telefon 516 551 316 / 500 083 971.
+- [Datenschutzerklärung](https://wickywave.pl/de/privacy-policy): Verarbeitung personenbezogener Daten und Cookies.
+
+## Sprachen
+
+Die Website ist auf Polnisch, Englisch und Deutsch verfügbar.
+- [Polski](https://wickywave.pl/llms.txt)
+- [English](https://wickywave.pl/llms-en.txt)

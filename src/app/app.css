@@ -63,10 +63,6 @@
 	transition: color 500ms ease;
 }
 
-.app-shell main ::ng-deep .page-shell > p.coming-soon {
-	color: var(--violet-text);
-}
-
 /* ── KARTY – hook-card / news-grid article / page-shell li ── */
 .app-shell main ::ng-deep .hook-card,
 .app-shell main ::ng-deep .news-grid article,
