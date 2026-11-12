@@ -67,10 +67,31 @@ import { SeoService, SITE_NAME, SITE_URL } from '../seo.service';
     <section id="uslugi" class="mx-auto max-w-6xl px-6 pb-14 md:px-10">
       <h2 class="theme-heading section-title">{{ t('home.services.title') }}</h2>
       <p class="theme-copy section-lead">{{ t('home.services.lead') }}</p>
-      <p class="section-sublabel">{{ t('home.services.sublabel') }}</p>
-      <ul class="services-list mt-3">
-        <li *ngFor="let item of serviceItems">{{ t(item) }}</li>
-      </ul>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <article
+          *ngFor="let card of serviceCards"
+          class="rounded-2xl border p-5"
+          [style.border-color]="'color-mix(in srgb, var(--card-copy, #334155) 15%, transparent)'"
+          [style.background]="'var(--card-background, #fff)'"
+        >
+          <h3 class="text-lg font-bold leading-snug" [style.color]="'var(--card-copy, #334155)'">
+            {{ t(card.title) }}
+          </h3>
+          <ul class="mt-4 grid list-none gap-2.5 p-0">
+            <li
+              *ngFor="let item of card.items"
+              class="relative pl-5 text-[0.9375rem] leading-relaxed"
+              [style.color]="'var(--card-copy, #334155)'"
+            >
+              <span
+                class="absolute left-0 font-bold"
+                [style.color]="'var(--accent-text, #4F46E5)'"
+                aria-hidden="true"
+              >✓</span>{{ t(item) }}
+            </li>
+          </ul>
+        </article>
+      </div>
     </section>
 
     <!-- SEKCJA: Kiedy gotowe systemy przestają wystarczyć -->
@@ -305,34 +326,6 @@ import { SeoService, SITE_NAME, SITE_URL } from '../seo.service';
       font-weight: 700;
     }
 
-    /* Strzalka – lista uslug */
-    .services-list {
-      list-style: none;
-      padding: 0;
-      display: grid;
-      gap: 0.5rem;
-    }
-    @media (min-width: 640px) {
-      .services-list { grid-template-columns: repeat(2, 1fr); }
-    }
-    .services-list li {
-      padding: 0.7rem 1rem 0.7rem 2.25rem;
-      position: relative;
-      font-size: 0.9375rem;
-      font-weight: 500;
-      border-radius: 0.5rem;
-      border: 1px solid color-mix(in srgb, var(--card-copy, #334155) 15%, transparent);
-      background: var(--card-background, #FFFFFF);
-      color: var(--card-copy, #334155);
-      transition: background 150ms ease, border-color 150ms ease;
-    }
-    .services-list li::before {
-      content: '→';
-      position: absolute;
-      left: 0.8rem;
-      color: var(--accent-text, #4F46E5);
-    }
-
     /* ── TECHNOLOGIE ───────────────────────────────────────── */
     .tech-grid {
       display: flex;
@@ -473,10 +466,49 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
     'home.problems.item4', 'home.problems.item5'
   ];
 
-  readonly serviceItems = [
-    'home.services.item1', 'home.services.item2', 'home.services.item3',
-    'home.services.item4', 'home.services.item5', 'home.services.item6',
-    'home.services.item7', 'home.services.item8'
+  readonly serviceCards = [
+    {
+      title: 'home.services.category1.title',
+      items: [
+        'home.services.category1.item1', 'home.services.category1.item2',
+        'home.services.category1.item3'
+      ]
+    },
+    {
+      title: 'home.services.category2.title',
+      items: [
+        'home.services.category2.item1', 'home.services.category2.item2',
+        'home.services.category2.item3'
+      ]
+    },
+    {
+      title: 'home.services.category3.title',
+      items: [
+        'home.services.category3.item1', 'home.services.category3.item2',
+        'home.services.category3.item3'
+      ]
+    },
+    {
+      title: 'home.services.category4.title',
+      items: [
+        'home.services.category4.item1', 'home.services.category4.item2',
+        'home.services.category4.item3'
+      ]
+    },
+    {
+      title: 'home.services.category5.title',
+      items: [
+        'home.services.category5.item1', 'home.services.category5.item2',
+        'home.services.category5.item3'
+      ]
+    },
+    {
+      title: 'home.services.category6.title',
+      items: [
+        'home.services.category6.item1', 'home.services.category6.item2',
+        'home.services.category6.item3'
+      ]
+    }
   ];
 
   readonly whyItems = [
