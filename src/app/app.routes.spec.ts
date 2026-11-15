@@ -187,7 +187,7 @@ describe('Published routes', () => {
     expect(link?.href).toBe('https://midgrator.pl/');
     expect(link?.querySelector('img')?.getAttribute('src')).toBe('/mid-grator-logo.jpg');
     expect(link?.querySelector('img')?.alt).toBe('Mid-Grator');
-    expect(sections[1].textContent).toContain('aktywny produkt SaaS');
+    expect(sections[1].textContent).toContain('Mid-Grator to usługa SaaS');
     expect(sections[1].querySelectorAll('li').length).toBe(3);
     const visit = sections[1].querySelector<HTMLAnchorElement>('a.service-button');
     expect(visit?.href).toBe('https://midgrator.pl/');
@@ -198,7 +198,7 @@ describe('Published routes', () => {
 
     i18n.setLocale('en');
     harness.detectChanges();
-    expect(sections[1].textContent).toContain('active SaaS product');
+    expect(sections[1].textContent).toContain('Mid-Grator is a SaaS service');
     expect(visit?.textContent?.trim()).toBe('VISIT THE SERVICE');
     expect(xoailaVisit?.textContent?.trim()).toBe('VISIT THE SERVICE');
   });
