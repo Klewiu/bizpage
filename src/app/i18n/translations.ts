@@ -40,8 +40,8 @@ export const translations = {
   },
   'seo.saas.title': { pl: 'Produkty SaaS Mid-Grator i Xoaila | WickyWave', en: 'Mid-Grator and Xoaila SaaS products | WickyWave' },
   'seo.saas.description': {
-    pl: 'Poznaj Mid-Grator do integracji danych CSV oraz Xoaila — powstające narzędzie do budowania widoczności w wyszukiwarkach i AI.',
-    en: 'Discover Mid-Grator for CSV data integration and Xoaila, an upcoming tool for visibility in search engines and AI.'
+    pl: 'Poznaj Mid-Grator do integracji danych CSV oraz Xoaila — narzędzie do budowania widoczności w wyszukiwarkach i AI.',
+    en: 'Discover Mid-Grator for CSV data integration and Xoaila, a tool for visibility in search engines and AI.'
   },
 
   'menu.home': { pl: 'Home', en: 'Home' },
@@ -183,8 +183,8 @@ export const translations = {
   'midgrator.visit': { pl: 'PRZEJDŹ DO SERWISU', en: 'VISIT THE SERVICE' },
   'xoaila.title': { pl: 'Xoaila - SaaS pod nowoczesne pozycjonowanie AI', en: 'Xoaila - SaaS for modern AI-first positioning' },
   'xoaila.body': {
-    pl: 'Xoaila to powstający produkt SaaS, który pomoże markom budować widoczność w nowym modelu wyszukiwania: od klasycznego SEO po odpowiedzi generowane przez AI.',
-    en: 'Xoaila is an upcoming SaaS product designed to help brands build visibility in a new search model: from classic SEO to AI-generated answer surfaces.'
+    pl: 'Xoaila to produkt SaaS, który pomaga markom budować widoczność w nowym modelu wyszukiwania: od klasycznego SEO po odpowiedzi generowane przez AI.',
+    en: 'Xoaila is a SaaS product designed to help brands build visibility in a new search model: from classic SEO to AI-generated answer surfaces.'
   },
   'xoaila.point1': { pl: 'Monitoring obecności marki w wynikach AI i wyszukiwarkach.', en: 'Brand visibility monitoring across AI answers and search engines.' },
   'xoaila.point2': { pl: 'Rekomendacje treści pod indeksowanie semantyczne i LLM.', en: 'Content recommendations for semantic indexing and LLM relevance.' },
