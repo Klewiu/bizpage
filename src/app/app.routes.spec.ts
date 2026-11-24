@@ -11,6 +11,7 @@ import { XoailaPageComponent } from './pages/xoaila-page.component';
 import { I18nService } from './i18n/i18n.service';
 import { translations } from './i18n/translations';
 import { germanTranslations } from './i18n/translations.de';
+import { AdminService } from './admin/admin.service';
 
 describe('Published routes', () => {
   beforeEach(() => {
@@ -105,6 +106,22 @@ describe('Published routes', () => {
       expect(meta.getTag('name="robots"')?.content).toBe('noindex, follow');
     }
 
+    await harness.navigateByUrl('/', HomePageComponent);
+    expect(meta.getTag('name="robots"')?.content).toBe('index, follow');
+  });
+
+  it('excludes the admin route from indexing and restores robots on leaving', async () => {
+    const admin = jasmine.createSpyObj<AdminService>('AdminService', ['initialize']);
+    admin.initialize.and.callFake(callback => {
+      callback(null);
+      return () => {};
+    });
+    TestBed.overrideProvider(AdminService, { useValue: admin });
+    const harness = await RouterTestingHarness.create();
+    const meta = TestBed.inject(Meta);
+    await harness.navigateByUrl('/admin-login');
+    expect(harness.routeNativeElement?.textContent).toContain('Panel administracyjny');
+    expect(meta.getTag('name="robots"')?.content).toBe('noindex, nofollow, noarchive');
     await harness.navigateByUrl('/', HomePageComponent);
     expect(meta.getTag('name="robots"')?.content).toBe('index, follow');
   });

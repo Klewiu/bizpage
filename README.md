@@ -42,6 +42,46 @@ handles unknown routes during client-side navigation. Keep both error views
 consistent when updating their content. The sitemap and `llms` files should
 list only published routes.
 
+## Private client panel
+
+The Polish-language panel is available at `/admin-login`. It stores client
+contact details (including company NIP), notes, call/email activity and an optional follow-up date in
+Cloud Firestore. A follow-up is highlighted from the start of its selected date
+in the browser's local time; there are no email or push notifications. The
+client and activity form fields are optional.
+panel is excluded from the sitemap and has `noindex` metadata and a Hosting
+`X-Robots-Tag` header. These are not access controls.
+
+Before deploying, the project owner must:
+
+1. In the Firebase project `wickywave`, enable the Google sign-in provider in
+   Authentication and configure its support email. Add `localhost` and
+   `wickywave.pl` to Authentication's authorized domains as needed. Protect
+   the administrator's Google account with two-step verification.
+2. Create a Cloud Firestore database and register a Firebase web app if one
+   does not already exist. Copy its web configuration into
+   `src/app/admin/firebase-config.ts`. These client configuration values are
+   public identifiers, not credentials; never put the password or a service
+   account key in this file. The panel reports an error until configured.
+3. Sign in once using the administrator's Google account, then copy that
+   user's Authentication **UID** from Firebase Console > Authentication >
+   Users into `firestore.rules`, replacing `REPLACE_WITH_ADMIN_UID`. Only this UID can access the panel's
+   `clients` collection and its `activities` subcollections. Security depends
+   on deploying these rules, not on hiding the URL or the UI.
+4. Review the rules against any existing Firestore data and rules before
+   deployment: this ruleset denies every other collection, and deploying it
+   replaces the database's current rules. Merge deliberately if the database
+   already serves other applications. Deploy rules with
+   `firebase deploy --only firestore:rules`, then deploy Hosting with
+   `npm run deploy:firebase`. The Hosting-only script does not deploy rules.
+5. Test sign-in, saving and reading data, and rejection of an unrelated account
+   in the actual Firebase project before storing real client data.
+
+Firebase's free quotas and limits apply; review current Firebase pricing,
+usage and retention/backup requirements before use. Protect access to the
+Firebase console too. Other Google accounts can authenticate, so UID-based
+Firestore rules are essential to restrict access to client data.
+
 ## Languages
 
 The site supports Polish, English and German. Polish pages use the existing
