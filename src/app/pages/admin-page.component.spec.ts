@@ -108,7 +108,7 @@ describe('Follow-up reminders', () => {
       form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
       await fixture.whenStable();
       expect(admin.saveClient).toHaveBeenCalledWith({
-        name: '', company: '', nip: '', address: '', email: '', phone: '', notes: '', followUp: '', industry: '', size: ''
+        name: '', company: '', nip: '', address: '', email: '', phone: '', notes: '', followUp: '', industry: '', size: '', status: ''
       }, undefined);
       expect(fixture.componentInstance.view).toBe('table');
     });
@@ -124,12 +124,12 @@ describe('Follow-up reminders', () => {
       const cells = fixture.nativeElement.querySelectorAll('tbody tr td') as NodeListOf<HTMLTableCellElement>;
       expect(cells[headers.indexOf('Adres')].textContent).toContain(withAddress.address);
       expect(cells[headers.indexOf('NIP')].textContent).toContain(withAddress.nip);
-      expect(cells[headers.indexOf('Klient')].textContent).not.toContain(withAddress.nip);
+      expect(cells[headers.indexOf('Firma')].textContent).not.toContain(withAddress.nip);
       fixture.componentInstance.editClient(withAddress);
       expect(fixture.componentInstance.client.address).toBe(withAddress.address);
     });
 
-    it('shows separate contact columns and opens client activities in a dialog', async () => {
+    it('shows separate contact columns and opens client details and activities', async () => {
       const fixture = TestBed.createComponent(AdminPageComponent);
       await fixture.whenStable();
       fixture.detectChanges();
@@ -139,16 +139,12 @@ describe('Follow-up reminders', () => {
       expect(element.querySelector('tbody')?.textContent).toContain('IT');
       expect(element.querySelector('tbody')?.textContent).toContain('MAŁY');
       expect(element.querySelector('tbody')?.textContent).toContain('24.11.2026');
-      const buttons = Array.from(element.querySelectorAll('button'));
-      buttons.find(button => button.textContent?.trim() === 'Aktywności')?.click();
+      element.querySelector<HTMLButtonElement>('button[aria-label="Szczegóły i aktywności"]')?.click();
       await fixture.whenStable();
       fixture.detectChanges();
-      expect(element.querySelector('dialog')?.open).toBeTrue();
-      expect(element.querySelector('dialog')?.textContent).toContain('Aktywności: Klient');
-      const dialog = element.querySelector('dialog')!;
-      const closed = new Promise<void>(resolve => dialog.addEventListener('close', () => resolve(), { once: true }));
-      element.querySelector<HTMLButtonElement>('dialog button')?.click();
-      await closed;
+      expect(element.textContent).toContain('Szczegóły: Firma');
+      expect(element.textContent).toContain('Aktywności');
+      Array.from(element.querySelectorAll('button')).find(button => button.textContent?.trim() === 'Wróć do tabeli')?.click();
       fixture.detectChanges();
       expect(fixture.componentInstance.selected).toBeNull();
     });
@@ -159,24 +155,24 @@ describe('Follow-up reminders', () => {
       const component = fixture.componentInstance;
       await component.selectClient(client);
       component.activityType = 'E-mail';
-      component.activityDate = '2026-11-24T10:30';
+      component.activityDate = '2026-11-24';
       component.activityNotes = '  Oferta  ';
+      component.activityStatus = 'unchanged';
       await component.addActivity();
       expect(admin.addActivity).toHaveBeenCalledWith(client.id, {
-        type: 'E-mail', date: new Date('2026-11-24T10:30').toISOString(), notes: 'Oferta'
+        type: 'E-mail', date: '2026-11-24', notes: 'Oferta'
       });
       expect(admin.activities).toHaveBeenCalledTimes(2);
     });
 
-    it('allows an activity with no date, type or notes', async () => {
+    it('rejects an activity with no date, type or notes', async () => {
       const fixture = TestBed.createComponent(AdminPageComponent);
       await fixture.whenStable();
       const component = fixture.componentInstance;
       await component.selectClient(client);
       await component.addActivity();
-      expect(admin.addActivity).toHaveBeenCalledWith(client.id, {
-        type: '', date: '', notes: ''
-      });
+      expect(admin.addActivity).not.toHaveBeenCalled();
+      expect(component.error()).toContain('Uzupełnij');
     });
   });
 });

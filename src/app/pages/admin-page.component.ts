@@ -1,9 +1,9 @@
 import { DatePipe, isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, NgZone, OnDestroy, PLATFORM_ID, ViewChild, inject, signal } from '@angular/core';
+import { Component, NgZone, OnDestroy, PLATFORM_ID, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Meta, Title } from '@angular/platform-browser';
 import { User } from 'firebase/auth';
-import { Activity, AdminService, Client, ClientData } from '../admin/admin.service';
+import { Activity, AdminService, Client, ClientData, ClientStatus, isValidActivity } from '../admin/admin.service';
 
 export function isFollowUpDue(date: string, now: Date): boolean {
   if (!date) return false;
@@ -12,7 +12,7 @@ export function isFollowUpDue(date: string, now: Date): boolean {
 }
 
 function emptyClient(): ClientData {
-  return { name: '', company: '', nip: '', address: '', email: '', phone: '', notes: '', followUp: '', industry: '', size: '' };
+  return { name: '', company: '', nip: '', address: '', email: '', phone: '', notes: '', followUp: '', industry: '', size: '', status: '' };
 }
 
 @Component({
@@ -30,8 +30,6 @@ export class AdminPageComponent implements OnDestroy {
   private timer?: ReturnType<typeof setInterval>;
   private sessionVersion = 0;
   private activityVersion = 0;
-  @ViewChild('activityDialog') activityDialog?: ElementRef<HTMLDialogElement>;
-
   readonly user = signal<User | null>(null);
   readonly loading = signal(true);
   readonly busy = signal(false);
@@ -41,12 +39,33 @@ export class AdminPageComponent implements OnDestroy {
   readonly activities = signal<Activity[]>([]);
   readonly now = signal(new Date());
   selected: Client | null = null;
-  view: 'table' | 'form' = 'table';
+  view: 'table' | 'form' | 'details' = 'table';
+  search = '';
+  sortBy: 'createdAt' | 'name' | 'industry' = 'createdAt';
   editingId: string | undefined;
   client: ClientData = emptyClient();
   activityType: Activity['type'] = '';
   activityDate = '';
   activityNotes = '';
+  activityStatus: ClientStatus | 'unchanged' = '';
+
+  get visibleClients(): Client[] {
+    const query = this.search.trim().toLocaleLowerCase('pl');
+    const digits = query.replace(/\D/g, '');
+    const clients = this.clients().filter(client => {
+      const nip = client.nip ?? '';
+      return !query || [client.name, client.company, nip].some(value => (value ?? '').toLocaleLowerCase('pl').includes(query)) ||
+        (!!digits && /^[\d\s-]+$/.test(query) && nip.replace(/\D/g, '').includes(digits));
+    });
+    if (this.sortBy === 'createdAt') return clients;
+    return clients.sort((a, b) => {
+      const first = this.sortBy === 'name' ? a.company || '' : a.industry || '';
+      const second = this.sortBy === 'name' ? b.company || '' : b.industry || '';
+      return first.localeCompare(second, 'pl', { sensitivity: 'base' }) ||
+        (a.company || '').localeCompare(b.company || '', 'pl') ||
+        a.id.localeCompare(b.id);
+    });
+  }
 
   constructor() {
     inject(Title).setTitle('Panel administracyjny | WickyWave');
@@ -104,23 +123,26 @@ export class AdminPageComponent implements OnDestroy {
   }
 
   newClient(): void {
+    this.closeActivities();
     this.editingId = undefined;
     this.client = emptyClient();
     this.view = 'form';
   }
 
   showClients(): void {
+    this.closeActivities();
     this.view = 'table';
     this.editingId = undefined;
     this.error.set('');
   }
 
   editClient(client: Client): void {
+    this.closeActivities();
     this.editingId = client.id;
     this.client = {
       name: client.name, company: client.company, nip: client.nip ?? '', address: client.address ?? '', email: client.email,
       phone: client.phone, notes: client.notes, followUp: client.followUp,
-      industry: client.industry ?? '', size: client.size ?? ''
+      industry: client.industry ?? '', size: client.size ?? '', status: client.status ?? ''
     };
     this.view = 'form';
   }
@@ -154,9 +176,10 @@ export class AdminPageComponent implements OnDestroy {
     this.activityType = '';
     this.activityDate = '';
     this.activityNotes = '';
+    this.activityStatus = '';
     this.activities.set([]);
     this.error.set('');
-    if (!this.activityDialog?.nativeElement.open) this.activityDialog?.nativeElement.showModal();
+    this.view = 'details';
     await this.loadActivities(client);
   }
 
@@ -183,26 +206,33 @@ export class AdminPageComponent implements OnDestroy {
       this.error.set('Wybierz klienta.');
       return;
     }
-    if (this.activityDate && Number.isNaN(new Date(this.activityDate).getTime())) {
-      this.error.set('Podaj poprawną datę i godzinę aktywności.');
+    const activity: Omit<Activity, 'id'> = {
+      type: this.activityType,
+      date: this.activityDate,
+      notes: this.activityNotes.trim(),
+      ...(this.activityStatus === 'X' || this.activityStatus === 'V' ? { status: this.activityStatus } : {})
+    };
+    if (!isValidActivity(activity) || !this.activityStatus) {
+      this.error.set('Uzupełnij rodzaj, poprawną datę, status i notatkę aktywności.');
       return;
     }
     this.busy.set(true);
     this.error.set('');
+    let saved = false;
     try {
-      await this.admin.addActivity(selected.id, {
-        type: this.activityType,
-        date: this.activityDate ? new Date(this.activityDate).toISOString() : '',
-        notes: this.activityNotes.trim()
-      });
+      await this.admin.addActivity(selected.id, activity);
+      saved = true;
+      this.activityType = '';
       this.activityDate = '';
       this.activityNotes = '';
+      this.activityStatus = '';
       if (this.selected?.id === selected.id) {
-        await this.loadActivities(selected);
-        await this.loadClients();
+        await Promise.all([this.loadActivities(selected), this.loadClients()]);
       }
     } catch (error) {
-      this.showError(error, 'Nie udało się zapisać aktywności.');
+      this.showError(error, saved
+        ? 'Aktywność została zapisana, ale nie udało się odświeżyć danych. Odśwież panel.'
+        : 'Nie udało się zapisać aktywności. Odśwież panel i spróbuj ponownie.');
     } finally {
       this.busy.set(false);
     }

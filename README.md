@@ -48,11 +48,26 @@ The Polish-language panel is available at `/admin-login`. It stores client
 contact details (including address, company NIP, industry and size), notes, call/email activity and an optional follow-up date in
 Cloud Firestore. A follow-up is highlighted from the start of its selected date
 in the browser's local time; there are no email or push notifications. The
-client and activity form fields are optional. New clients appear first; older
+client form fields are optional. New clients appear first; older
 records without a creation timestamp appear afterward in alphabetical order.
-The table's last activity is the latest dated activity; undated activities do
-not affect it. Loading the table reads each client's activity history, so
-Firestore read usage grows with the number of clients and activities.
+The client table can be searched by name, company or NIP and sorted by name or
+industry. The table shows the company name rather than the contact person's
+name; on mobile it shows only the company name. Selecting it opens a
+responsive details view with contact information, notes and activity history.
+Status is optional (X means refusal, V means interested) and can be set when
+creating or editing a client, or changed when adding an activity. Existing
+clients without a status remain unset. Activity and status changes are saved
+together.
+Adding an activity requires a type, date, non-blank note and a status choice;
+"Bez zmiany" keeps the client's current status.
+Activity dates are entered and displayed without a time; existing timestamps
+remain intact. The table's last activity is the latest dated activity; undated activities do
+not affect it. The latest activity date is stored on the client document and
+updated atomically with new activities. On the first load after this change,
+the panel reads existing activity histories once to initialize missing summaries;
+subsequent table loads read only the client documents. Activity histories are
+loaded when opening client details. Refresh any older open panel tabs after
+deployment so they also maintain the summaries when adding activities.
 The panel is excluded from the sitemap and has `noindex` metadata and a Hosting
 `X-Robots-Tag` header. These are not access controls.
 
