@@ -1,5 +1,5 @@
 import { DatePipe, isPlatformBrowser } from '@angular/common';
-import { Component, NgZone, OnDestroy, PLATFORM_ID, inject, signal } from '@angular/core';
+import { Component, ElementRef, NgZone, OnDestroy, PLATFORM_ID, ViewChild, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Meta, Title } from '@angular/platform-browser';
 import { User } from 'firebase/auth';
@@ -12,7 +12,7 @@ export function isFollowUpDue(date: string, now: Date): boolean {
 }
 
 function emptyClient(): ClientData {
-  return { name: '', company: '', nip: '', email: '', phone: '', notes: '', followUp: '' };
+  return { name: '', company: '', nip: '', address: '', email: '', phone: '', notes: '', followUp: '', industry: '', size: '' };
 }
 
 @Component({
@@ -30,6 +30,7 @@ export class AdminPageComponent implements OnDestroy {
   private timer?: ReturnType<typeof setInterval>;
   private sessionVersion = 0;
   private activityVersion = 0;
+  @ViewChild('activityDialog') activityDialog?: ElementRef<HTMLDialogElement>;
 
   readonly user = signal<User | null>(null);
   readonly loading = signal(true);
@@ -40,6 +41,7 @@ export class AdminPageComponent implements OnDestroy {
   readonly activities = signal<Activity[]>([]);
   readonly now = signal(new Date());
   selected: Client | null = null;
+  view: 'table' | 'form' = 'table';
   editingId: string | undefined;
   client: ClientData = emptyClient();
   activityType: Activity['type'] = '';
@@ -104,14 +106,23 @@ export class AdminPageComponent implements OnDestroy {
   newClient(): void {
     this.editingId = undefined;
     this.client = emptyClient();
+    this.view = 'form';
+  }
+
+  showClients(): void {
+    this.view = 'table';
+    this.editingId = undefined;
+    this.error.set('');
   }
 
   editClient(client: Client): void {
     this.editingId = client.id;
     this.client = {
-      name: client.name, company: client.company, nip: client.nip ?? '', email: client.email,
-      phone: client.phone, notes: client.notes, followUp: client.followUp
+      name: client.name, company: client.company, nip: client.nip ?? '', address: client.address ?? '', email: client.email,
+      phone: client.phone, notes: client.notes, followUp: client.followUp,
+      industry: client.industry ?? '', size: client.size ?? ''
     };
+    this.view = 'form';
   }
 
   async saveClient(): Promise<void> {
@@ -123,11 +134,13 @@ export class AdminPageComponent implements OnDestroy {
         name: this.client.name.trim(),
         company: this.client.company.trim(),
         nip: this.client.nip.trim(),
+        address: this.client.address.trim(),
         email: this.client.email.trim(),
         phone: this.client.phone.trim(),
-        notes: this.client.notes.trim()
+        notes: this.client.notes.trim(),
+        industry: this.client.industry.trim()
       }, this.editingId);
-      this.newClient();
+      this.showClients();
       await this.loadClients();
     } catch (error) {
       this.showError(error, 'Nie udało się zapisać lub odświeżyć danych klienta.');
@@ -138,8 +151,23 @@ export class AdminPageComponent implements OnDestroy {
 
   async selectClient(client: Client): Promise<void> {
     this.selected = client;
+    this.activityType = '';
+    this.activityDate = '';
+    this.activityNotes = '';
     this.activities.set([]);
     this.error.set('');
+    if (!this.activityDialog?.nativeElement.open) this.activityDialog?.nativeElement.showModal();
+    await this.loadActivities(client);
+  }
+
+  closeActivities(): void {
+    this.activityVersion++;
+    this.selected = null;
+    this.activities.set([]);
+    this.error.set('');
+  }
+
+  private async loadActivities(client: Client): Promise<void> {
     const version = ++this.activityVersion;
     try {
       const activities = await this.admin.activities(client.id);
@@ -169,7 +197,10 @@ export class AdminPageComponent implements OnDestroy {
       });
       this.activityDate = '';
       this.activityNotes = '';
-      if (this.selected?.id === selected.id) await this.selectClient(selected);
+      if (this.selected?.id === selected.id) {
+        await this.loadActivities(selected);
+        await this.loadClients();
+      }
     } catch (error) {
       this.showError(error, 'Nie udało się zapisać aktywności.');
     } finally {
@@ -190,6 +221,7 @@ export class AdminPageComponent implements OnDestroy {
     this.activities.set([]);
     this.selected = null;
     this.newClient();
+    this.view = 'table';
     this.activityDate = '';
     this.activityNotes = '';
     this.error.set('');

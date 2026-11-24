@@ -45,11 +45,15 @@ list only published routes.
 ## Private client panel
 
 The Polish-language panel is available at `/admin-login`. It stores client
-contact details (including company NIP), notes, call/email activity and an optional follow-up date in
+contact details (including address, company NIP, industry and size), notes, call/email activity and an optional follow-up date in
 Cloud Firestore. A follow-up is highlighted from the start of its selected date
 in the browser's local time; there are no email or push notifications. The
-client and activity form fields are optional.
-panel is excluded from the sitemap and has `noindex` metadata and a Hosting
+client and activity form fields are optional. New clients appear first; older
+records without a creation timestamp appear afterward in alphabetical order.
+The table's last activity is the latest dated activity; undated activities do
+not affect it. Loading the table reads each client's activity history, so
+Firestore read usage grows with the number of clients and activities.
+The panel is excluded from the sitemap and has `noindex` metadata and a Hosting
 `X-Robots-Tag` header. These are not access controls.
 
 Before deploying, the project owner must:
